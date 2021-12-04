@@ -8,6 +8,6 @@ public class Garcon extends Funcionario {
     void fazerPedido(Mesa mesa, Pedido pedido) {
         System.out.println("Fazer pedido");
         mesa.pushOrderToHistory(pedido);
-        System.out.println("Pedido " + pedido.getDescription() + " feito");
+        System.out.println("Pedido " + pedido.getDescription() + " feito para a mesa " + mesa.getTableNumber());
     }
 }

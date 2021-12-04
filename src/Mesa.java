@@ -1,4 +1,3 @@
-import javax.lang.model.type.NullType;
 
 public class Mesa {
     private int tableNumber;
