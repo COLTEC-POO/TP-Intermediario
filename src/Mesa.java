@@ -34,6 +34,15 @@ public class Mesa {
         this.orderHistory = orderHistory;
     }
 
+    public void pushOrderToHistory(Pedido order) {
+        for (int i = 0; i < orderHistory.length; i++) {
+            if (orderHistory[i] == null) {
+                orderHistory[i] = order;
+                break;
+            }
+        }
+    }
+
     public Funcionario getResponsibleEmployee() {
         return responsibleEmployee;
     }
