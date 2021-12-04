@@ -51,10 +51,15 @@ public class Mesa {
         this.responsibleEmployee = responsibleEmployee;
     }
 
-    public void closeTable() {
-        this.numberOfClients = 0;
-        this.orderHistory = new Pedido[100];
-        this.responsibleEmployee = null;
+    public int getTotalBill() {
+        int totalBill = 0;
+
+        for (int i = 0; i < this.orderHistory.length; i++) {
+            if (orderHistory[i] != null) {
+                totalBill += orderHistory[i].getValue();
+            }
+        }
+        return totalBill;
     }
 
 }

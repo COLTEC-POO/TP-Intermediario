@@ -6,7 +6,13 @@ public class Gerente extends Funcionario {
     }
 
     void visualizarPedidos(Mesa mesa) {
-        System.out.println("Pedidos da mesa ");
+
+        System.out.println("Pedidos da mesa " + mesa.getTableNumber() + "\n");
+        for (Pedido pedido : mesa.getOrderHistory()) {
+            System.out.println(pedido.getDescription() + " - " + pedido.getValue() + "\n");
+        }
+
+        System.out.println("\nTotal: " + mesa.getTotalBill());
     }
 
 }
