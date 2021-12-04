@@ -1,12 +1,25 @@
 
 public class Pedido {
-    String description;
-    int value;
-    static int order_number = 0;
+    private String description;
+    private int value;
+    private static int totalOrders;
 
     public Pedido(String description, int value) {
         this.description = description;
         this.value = value;
-        order_number++;
+        totalOrders++;
     }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public int getValue() {
+        return this.value;
+    }
+
+    static int getTotalOrders() {
+        return Pedido.totalOrders;
+    }
+
 }
