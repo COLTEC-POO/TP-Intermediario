@@ -2,21 +2,85 @@ import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
+
         Sala salas[] = new Sala[Sala.numTotalSalas];
+        salas[Sala.numSalasRegistradas] = new SalaConvencional(14, 30, true);
+        salas[Sala.numSalasRegistradas] = new Laboratorio(8, 25, true);
 
-        Usuario user = new Usuario();
-        Usuario professor = new Professor("João", "Computação");
+        Professor professores[] = new Professor[Professor.numMaxProfessores] ;
+        professores[Professor.numProfessores] = new Professor("João", "Computação", "12345");
 
-        salas[Sala.numSalasRegistradas] = new Sala(14, 30, 'c', true);
+        String dataReserva;
 
-        user.listarSalas(salas);
+        char selecao = 'a';
+        Object[] opcoes = {
+                "0 - Sair do programa",
+                "1 - Listar salas disponíveis",
+                "2 - Listar reservas",
+                "3 - Listar reserva de uma sala",
+                "4 - Reservar uma sala"};
 
-        professor.reservarSala("30/10", "14:00", salas[0], 3);
+        while(selecao != '0') {
 
-        JOptionPane.showMessageDialog(null, salas[0].listarReservas());
+            selecao = JOptionPane.showInputDialog(null,
+                    "Qual opção deseja?",
+                    "Escolha uma opção",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    opcoes,
+                    "").toString().charAt(0);
 
-        user.listarReservas(salas);
+            switch (selecao) {
+                case '0':
+                    JOptionPane.showMessageDialog(null, "Obrigado por usar o programa!");
+                    break;
 
-        user.listarReserva(salas[0]);
+                case '1':
+                    listarSalas(salas);
+                    break;
+
+                case '2':
+                    listarReservas(salas);
+                    break;
+
+                case '3':
+                    listarReservaSala(salas[0]);
+                    break;
+
+                case '4':
+                    dataReserva = JOptionPane.showInputDialog("Informe a data e hora da reserva (ex: 03/10/2022 15:00):");
+                    professores[0].reservarSala(dataReserva, "hora", salas[0], 3);
+                    break;
+            }
+        }
+    }
+
+    public static void listarSalas(Sala[] salas){
+        String strSalas = "Salas disponíveis\n\n";
+        for(int i = 0; i < Sala.numSalasRegistradas; i++){
+            if(salas[i].isDisponivel() && salas[i].getNumReservas() < Reserva.numMaxReservas){
+                strSalas += ("Sala " + salas[i].getNumSala() + "\n");
+            }
+        }
+        JOptionPane.showMessageDialog(null, strSalas);
+    }
+
+    public static void listarReservas(Sala[] salas){
+        String strReservas = "Lista de salas reservadas\n\n";
+        for(Sala sala: salas){
+            if (sala == null) {
+                break;
+            }
+            if(sala.getNumReservas() > 0){
+                strReservas += sala.listarReservas() + "\n";
+            }
+        }
+        JOptionPane.showMessageDialog(null, strReservas);
+
+    }
+
+    public static void listarReservaSala(Sala sala){
+        String strReserva = sala.listarReservas();
+        JOptionPane.showMessageDialog(null, strReserva);
     }
 }

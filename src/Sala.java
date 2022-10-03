@@ -6,7 +6,6 @@ public class Sala {
     private int numSala;
     private int capacidade;
     private Reserva listaReservas[] = new Reserva[Reserva.numMaxReservas];
-    private char tipoSala;
     private int numReservas = 0;
     private boolean disponivel;
 
@@ -36,14 +35,6 @@ public class Sala {
         this.listaReservas = listaReservas;
     }
 
-    public char getTipoSala() {
-        return tipoSala;
-    }
-
-    public void setTipoSala(char tipoSala) {
-        this.tipoSala = tipoSala;
-    }
-
     public int getNumReservas() {
         return numReservas;
     }
@@ -62,10 +53,9 @@ public class Sala {
 
     //Métodos
 
-    Sala(int numSala, int capacidade, char tipoSala, boolean disponivel){
+    Sala(int numSala, int capacidade, boolean disponivel){
         this.numSala = numSala;
         this.capacidade = capacidade;
-        this.tipoSala = tipoSala;
         this.disponivel = disponivel;
         Sala.numSalasRegistradas++;
     }
@@ -82,7 +72,7 @@ public class Sala {
                 if (reserva == null) {
                     break;
                 }
-                strReservas += reserva.getNomeProfessor()+ ", " + reserva.getData() + ", " + reserva.getHorario() + " por " + reserva.getDuracaoReserva() + "horas\n";
+                strReservas += reserva.getNomeProfessor()+ ", " + reserva.getData() + ", " + reserva.getHorario() + " por " + reserva.getDuracaoReserva() + " horas\n";
             }
         }
         else{
