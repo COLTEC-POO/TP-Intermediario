@@ -14,8 +14,8 @@ public class Professor{
         Professor.numProfessores++;
     }
 
-    public void reservarSala(Date data, Date horario, Sala sala, int duracao){
-        sala.reservarSala(this.nome, this.setor, data, horario, duracao);
+    public void reservarSala(Date data, Date horarioInicio, Sala sala, Date horarioFim){
+        sala.reservarSala(this.nome, this.setor, data, horarioInicio, horarioFim);
     }
 
     public boolean autenticar(String nome, String senha){

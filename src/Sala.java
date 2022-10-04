@@ -62,8 +62,8 @@ public abstract class Sala {
         Sala.numSalasRegistradas++;
     }
 
-    public void reservarSala(String nomeProfessor, String setor, Date data, Date horario, int duracao){
-        listaReservas[this.numReservas] = new Reserva(this.numSala, horario, data, duracao, nomeProfessor, setor);
+    public void reservarSala(String nomeProfessor, String setor, Date data, Date horarioInicio, Date horarioFim){
+        listaReservas[this.numReservas] = new Reserva(this.numSala, horarioInicio, data, horarioFim, nomeProfessor, setor);
         this.numReservas++;
     }
     public String listarReservas(){
@@ -76,12 +76,19 @@ public abstract class Sala {
                 if (reserva == null) {
                     break;
                 }
-                strReservas += reserva.getNomeProfessor()+ ", " + sdfData.format(reserva.getData() ) + " as " + sdfHora.format(reserva.getHorario()) + " por " + reserva.getDuracaoReserva() + " horas\n";
+                strReservas += reserva.getNomeProfessor()+ ", " + sdfData.format(reserva.getData() ) + " de " + sdfHora.format(reserva.getHorario()) + " as " + sdfHora.format(reserva.getDuracaoReserva()) + "\n";
             }
         }
         else{
             strReservas =  "Nenhuma reserva feita na sala ";
         }
         return strReservas;
+    }
+
+    public boolean autenticar(int numSala){
+        if(this.numSala == numSala){
+            return true;
+        }
+        else return false;
     }
 }

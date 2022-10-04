@@ -9,19 +9,24 @@ public class Main {
         Sala salas[] = new Sala[Sala.numTotalSalas];
         salas[Sala.numSalasRegistradas] = new SalaConvencional(14, 30, true);
         salas[Sala.numSalasRegistradas] = new Laboratorio(8, 25, true);
+        int numSala;
+        int sala;
 
         Professor professores[] = new Professor[Professor.numMaxProfessores] ;
         professores[Professor.numProfessores] = new Professor("João", "Computação", "12345");
+        professores[Professor.numProfessores] = new Professor("Leandro", "Introdução", "123");
 
         String dataReserva;
         Date data;
         SimpleDateFormat sdfData = new SimpleDateFormat("dd/MM/yy");
 
         String horaReserva;
-        Date hora;
+        String horaFimReserva;
+        Date horaInicio;
+        Date horaFim;
         SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm");
 
-        char selecao = 'a';
+        char selecao;
         Object[] opcoes = {
                 "0 - Sair do programa",
                 "1 - Listar salas disponíveis",
@@ -29,8 +34,7 @@ public class Main {
                 "3 - Listar reserva de uma sala",
                 "4 - Reservar uma sala"};
 
-        while(selecao != '0') {
-
+        do{
             selecao = JOptionPane.showInputDialog(null,
                     "Qual opção deseja?",
                     "Escolha uma opção",
@@ -53,7 +57,20 @@ public class Main {
                     break;
 
                 case '3':
-                    listarReservaSala(salas[0]);
+                    numSala = Integer.parseInt(JOptionPane.showInputDialog(null, "Número da sala: ", "Informe o número da sala", JOptionPane.PLAIN_MESSAGE));
+                    sala = -1;
+
+                    for(int i = 0; i < Sala.numSalasRegistradas; i++){
+                        if(salas[i].autenticar(numSala)){
+                            sala = i;
+                        }
+                    }
+                    if(sala >= 0) {
+                        listarReservaSala(salas[sala]);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Sala não encontrada");
+                    }
                     break;
 
                 case '4':
@@ -67,16 +84,29 @@ public class Main {
                         }
                     }
                     if(numProfessor >= 0) {
+                        numSala = Integer.parseInt(JOptionPane.showInputDialog(null, "Número da sala: ", "Informe o número da sala", JOptionPane.PLAIN_MESSAGE));
+                        sala = -1;
+
+                        for(int i = 0; i < Sala.numSalasRegistradas; i++){
+                            if(salas[i].autenticar(numSala)){
+                                sala = i;
+                            }
+                        }
+                        if(sala == -1) {
+                            JOptionPane.showMessageDialog(null, "Sala não encontrada");
+                            break;
+                        }
+
                         dataReserva = JOptionPane.showInputDialog("Informe a data da reserva (ex: 03/10/2022):");
                         horaReserva = JOptionPane.showInputDialog("Informe a hora da reserva (ex: 15:30):");
-
+                        horaFimReserva = JOptionPane.showInputDialog("Informe a hora de fim da reserva (ex: 17:30):");
                         try {
                             data = sdfData.parse(dataReserva);
-                            hora = sdfHora.parse(horaReserva);
+                            horaInicio = sdfHora.parse(horaReserva);
+                            horaFim = sdfHora.parse(horaFimReserva);
+                            JOptionPane.showMessageDialog(null,"Sala "+ numSala + "\nDia " + sdfData.format(data) + " de " + sdfHora.format(horaInicio) + " as " + sdfHora.format(horaFim));
 
-                            JOptionPane.showMessageDialog(null, "Dia " + sdfData.format(data) + " as " + sdfHora.format(hora));
-
-                            professores[numProfessor].reservarSala(data, hora, salas[0], 3);
+                            professores[numProfessor].reservarSala(data, horaInicio, salas[sala], horaFim);
 
                         } catch (ParseException e) {
                             JOptionPane.showMessageDialog(null, "Data ou hora inválida");
@@ -84,14 +114,19 @@ public class Main {
                     }
                     break;
             }
-        }
+        }while(selecao != '0');
     }
 
     private static void listarSalas(Sala[] salas){
         String strSalas = "Salas disponíveis\n\n";
         for(int i = 0; i < Sala.numSalasRegistradas; i++){
             if(salas[i].isDisponivel() && salas[i].getNumReservas() < Reserva.numMaxReservas){
-                strSalas += ("Sala " + salas[i].getNumSala() + "\n");
+                if(salas[i] instanceof Laboratorio) {
+                    strSalas += ("Laboratorio " + salas[i].getNumSala() + "\n");
+                }
+                else{
+                    strSalas += ("Sala " + salas[i].getNumSala() + "\n");
+                }
             }
         }
         JOptionPane.showMessageDialog(null, strSalas);

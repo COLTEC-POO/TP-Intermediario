@@ -3,17 +3,17 @@ import java.util.Date;
 public class Reserva {
     public static int numMaxReservas = 20;
     private int numSala;
-    private Date horario;
     private Date data;
-    private int duracaoReserva;
+    private Date horarioInicio;
+    private Date horarioFim;
     private String nomeProfessor;
     private String setorProfessor;
 
-    Reserva(int numSala, Date horario, Date data, int duracaoReserva, String nomeProfessor, String setorProfessor){
+    Reserva(int numSala, Date horarioInicio, Date data, Date horarioFim, String nomeProfessor, String setorProfessor){
         this.numSala = numSala;
-        this.horario = horario;
+        this.horarioInicio = horarioInicio;
         this.data = data;
-        this.duracaoReserva = duracaoReserva;
+        this.horarioFim = horarioFim;
         this.nomeProfessor = nomeProfessor;
         this.setorProfessor = setorProfessor;
     }
@@ -29,11 +29,11 @@ public class Reserva {
     }
 
     public Date getHorario() {
-        return horario;
+        return horarioInicio;
     }
 
     public void setHorario(Date horario) {
-        this.horario = horario;
+        this.horarioInicio = horario;
     }
 
     public Date getData() {
@@ -44,12 +44,12 @@ public class Reserva {
         this.data = data;
     }
 
-    public int getDuracaoReserva() {
-        return duracaoReserva;
+    public Date getDuracaoReserva() {
+        return horarioFim;
     }
 
-    public void setDuracaoReserva(int duracaoReserva) {
-        this.duracaoReserva = duracaoReserva;
+    public void setDuracaoReserva(Date duracaoReserva) {
+        this.horarioFim = duracaoReserva;
     }
 
     public String getNomeProfessor() {
