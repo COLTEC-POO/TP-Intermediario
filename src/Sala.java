@@ -1,6 +1,8 @@
 import javax.swing.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public class Sala {
+public abstract class Sala {
     public static int numTotalSalas = 5;
     public static int numSalasRegistradas = 0;
     private int numSala;
@@ -60,19 +62,21 @@ public class Sala {
         Sala.numSalasRegistradas++;
     }
 
-    public void reservarSala(String nomeProfessor, String setor, String data, String horario, int duracao){
+    public void reservarSala(String nomeProfessor, String setor, Date data, Date horario, int duracao){
         listaReservas[this.numReservas] = new Reserva(this.numSala, horario, data, duracao, nomeProfessor, setor);
         this.numReservas++;
     }
     public String listarReservas(){
         String strReservas;
         if(this.numReservas > 0) {
+            SimpleDateFormat sdfData = new SimpleDateFormat("dd/MMM/yy");
+            SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm");
             strReservas = "Reservas da sala " + this.numSala + "\n";
             for (Reserva reserva : this.listaReservas) {
                 if (reserva == null) {
                     break;
                 }
-                strReservas += reserva.getNomeProfessor()+ ", " + reserva.getData() + ", " + reserva.getHorario() + " por " + reserva.getDuracaoReserva() + " horas\n";
+                strReservas += reserva.getNomeProfessor()+ ", " + sdfData.format(reserva.getData() ) + " as " + sdfHora.format(reserva.getHorario()) + " por " + reserva.getDuracaoReserva() + " horas\n";
             }
         }
         else{

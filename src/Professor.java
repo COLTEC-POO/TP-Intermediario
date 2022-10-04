@@ -1,3 +1,5 @@
+import java.util.Date;
+
 public class Professor{
     public static int numProfessores = 0;
     public static int numMaxProfessores = 5;
@@ -12,7 +14,14 @@ public class Professor{
         Professor.numProfessores++;
     }
 
-    public void reservarSala(String data, String horario, Sala sala, int duracao){
+    public void reservarSala(Date data, Date horario, Sala sala, int duracao){
         sala.reservarSala(this.nome, this.setor, data, horario, duracao);
+    }
+
+    public boolean autenticar(String nome, String senha){
+        if(this.nome.equals(nome) && this.senha.equals(senha)){
+            return true;
+        }
+        else return false;
     }
 }

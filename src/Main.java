@@ -1,4 +1,7 @@
 import javax.swing.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,6 +14,12 @@ public class Main {
         professores[Professor.numProfessores] = new Professor("João", "Computação", "12345");
 
         String dataReserva;
+        Date data;
+        SimpleDateFormat sdfData = new SimpleDateFormat("dd/MM/yy");
+
+        String horaReserva;
+        Date hora;
+        SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm");
 
         char selecao = 'a';
         Object[] opcoes = {
@@ -48,14 +57,37 @@ public class Main {
                     break;
 
                 case '4':
-                    dataReserva = JOptionPane.showInputDialog("Informe a data e hora da reserva (ex: 03/10/2022 15:00):");
-                    professores[0].reservarSala(dataReserva, "hora", salas[0], 3);
+                    int numProfessor = -1;
+                    String nome = JOptionPane.showInputDialog(null, "Nome:", "Informe o nome do professor", JOptionPane.PLAIN_MESSAGE);
+                    String senha = JOptionPane.showInputDialog(null, "Senha:", "Informe a senha do professor", JOptionPane.PLAIN_MESSAGE);
+
+                    for(int i = 0; i < Professor.numProfessores; i++){
+                        if(professores[i].autenticar(nome, senha)){
+                            numProfessor = i;
+                        }
+                    }
+                    if(numProfessor >= 0) {
+                        dataReserva = JOptionPane.showInputDialog("Informe a data da reserva (ex: 03/10/2022):");
+                        horaReserva = JOptionPane.showInputDialog("Informe a hora da reserva (ex: 15:30):");
+
+                        try {
+                            data = sdfData.parse(dataReserva);
+                            hora = sdfHora.parse(horaReserva);
+
+                            JOptionPane.showMessageDialog(null, "Dia " + sdfData.format(data) + " as " + sdfHora.format(hora));
+
+                            professores[numProfessor].reservarSala(data, hora, salas[0], 3);
+
+                        } catch (ParseException e) {
+                            JOptionPane.showMessageDialog(null, "Data ou hora inválida");
+                        }
+                    }
                     break;
             }
         }
     }
 
-    public static void listarSalas(Sala[] salas){
+    private static void listarSalas(Sala[] salas){
         String strSalas = "Salas disponíveis\n\n";
         for(int i = 0; i < Sala.numSalasRegistradas; i++){
             if(salas[i].isDisponivel() && salas[i].getNumReservas() < Reserva.numMaxReservas){
@@ -65,7 +97,7 @@ public class Main {
         JOptionPane.showMessageDialog(null, strSalas);
     }
 
-    public static void listarReservas(Sala[] salas){
+    private static void listarReservas(Sala[] salas){
         String strReservas = "Lista de salas reservadas\n\n";
         for(Sala sala: salas){
             if (sala == null) {
@@ -79,7 +111,7 @@ public class Main {
 
     }
 
-    public static void listarReservaSala(Sala sala){
+    private static void listarReservaSala(Sala sala){
         String strReserva = sala.listarReservas();
         JOptionPane.showMessageDialog(null, strReserva);
     }
