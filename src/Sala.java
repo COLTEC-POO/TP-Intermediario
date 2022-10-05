@@ -3,11 +3,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public abstract class Sala {
-    public static int numTotalSalas = 5;
+    public static int numTotalSalas = 10;
     public static int numSalasRegistradas = 0;
     private int numSala;
     private int capacidade;
-    private Reserva listaReservas[] = new Reserva[Reserva.numMaxReservas];
+    private Reserva[] listaReservas = new Reserva[Reserva.numMaxReservas];
     private int numReservas = 0;
     private boolean disponivel;
 
@@ -75,12 +75,14 @@ public abstract class Sala {
                 listaReservas[this.numReservas] = new Reserva(this.numSala, data, horarioInicio, horarioFim, nomeProfessor, setor);
                 this.numReservas++;
                 JOptionPane.showMessageDialog(null, "Reserva feita com sucesso");
+                ordenarReservas(listaReservas);
             }
         }
         else{
             JOptionPane.showMessageDialog(null, "Sala indisponível para reserva");
         }
     }
+
     public String listarReservas(){
         String strReservas;
         if(this.numReservas > 0) {
@@ -102,10 +104,43 @@ public abstract class Sala {
         return strReservas;
     }
 
-    public boolean autenticar(int numSala){
-        if(this.numSala == numSala){
-            return true;
+    public void ordenarReservas(Reserva[] reservas) {
+        for(int i = 0; i < this.numReservas - 1 ; i++) {
+            boolean estaOrdenado = true;
+
+            for(int j = 0; j < this.numReservas - 1 - i; j++) {
+                long reservaJ = reservas[j].getData().getTime();
+                long reservaJ1 = reservas[j + 1].getData().getTime();
+
+                if(reservaJ > reservaJ1) {
+                    Reserva aux = reservas[j];
+                    reservas[j] = reservas[j + 1];
+                    reservas[j + 1] = aux;
+                    estaOrdenado = false;
+                }
+            }
+
+            for(int j = 0; j < this.numReservas - 1 - i; j++) {
+                long dataReservaJ = reservas[j].getData().getTime();
+                long horaReservaJ = reservas[j].getHorarioInicio().getTime();
+                long dataReservaJ1 = reservas[j + 1].getData().getTime();
+                long horaReservaJ1 = reservas[j + 1].getHorarioInicio().getTime();
+
+                if(dataReservaJ == dataReservaJ1 && horaReservaJ > horaReservaJ1) {
+                    Reserva aux = reservas[j];
+                    reservas[j] = reservas[j + 1];
+                    reservas[j + 1] = aux;
+                    estaOrdenado = false;
+                }
+            }
+
+            if(estaOrdenado) {
+                break;
+            }
         }
-        else return false;
+    }
+
+    public boolean autenticar(int numSala){
+        return this.numSala == numSala;
     }
 }

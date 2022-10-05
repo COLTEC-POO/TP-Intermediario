@@ -23,9 +23,6 @@ public class Professor{
     }
 
     public boolean autenticar(String nome, String senha){
-        if(this.nome.equals(nome) && this.senha.equals(senha)){
-            return true;
-        }
-        else return false;
+        return this.nome.equals(nome) && this.senha.equals(senha);
     }
 }
