@@ -30,7 +30,7 @@ public class Main {
         Object[] opcoes = {
                 "0 - Sair do programa",
                 "1 - Listar salas disponíveis",
-                "2 - Listar reservas",
+                "2 - Listar todas as reservas",
                 "3 - Listar reserva de uma sala",
                 "4 - Reservar uma sala"};
 
@@ -45,7 +45,7 @@ public class Main {
 
             switch (selecao) {
                 case '0':
-                    JOptionPane.showMessageDialog(null, "Obrigado por usar o programa!");
+                    JOptionPane.showMessageDialog(null, "Fim do programa!");
                     break;
 
                 case '1':
@@ -98,15 +98,16 @@ public class Main {
                         }
 
                         dataReserva = JOptionPane.showInputDialog("Informe a data da reserva (ex: 03/10/2022):");
-                        horaReserva = JOptionPane.showInputDialog("Informe a hora da reserva (ex: 15:30):");
+                        horaReserva = JOptionPane.showInputDialog("Informe a hora de início da reserva (ex: 15:30):");
                         horaFimReserva = JOptionPane.showInputDialog("Informe a hora de fim da reserva (ex: 17:30):");
                         try {
                             data = sdfData.parse(dataReserva);
                             horaInicio = sdfHora.parse(horaReserva);
                             horaFim = sdfHora.parse(horaFimReserva);
-                            JOptionPane.showMessageDialog(null,"Sala "+ numSala + "\nDia " + sdfData.format(data) + " de " + sdfHora.format(horaInicio) + " as " + sdfHora.format(horaFim));
+                            JOptionPane.showMessageDialog(null,"Sala "+ numSala + "\nDia " + sdfData.format(data) +
+                                    " de " + sdfHora.format(horaInicio) + " à " + sdfHora.format(horaFim));
 
-                            professores[numProfessor].reservarSala(data, horaInicio, salas[sala], horaFim);
+                            professores[numProfessor].reservarSala(salas[sala], data, horaInicio, horaFim);
 
                         } catch (ParseException e) {
                             JOptionPane.showMessageDialog(null, "Data ou hora inválida");

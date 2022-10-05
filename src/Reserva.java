@@ -2,17 +2,15 @@ import java.util.Date;
 
 public class Reserva {
     public static int numMaxReservas = 20;
-    private int numSala;
     private Date data;
     private Date horarioInicio;
     private Date horarioFim;
     private String nomeProfessor;
     private String setorProfessor;
 
-    Reserva(int numSala, Date horarioInicio, Date data, Date horarioFim, String nomeProfessor, String setorProfessor){
-        this.numSala = numSala;
-        this.horarioInicio = horarioInicio;
+    Reserva(int numSala, Date data, Date horarioInicio, Date horarioFim, String nomeProfessor, String setorProfessor){
         this.data = data;
+        this.horarioInicio = horarioInicio;
         this.horarioFim = horarioFim;
         this.nomeProfessor = nomeProfessor;
         this.setorProfessor = setorProfessor;
@@ -20,51 +18,24 @@ public class Reserva {
 
     //Getters and Setters
 
-    public int getNumSala() {
-        return numSala;
-    }
-
-    public void setNumSala(int numSala) {
-        this.numSala = numSala;
-    }
-
-    public Date getHorario() {
-        return horarioInicio;
-    }
-
-    public void setHorario(Date horario) {
-        this.horarioInicio = horario;
-    }
-
     public Date getData() {
         return data;
     }
 
-    public void setData(Date data) {
-        this.data = data;
+    public Date getHorarioInicio() {
+        return horarioInicio;
     }
 
-    public Date getDuracaoReserva() {
+    public Date getHorarioFim() {
         return horarioFim;
-    }
-
-    public void setDuracaoReserva(Date duracaoReserva) {
-        this.horarioFim = duracaoReserva;
     }
 
     public String getNomeProfessor() {
         return nomeProfessor;
     }
 
-    public void setNomeProfessor(String nomeProfessor) {
-        this.nomeProfessor = nomeProfessor;
-    }
-
     public String getSetorProfessor() {
         return setorProfessor;
     }
 
-    public void setSetorProfessor(String setorProfessor) {
-        this.setorProfessor = setorProfessor;
-    }
 }
