@@ -27,7 +27,7 @@ public class Main {
         SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm");
 
         char selecao;
-        Object[] opcoes = {
+        String[] opcoes = {
                 "0 - Sair do programa",
                 "1 - Listar salas disponíveis",
                 "2 - Listar todas as reservas",
@@ -57,7 +57,8 @@ public class Main {
                     break;
 
                 case '3':
-                    numSala = Integer.parseInt(JOptionPane.showInputDialog(null, "Número da sala: ", "Informe o número da sala", JOptionPane.PLAIN_MESSAGE));
+                    numSala = Integer.parseInt(JOptionPane.showInputDialog(null, "Número da sala: ",
+                            "Informe o número da sala", JOptionPane.PLAIN_MESSAGE));
                     sala = -1;
 
                     for(int i = 0; i < Sala.numSalasRegistradas; i++){
@@ -74,17 +75,34 @@ public class Main {
                     break;
 
                 case '4':
+                    String[] opcoesProfessores = new String[Professor.numProfessores];
+
+                    for(int i = 0; i < Professor.numProfessores; i++){
+                        opcoesProfessores[i] = professores[i].getNome();
+                    }
+
                     int numProfessor = -1;
-                    String nome = JOptionPane.showInputDialog(null, "Nome:", "Informe o nome do professor", JOptionPane.PLAIN_MESSAGE);
-                    String senha = JOptionPane.showInputDialog(null, "Senha:", "Informe a senha do professor", JOptionPane.PLAIN_MESSAGE);
+
+                    String nome = JOptionPane.showInputDialog(null,
+                            "Nome:",
+                            "Informe o professor responsável",
+                            JOptionPane.PLAIN_MESSAGE,
+                            null,
+                            opcoesProfessores,
+                            "").toString();
+
+                    String senha = JOptionPane.showInputDialog(null, "Senha:",
+                            "Informe a senha do professor", JOptionPane.PLAIN_MESSAGE);
 
                     for(int i = 0; i < Professor.numProfessores; i++){
                         if(professores[i].autenticar(nome, senha)){
                             numProfessor = i;
                         }
                     }
+
                     if(numProfessor >= 0) {
-                        numSala = Integer.parseInt(JOptionPane.showInputDialog(null, "Número da sala: ", "Informe o número da sala", JOptionPane.PLAIN_MESSAGE));
+                        numSala = Integer.parseInt(JOptionPane.showInputDialog(null, "Número da sala: ",
+                                "Informe o número da sala", JOptionPane.PLAIN_MESSAGE));
                         sala = -1;
 
                         for(int i = 0; i < Sala.numSalasRegistradas; i++){
@@ -100,6 +118,7 @@ public class Main {
                         dataReserva = JOptionPane.showInputDialog("Informe a data da reserva (ex: 03/10/2022):");
                         horaReserva = JOptionPane.showInputDialog("Informe a hora de início da reserva (ex: 15:30):");
                         horaFimReserva = JOptionPane.showInputDialog("Informe a hora de fim da reserva (ex: 17:30):");
+
                         try {
                             data = sdfData.parse(dataReserva);
                             horaInicio = sdfHora.parse(horaReserva);
@@ -120,6 +139,7 @@ public class Main {
 
     private static void listarSalas(Sala[] salas){
         String strSalas = "Salas disponíveis\n\n";
+
         for(int i = 0; i < Sala.numSalasRegistradas; i++){
             if(salas[i].isDisponivel() && salas[i].getNumReservas() < Reserva.numMaxReservas){
                 if(salas[i] instanceof Laboratorio) {
@@ -135,6 +155,7 @@ public class Main {
 
     private static void listarReservas(Sala[] salas){
         String strReservas = "Lista de salas reservadas\n\n";
+
         for(Sala sala: salas){
             if (sala == null) {
                 break;

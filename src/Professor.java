@@ -18,6 +18,10 @@ public class Professor{
         sala.reservarSala(data, horarioInicio, horarioFim, this.nome, this.setor);
     }
 
+    public String getNome() {
+        return nome;
+    }
+
     public boolean autenticar(String nome, String senha){
         if(this.nome.equals(nome) && this.senha.equals(senha)){
             return true;
