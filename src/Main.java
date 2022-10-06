@@ -9,16 +9,18 @@ public class Main {
 
         Sala[] salas = new Sala[Sala.numTotalSalas];
         salas[Sala.numSalasRegistradas] = new SalaConvencional(2, 30, true);
+        salas[Sala.numSalasRegistradas] = new SalaConvencional(6, 30, true);
+        salas[Sala.numSalasRegistradas] = new SalaConvencional(10, 30, true);
         salas[Sala.numSalasRegistradas] = new SalaConvencional(14, 30, true);
-        salas[Sala.numSalasRegistradas] = new SalaConvencional(4, 30, true);
-        salas[Sala.numSalasRegistradas] = new SalaConvencional(20, 30, true);
-        salas[Sala.numSalasRegistradas] = new SalaConvencional(16, 30, true);
+        salas[Sala.numSalasRegistradas] = new SalaConvencional(18, 30, true);
+        salas[Sala.numSalasRegistradas] = new SalaConvencional(1, 30, false);
 
+        salas[Sala.numSalasRegistradas] = new Laboratorio(4, 25, true);
         salas[Sala.numSalasRegistradas] = new Laboratorio(8, 25, true);
-        salas[Sala.numSalasRegistradas] = new Laboratorio(6, 25, true);
         salas[Sala.numSalasRegistradas] = new Laboratorio(12, 25, true);
-        salas[Sala.numSalasRegistradas] = new Laboratorio(18, 25, true);
-        salas[Sala.numSalasRegistradas] = new Laboratorio(10, 25, true);
+        salas[Sala.numSalasRegistradas] = new Laboratorio(16, 25, true);
+        salas[Sala.numSalasRegistradas] = new Laboratorio(20, 25, true);
+        salas[Sala.numSalasRegistradas] = new Laboratorio(3, 25, false);
 
         ordenaSalas(salas);
 
@@ -29,6 +31,16 @@ public class Main {
         professores[Professor.numProfessores] = new Professor("João", "Poo", "12345");
         professores[Professor.numProfessores] = new Professor("Leandro", "Aeds", "123");
         professores[Professor.numProfessores] = new Professor("Fantini", "Banco de dados", "321");
+        professores[Professor.numProfessores] = new Professor("Virgínia", "Mobile", "1425");
+        professores[Professor.numProfessores] = new Professor("Honda", "Eletrônica", "456");
+
+        String[] opcoesProfessores = new String[Professor.numProfessores];
+
+        for(int i = 0; i < Professor.numProfessores; i++){
+            opcoesProfessores[i] = professores[i].getNome();
+        }
+
+        Arrays.sort(opcoesProfessores);
 
         String dataReserva;
         Date data;
@@ -73,13 +85,8 @@ public class Main {
                 case '3':
                     numSala = Integer.parseInt(JOptionPane.showInputDialog(null, "Número da sala: ",
                             "Informe o número da sala", JOptionPane.PLAIN_MESSAGE));
-                    sala = -1;
+                    sala = retornaPosicaoSala(salas, numSala);
 
-                    for(int i = 0; i < Sala.numSalasRegistradas; i++){
-                        if(salas[i].autenticar(numSala)){
-                            sala = i;
-                        }
-                    }
                     if(sala >= 0) {
                         listarReservaSala(salas[sala]);
                     }
@@ -89,15 +96,6 @@ public class Main {
                     break;
 
                 case '4':
-                    String[] opcoesProfessores = new String[Professor.numProfessores];
-
-                    for(int i = 0; i < Professor.numProfessores; i++){
-                        opcoesProfessores[i] = professores[i].getNome();
-                    }
-
-                    int numProfessor = -1;
-                    Arrays.sort(opcoesProfessores);
-
                     String nome = JOptionPane.showInputDialog(null,
                             "Nome:",
                             "Informe o professor responsável",
@@ -109,22 +107,13 @@ public class Main {
                     String senha = JOptionPane.showInputDialog(null, "Senha:",
                             "Informe a senha do professor", JOptionPane.PLAIN_MESSAGE);
 
-                    for(int i = 0; i < Professor.numProfessores; i++){
-                        if(professores[i].autenticar(nome, senha)){
-                            numProfessor = i;
-                        }
-                    }
+                    int professor = retornaPosicaoProfessor(professores, nome, senha);
 
-                    if(numProfessor >= 0) {
+                    if(professor >= 0) {
                         numSala = Integer.parseInt(JOptionPane.showInputDialog(null, "Número da sala: ",
                                 "Informe o número da sala", JOptionPane.PLAIN_MESSAGE));
-                        sala = -1;
+                        sala = retornaPosicaoSala(salas, numSala);
 
-                        for(int i = 0; i < Sala.numSalasRegistradas; i++){
-                            if(salas[i].autenticar(numSala)){
-                                sala = i;
-                            }
-                        }
                         if(sala == -1) {
                             JOptionPane.showMessageDialog(null, "Sala não encontrada");
                             break;
@@ -146,7 +135,7 @@ public class Main {
                                     " de " + sdfHora.format(horaInicio) + " à " + sdfHora.format(horaFim));
 
                             if(confirmar == 0) {
-                                professores[numProfessor].reservarSala(salas[sala], data, horaInicio, horaFim);
+                                professores[professor].reservarSala(salas[sala], data, horaInicio, horaFim);
                             }
                             else{
                                 JOptionPane.showMessageDialog(null, "Reserva cancelada");
@@ -155,6 +144,9 @@ public class Main {
                         } catch (ParseException e) {
                             JOptionPane.showMessageDialog(null, "Data ou hora inválida");
                         }
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Senha incorreta");
                     }
                     break;
             }
@@ -223,5 +215,23 @@ public class Main {
                 break;
             }
         }
+    }
+
+    private static int retornaPosicaoSala(Sala[] salas, int numSala){
+        for(int i = 0; i < Sala.numSalasRegistradas; i++){
+            if(salas[i].autenticar(numSala)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private static int retornaPosicaoProfessor(Professor[] professores, String nome, String senha){
+        for(int i = 0; i < Professor.numProfessores; i++){
+            if(professores[i].autenticar(nome, senha)){
+                return i;
+            }
+        }
+        return -1;
     }
 }

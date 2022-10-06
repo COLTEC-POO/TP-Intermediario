@@ -3,7 +3,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public abstract class Sala {
-    public static int numTotalSalas = 10;
+    public static int numTotalSalas = 12;
     public static int numSalasRegistradas = 0;
     private int numSala;
     private int capacidade;
@@ -72,7 +72,7 @@ public abstract class Sala {
                 }
             }
             if(disponivel){
-                listaReservas[this.numReservas] = new Reserva(this.numSala, data, horarioInicio, horarioFim, nomeProfessor, setor);
+                listaReservas[this.numReservas] = new Reserva(data, horarioInicio, horarioFim, nomeProfessor, setor);
                 this.numReservas++;
                 JOptionPane.showMessageDialog(null, "Reserva feita com sucesso");
                 ordenarReservas(listaReservas);

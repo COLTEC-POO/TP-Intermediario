@@ -8,7 +8,7 @@ public class Reserva {
     private String nomeProfessor;
     private String setorProfessor;
 
-    Reserva(int numSala, Date data, Date horarioInicio, Date horarioFim, String nomeProfessor, String setorProfessor){
+    Reserva(Date data, Date horarioInicio, Date horarioFim, String nomeProfessor, String setorProfessor){
         this.data = data;
         this.horarioInicio = horarioInicio;
         this.horarioFim = horarioFim;
