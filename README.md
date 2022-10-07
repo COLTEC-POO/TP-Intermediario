@@ -3,7 +3,9 @@
 *Valor: 15 pontos*
 
 *Trabalho em dupla*
+
 Raphael Ananias Cornélio de Menezes
+
 Pedro Henrique Vieira Nunes
 
 ## Sistema de Reservas
