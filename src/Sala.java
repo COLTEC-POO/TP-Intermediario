@@ -50,12 +50,15 @@ public abstract class Sala {
         Sala.numSalasRegistradas++;
     }
 
+    //Função usada para criar uma reserva na sala
     public void reservarSala(Date data, Date horarioInicio, Date horarioFim, String nomeProfessor, String setor){
+
+        //Verifica se a sala está disponível para reserva
         if(this.disponivel && this.numReservas < Reserva.numMaxReservas){
             boolean disponivel = true;
 
             for(int i = 0; i < this.numReservas; i++){
-
+                //Verifica se já não existe uma reserva no horário solicitado
                 if(this.listaReservas[i].getData().equals(data)){
 
                     long inicioAtual = this.listaReservas[i].getHorarioInicio().getTime();
@@ -71,6 +74,7 @@ public abstract class Sala {
                     }
                 }
             }
+            //Se não existir uma reserva no horário informado a reserva é criada
             if(disponivel){
                 listaReservas[this.numReservas] = new Reserva(data, horarioInicio, horarioFim, nomeProfessor, setor);
                 this.numReservas++;
@@ -83,12 +87,16 @@ public abstract class Sala {
         }
     }
 
+    //Função usada para listar as reservas da sala
     public String listarReservas(){
         String strReservas;
+
+        //Verifica se existe alguma reserva na sala
         if(this.numReservas > 0) {
             SimpleDateFormat sdfData = new SimpleDateFormat("dd/MMM/yyyy");
             SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm");
             strReservas = "Reservas da sala " + this.numSala + "\n";
+
             for (Reserva reserva : this.listaReservas) {
                 if (reserva == null) {
                     break;
@@ -104,10 +112,12 @@ public abstract class Sala {
         return strReservas;
     }
 
+    //Função usada para ordernas as reservas
     public void ordenarReservas(Reserva[] reservas) {
         for(int i = 0; i < this.numReservas - 1 ; i++) {
             boolean estaOrdenado = true;
 
+            //Ordena as reservas pela data
             for(int j = 0; j < this.numReservas - 1 - i; j++) {
                 long reservaJ = reservas[j].getData().getTime();
                 long reservaJ1 = reservas[j + 1].getData().getTime();
@@ -120,6 +130,7 @@ public abstract class Sala {
                 }
             }
 
+            //Se existir duas reservas na mesma data elas são ordenadas pelo horário
             for(int j = 0; j < this.numReservas - 1 - i; j++) {
                 long dataReservaJ = reservas[j].getData().getTime();
                 long horaReservaJ = reservas[j].getHorarioInicio().getTime();

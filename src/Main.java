@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -28,10 +27,10 @@ public class Main {
         int sala;
 
         Professor[] professores = new Professor[Professor.numMaxProfessores] ;
-        professores[Professor.numProfessores] = new Professor("João", "Poo", "12345");
-        professores[Professor.numProfessores] = new Professor("Leandro", "Aeds", "123");
-        professores[Professor.numProfessores] = new Professor("Fantini", "Banco de dados", "321");
-        professores[Professor.numProfessores] = new Professor("Virgínia", "Mobile", "1425");
+        professores[Professor.numProfessores] = new Professor("João", "Informática", "12345");
+        professores[Professor.numProfessores] = new Professor("Leandro", "Informática", "123");
+        professores[Professor.numProfessores] = new Professor("Fantini", "Eletrônica", "321");
+        professores[Professor.numProfessores] = new Professor("Virgínia", "Diretoria", "1425");
         professores[Professor.numProfessores] = new Professor("Honda", "Eletrônica", "456");
 
         String[] opcoesProfessores = new String[Professor.numProfessores];
@@ -85,8 +84,10 @@ public class Main {
                 case '3':
                     numSala = Integer.parseInt(JOptionPane.showInputDialog(null, "Número da sala: ",
                             "Informe o número da sala", JOptionPane.PLAIN_MESSAGE));
+
                     sala = retornaPosicaoSala(salas, numSala);
 
+                    //Verifica se a sala escolhida está registrada
                     if(sala >= 0) {
                         listarReservaSala(salas[sala]);
                     }
@@ -107,13 +108,15 @@ public class Main {
                     String senha = JOptionPane.showInputDialog(null, "Senha:",
                             "Informe a senha do professor", JOptionPane.PLAIN_MESSAGE);
 
+                    //Verifica se a senha do professor foi inserida corretamente
                     int professor = retornaPosicaoProfessor(professores, nome, senha);
-
                     if(professor >= 0) {
                         numSala = Integer.parseInt(JOptionPane.showInputDialog(null, "Número da sala: ",
                                 "Informe o número da sala", JOptionPane.PLAIN_MESSAGE));
+
                         sala = retornaPosicaoSala(salas, numSala);
 
+                        //Verifica se a sala escolhida está registrada
                         if(sala == -1) {
                             JOptionPane.showMessageDialog(null, "Sala não encontrada");
                             break;
@@ -124,16 +127,28 @@ public class Main {
                         horaFimReserva = JOptionPane.showInputDialog("Informe a hora de fim da reserva (ex: 17:30):");
 
                         try {
+                            Date atual = new Date();
+
                             data = sdfData.parse(dataReserva);
                             horaInicio = sdfHora.parse(horaReserva);
                             horaFim = sdfHora.parse(horaFimReserva);
-                            if(horaInicio.getTime() > horaFim.getTime()){
-                                throw new ParseException("", 0);
+
+                            long horarioInicio = horaInicio.getTime();
+                            long horarioFim = horaFim.getTime();
+
+                            long dataHoraReserva = data.getTime()+horaInicio.getTime()-10800000;
+                            long dataHoraAtual = atual.getTime();
+
+                            //Verifica se o horário de início não ocorre depois do horário de fim
+                            //ou se a data e hora da reserva já passou
+                            if(horarioInicio > horarioFim || dataHoraReserva < dataHoraAtual){
+                                throw new Exception();
                             }
 
-                            int confirmar = JOptionPane.showConfirmDialog(null,"Confirmar reserva?\nSala "+ numSala + "\nDia " + sdfData.format(data) +
-                                    " de " + sdfHora.format(horaInicio) + " à " + sdfHora.format(horaFim));
+                            int confirmar = JOptionPane.showConfirmDialog(null,"Confirmar reserva?\nSala "+
+                                    numSala + "\nDia " + sdfData.format(data) + " de " + sdfHora.format(horaInicio) + " à " + sdfHora.format(horaFim));
 
+                            //Verifica se a reserva foi confirmada
                             if(confirmar == 0) {
                                 professores[professor].reservarSala(salas[sala], data, horaInicio, horaFim);
                             }
@@ -141,7 +156,7 @@ public class Main {
                                 JOptionPane.showMessageDialog(null, "Reserva cancelada");
                             }
 
-                        } catch (ParseException e) {
+                        } catch (Exception e) {
                             JOptionPane.showMessageDialog(null, "Data ou hora inválida");
                         }
                     }
@@ -153,6 +168,7 @@ public class Main {
         }while(selecao != '0');
     }
 
+    //Função usada para listar todas as salas disponíveis
     private static void listarSalas(Sala[] salas){
         String strSalas = "Salas disponíveis\n\n";
 
@@ -169,6 +185,7 @@ public class Main {
         JOptionPane.showMessageDialog(null, strSalas);
     }
 
+    //Função usada para listar todas as reservas
     private static void listarReservas(Sala[] salas){
         String strReservas = "Lista de salas reservadas\n\n";
 
@@ -184,15 +201,18 @@ public class Main {
 
     }
 
+    //Função usada para listar a reserva de uma sala
     private static void listarReservaSala(Sala sala){
         String strReserva = sala.listarReservas();
         JOptionPane.showMessageDialog(null, strReserva);
     }
 
+    //Função usada para ordenar as salas
     private static void ordenaSalas(Sala[] salas) {
         for(int i = 0; i < Sala.numSalasRegistradas - 1 ; i++) {
             boolean estaOrdenado = true;
 
+            //Orderna as salas pelo número da sala
             for(int j = 0; j < Sala.numSalasRegistradas - 1 - i; j++) {
                 if(salas[j] instanceof Laboratorio && salas[j + 1] instanceof SalaConvencional) {
                     Sala aux = salas[j];
@@ -202,6 +222,7 @@ public class Main {
                 }
             }
 
+            //Ordena as salas pelo tipo da sala
             for(int j = 0; j < Sala.numSalasRegistradas - 1 - i; j++) {
                 if(salas[j].getClass() == salas[j+1].getClass() && salas[j].getNumSala() > salas[j + 1].getNumSala()) {
                     Sala aux = salas[j];
@@ -217,6 +238,7 @@ public class Main {
         }
     }
 
+    //Função usada para retornar o índice de uma sala
     private static int retornaPosicaoSala(Sala[] salas, int numSala){
         for(int i = 0; i < Sala.numSalasRegistradas; i++){
             if(salas[i].autenticar(numSala)){
@@ -226,6 +248,7 @@ public class Main {
         return -1;
     }
 
+    //Função usada para retornar o índice de um professor
     private static int retornaPosicaoProfessor(Professor[] professores, String nome, String senha){
         for(int i = 0; i < Professor.numProfessores; i++){
             if(professores[i].autenticar(nome, senha)){
