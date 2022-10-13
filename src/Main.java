@@ -7,6 +7,7 @@ public class Main {
     public static void main(String[] args) {
 
         Sala[] salas = new Sala[Sala.numTotalSalas];
+
         salas[Sala.numSalasRegistradas] = new SalaConvencional(2, 30, true);
         salas[Sala.numSalasRegistradas] = new Laboratorio(4, 25, true);
 
@@ -28,17 +29,18 @@ public class Main {
         ordenaSalas(salas);
 
         int[] numSalas = new int[Sala.numSalasRegistradas];
+        int aux = 0;
         for(int i = 0; i < Sala.numSalasRegistradas; i++){
-            numSalas[i] = salas[i].getNumSala();
+            if(salas[i].isDisponivel())
+                numSalas[i - aux] = salas[i].getNumSala();
+            else
+                aux++;
         }
         Arrays.sort(numSalas);
-        String[] opcoesSalas = new String[Sala.numSalasRegistradas];
-        for(int i = 0; i < Sala.numSalasRegistradas; i++){
-            opcoesSalas[i] = String.valueOf(numSalas[i]);
+        String[] opcoesSalas = new String[Sala.numSalasRegistradas - aux];
+        for(int i = 0; i < Sala.numSalasRegistradas - aux; i++){
+            opcoesSalas[i] = String.valueOf(numSalas[i + aux]);
         }
-
-        int numSala;
-        int sala;
 
         Professor[] professores = new Professor[Professor.numMaxProfessores] ;
         professores[Professor.numProfessores] = new Professor("João", "Informática", "12345");
@@ -54,6 +56,9 @@ public class Main {
         }
         Arrays.sort(opcoesProfessores);
 
+        int numSala;
+        int sala;
+
         String dataReserva;
         Date data;
         SimpleDateFormat sdfData = new SimpleDateFormat("dd/MM/yy");
@@ -64,7 +69,7 @@ public class Main {
         Date horaFim;
         SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm");
 
-        char selecao;
+        char opcao;
         String[] opcoes = {
                 "0 - Sair do programa",
                 "1 - Listar salas disponíveis",
@@ -73,7 +78,7 @@ public class Main {
                 "4 - Reservar uma sala"};
 
         do{
-            selecao = JOptionPane.showInputDialog(null,
+            opcao = JOptionPane.showInputDialog(null,
                     "Qual opção deseja?",
                     "Escolha uma opção",
                     JOptionPane.PLAIN_MESSAGE,
@@ -81,7 +86,7 @@ public class Main {
                     opcoes,
                     "").toString().charAt(0);
 
-            switch (selecao) {
+            switch (opcao) {
                 case '0':
                     JOptionPane.showMessageDialog(null, "Fim do programa!");
                     break;
@@ -178,39 +183,39 @@ public class Main {
                     }
                     break;
             }
-        }while(selecao != '0');
+        }while(opcao != '0');
     }
 
     //Função usada para listar todas as salas disponíveis
     private static void listarSalas(Sala[] salas){
-        String strSalas = "Salas disponíveis\n\n";
+        StringBuilder strSalas = new StringBuilder("Salas disponíveis\n\n");
 
         for(int i = 0; i < Sala.numSalasRegistradas; i++){
             if(salas[i].isDisponivel() && salas[i].getNumReservas() < Reserva.numMaxReservas){
                 if(salas[i] instanceof Laboratorio) {
-                    strSalas += ("Laboratorio " + salas[i].getNumSala() + "\n");
+                    strSalas.append("Laboratorio ").append(salas[i].getNumSala()).append("\n");
                 }
                 else{
-                    strSalas += ("Sala " + salas[i].getNumSala() + "\n");
+                    strSalas.append("Sala ").append(salas[i].getNumSala()).append("\n");
                 }
             }
         }
-        JOptionPane.showMessageDialog(null, strSalas);
+        JOptionPane.showMessageDialog(null, strSalas.toString());
     }
 
     //Função usada para listar todas as reservas
     private static void listarReservas(Sala[] salas){
-        String strReservas = "Lista de salas reservadas\n\n";
+        StringBuilder strReservas = new StringBuilder("Lista de salas reservadas\n\n");
 
         for(Sala sala: salas){
             if (sala == null) {
                 break;
             }
             if(sala.getNumReservas() > 0){
-                strReservas += sala.listarReservas() + "\n";
+                strReservas.append(sala.listarReservas()).append("\n");
             }
         }
-        JOptionPane.showMessageDialog(null, strReservas);
+        JOptionPane.showMessageDialog(null, strReservas.toString());
 
     }
 
@@ -222,37 +227,25 @@ public class Main {
 
     //Função usada para ordenar as salas
     private static void ordenaSalas(Sala[] salas) {
-        for(int i = 0; i < Sala.numSalasRegistradas - 1 ; i++) {
-            boolean estaOrdenado = true;
-
-            //Ordena as salas pelo tipo da sala
-            for(int j = 0; j < Sala.numSalasRegistradas - 1 - i; j++) {
-                if(salas[j] instanceof Laboratorio && salas[j + 1] instanceof SalaConvencional) {
-                    Sala aux = salas[j];
-                    salas[j] = salas[j + 1];
-                    salas[j + 1] = aux;
-                    estaOrdenado = false;
+        for(int i = 1; i < Sala.numSalasRegistradas; i++){
+            for(int j = i; j > 0; j--){
+                //Ordena as salas pelo tipo da sala
+                if(salas[j] instanceof SalaConvencional && salas[j-1] instanceof Laboratorio) {
+                    Sala aux = salas[j-1];
+                    salas[j-1] = salas[j];
+                    salas[j] = aux;
                 }
-            }
-
-            //Orderna as salas pelo número da sala
-            for(int j = 0; j < Sala.numSalasRegistradas - 1 - i; j++) {
-
                 String classeJ = String.valueOf(salas[j].getClass());
-                String classeJ1 = String.valueOf(salas[j+1].getClass());
+                String classeJ1 = String.valueOf(salas[j-1].getClass());
                 int numSalaJ = salas[j].getNumSala();
-                int numSalaJ1 = salas[j + 1].getNumSala();
+                int numSalaJ1 = salas[j-1].getNumSala();
 
-                if(classeJ.equals(classeJ1) && numSalaJ > numSalaJ1) {
-                    Sala aux = salas[j];
-                    salas[j] = salas[j + 1];
-                    salas[j + 1] = aux;
-                    estaOrdenado = false;
+                //Orderna as salas pelo número da sala
+                if(classeJ.equals(classeJ1) && numSalaJ < numSalaJ1) {
+                    Sala aux = salas[j-1];
+                    salas[j-1] = salas[j];
+                    salas[j] = aux;
                 }
-            }
-
-            if(estaOrdenado) {
-                break;
             }
         }
     }
