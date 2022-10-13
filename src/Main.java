@@ -8,20 +8,34 @@ public class Main {
 
         Sala[] salas = new Sala[Sala.numTotalSalas];
         salas[Sala.numSalasRegistradas] = new SalaConvencional(2, 30, true);
-        salas[Sala.numSalasRegistradas] = new SalaConvencional(6, 30, true);
-        salas[Sala.numSalasRegistradas] = new SalaConvencional(10, 30, true);
-        salas[Sala.numSalasRegistradas] = new SalaConvencional(14, 30, true);
-        salas[Sala.numSalasRegistradas] = new SalaConvencional(18, 30, true);
-        salas[Sala.numSalasRegistradas] = new SalaConvencional(1, 30, false);
-
         salas[Sala.numSalasRegistradas] = new Laboratorio(4, 25, true);
+
+        salas[Sala.numSalasRegistradas] = new SalaConvencional(6, 30, true);
         salas[Sala.numSalasRegistradas] = new Laboratorio(8, 25, true);
+
+        salas[Sala.numSalasRegistradas] = new SalaConvencional(10, 30, true);
         salas[Sala.numSalasRegistradas] = new Laboratorio(12, 25, true);
+
+        salas[Sala.numSalasRegistradas] = new SalaConvencional(14, 30, true);
         salas[Sala.numSalasRegistradas] = new Laboratorio(16, 25, true);
+
+        salas[Sala.numSalasRegistradas] = new SalaConvencional(18, 30, true);
         salas[Sala.numSalasRegistradas] = new Laboratorio(20, 25, true);
+
+        salas[Sala.numSalasRegistradas] = new SalaConvencional(1, 30, false);
         salas[Sala.numSalasRegistradas] = new Laboratorio(3, 25, false);
 
         ordenaSalas(salas);
+
+        int[] numSalas = new int[Sala.numSalasRegistradas];
+        for(int i = 0; i < Sala.numSalasRegistradas; i++){
+            numSalas[i] = salas[i].getNumSala();
+        }
+        Arrays.sort(numSalas);
+        String[] opcoesSalas = new String[Sala.numSalasRegistradas];
+        for(int i = 0; i < Sala.numSalasRegistradas; i++){
+            opcoesSalas[i] = String.valueOf(numSalas[i]);
+        }
 
         int numSala;
         int sala;
@@ -38,7 +52,6 @@ public class Main {
         for(int i = 0; i < Professor.numProfessores; i++){
             opcoesProfessores[i] = professores[i].getNome();
         }
-
         Arrays.sort(opcoesProfessores);
 
         String dataReserva;
@@ -82,8 +95,8 @@ public class Main {
                     break;
 
                 case '3':
-                    numSala = Integer.parseInt(JOptionPane.showInputDialog(null, "Número da sala: ",
-                            "Informe o número da sala", JOptionPane.PLAIN_MESSAGE));
+                    numSala = Integer.parseInt((String) JOptionPane.showInputDialog(null, "Número da sala: ",
+                            "Informe o número da sala", JOptionPane.PLAIN_MESSAGE, null, opcoesSalas, ""));
 
                     sala = retornaPosicaoSala(salas, numSala);
 
@@ -111,8 +124,8 @@ public class Main {
                     //Verifica se a senha do professor foi inserida corretamente
                     int professor = retornaPosicaoProfessor(professores, nome, senha);
                     if(professor >= 0) {
-                        numSala = Integer.parseInt(JOptionPane.showInputDialog(null, "Número da sala: ",
-                                "Informe o número da sala", JOptionPane.PLAIN_MESSAGE));
+                        numSala = Integer.parseInt((String) JOptionPane.showInputDialog(null, "Número da sala: ",
+                                "Informe o número da sala", JOptionPane.PLAIN_MESSAGE, null, opcoesSalas, ""));
 
                         sala = retornaPosicaoSala(salas, numSala);
 
@@ -212,7 +225,7 @@ public class Main {
         for(int i = 0; i < Sala.numSalasRegistradas - 1 ; i++) {
             boolean estaOrdenado = true;
 
-            //Orderna as salas pelo número da sala
+            //Ordena as salas pelo tipo da sala
             for(int j = 0; j < Sala.numSalasRegistradas - 1 - i; j++) {
                 if(salas[j] instanceof Laboratorio && salas[j + 1] instanceof SalaConvencional) {
                     Sala aux = salas[j];
@@ -222,9 +235,15 @@ public class Main {
                 }
             }
 
-            //Ordena as salas pelo tipo da sala
+            //Orderna as salas pelo número da sala
             for(int j = 0; j < Sala.numSalasRegistradas - 1 - i; j++) {
-                if(salas[j].getClass() == salas[j+1].getClass() && salas[j].getNumSala() > salas[j + 1].getNumSala()) {
+
+                String classeJ = String.valueOf(salas[j].getClass());
+                String classeJ1 = String.valueOf(salas[j+1].getClass());
+                int numSalaJ = salas[j].getNumSala();
+                int numSalaJ1 = salas[j + 1].getNumSala();
+
+                if(classeJ.equals(classeJ1) && numSalaJ > numSalaJ1) {
                     Sala aux = salas[j];
                     salas[j] = salas[j + 1];
                     salas[j + 1] = aux;

@@ -1,14 +1,13 @@
 import javax.swing.*;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public abstract class Sala {
     public static int numTotalSalas = 12;
     public static int numSalasRegistradas = 0;
-    private int numSala;
+    protected int numSala;
+    protected Reserva[] listaReservas;
+    protected int numReservas = 0;
     private int capacidade;
-    private Reserva[] listaReservas = new Reserva[Reserva.numMaxReservas];
-    private int numReservas = 0;
     private boolean disponivel;
 
     //Getters and Setters
@@ -47,6 +46,7 @@ public abstract class Sala {
         this.numSala = numSala;
         this.capacidade = capacidade;
         this.disponivel = disponivel;
+        listaReservas = new Reserva[Reserva.numMaxReservas];
         Sala.numSalasRegistradas++;
     }
 
@@ -88,29 +88,7 @@ public abstract class Sala {
     }
 
     //Função usada para listar as reservas da sala
-    public String listarReservas(){
-        String strReservas;
-
-        //Verifica se existe alguma reserva na sala
-        if(this.numReservas > 0) {
-            SimpleDateFormat sdfData = new SimpleDateFormat("dd/MMM/yyyy");
-            SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm");
-            strReservas = "Reservas da sala " + this.numSala + "\n";
-
-            for (Reserva reserva : this.listaReservas) {
-                if (reserva == null) {
-                    break;
-                }
-                strReservas += "\nProfessor: " + reserva.getNomeProfessor()+"\nSetor: " + reserva.getSetorProfessor() +
-                        "\nData: " + sdfData.format(reserva.getData() ) + "\nHorário: " + sdfHora.format(reserva.getHorarioInicio()) +
-                        " às " + sdfHora.format(reserva.getHorarioFim()) + "\n";
-            }
-        }
-        else{
-            strReservas =  "Nenhuma reserva feita na sala ";
-        }
-        return strReservas;
-    }
+    public abstract String listarReservas();
 
     //Função usada para ordernas as reservas
     public void ordenarReservas(Reserva[] reservas) {
