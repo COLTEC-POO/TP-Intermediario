@@ -7,6 +7,8 @@
 
 public abstract class User {
     
+    private static Integer qtdUser = 0;
+
     private Integer userID;
     private String userName;
 
@@ -16,6 +18,9 @@ public abstract class User {
     public String getUserName(){
         return this.userName;
     }
+    public static Integer getQtdUser(){
+        return User.qtdUser;
+    }
 
     public void setUserID(Integer userID){
         this.userID = userID;
@@ -23,7 +28,9 @@ public abstract class User {
     public void setUserName(String userName){
         this.userName = userName;
     }
-
+    public void addNewUser(){
+        User.qtdUser++;
+    }
 
     public User(){
 
@@ -43,4 +50,9 @@ public abstract class User {
         }
         return false;
     }
+
+    public void setRegistration(String registration){};
+
+    public void setDiscipline(String discipline){};
+
 }

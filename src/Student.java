@@ -26,6 +26,7 @@ public class Student extends User{
         this.setUserID(userID);
         this.setUserName(userName);
         this.setRegistration(registration);
+        this.addNewUser();
     }
 
 

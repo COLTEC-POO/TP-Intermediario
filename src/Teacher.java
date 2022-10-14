@@ -28,6 +28,7 @@
         this.setUserID(userID);
         this.setUserName(userName);
         this.setDiscipline(discipline);
+        this.addNewUser();
     }
 
     public String toString(boolean complete){

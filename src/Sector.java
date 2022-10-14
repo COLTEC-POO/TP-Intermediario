@@ -7,6 +7,8 @@
 
 public class Sector {
     
+    private static Integer qtdSector = 0;
+
     private Integer sectorID;
     private String sectorName;
     private Teacher responsable;
@@ -23,6 +25,10 @@ public class Sector {
         return this.responsable;
     }
 
+    public static Integer getQtdSector(){
+        return Sector.qtdSector;
+    }
+
     public void setSectorID(Integer sectorID){
         this.sectorID = sectorID;
     }
@@ -32,7 +38,9 @@ public class Sector {
     public void setTeacher(Teacher responsavel){
         this.responsable = responsavel;
     }
-
+    public void addNewSector(){
+        Sector.qtdSector++;
+    }
 
 
     public Sector(){
