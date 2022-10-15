@@ -12,17 +12,33 @@ public class mainSystem {
 
         String option = "";
 
-        users.add(new Student();
+        //Setting some disciplines
+        sectors.add(new Sector("Matematica")); //0
+        sectors.add(new Sector("Portugues")); //1
+        sectors.add(new Sector("Biologia")); //2
+        sectors.add(new Sector("Fisica")); //3
+        sectors.add(new Sector("Quimica")); //4
+        sectors.add(new Sector("Historia")); //5
+        sectors.add(new Sector("Geografia")); //6
+        sectors.add(new Sector("Filosofia")); //7
 
-        sectors.add(new Sector("Matematica"));
-        sectors.add(new Sector("Portugues"));
-        sectors.add(new Sector("Biologia"));
-        sectors.add(new Sector("Fisica"));
-        sectors.add(new Sector("Quimica"));
-        sectors.add(new Sector("Historia"));
-        sectors.add(new Sector("Geografia"));
-        sectors.add(new Sector("Filosofia"));
+        //Setting some students
+        users.add(new Student("Raphael", "2022954160"));
+        users.add(new Student("Pedro", "2022954062"));
+        users.add(new Student("Mariana", "2022954216"));
+        users.add(new Student("Wallace", "2022953600"));
+        users.add(new Student("Gabriela", "2022954186"));
+        users.add(new Student("Jefferson", "2022953430"));
+        
+        //Setting some teachers
+        users.add(new Teacher("Marcão", sectors.get(3)));
+        users.add(new Teacher("Irmão", sectors.get(7)));
+        users.add(new Teacher("Luciene", sectors.get(4)));
+        users.add(new Teacher("Clebinho", sectors.get(6)));
+        users.add(new Teacher("Andreia", sectors.get(5)));
 
+
+        //Software starts
         JOptionPane.showMessageDialog(null, "Bem vindo ao sistema de reserva!");
 
         Object[] buttons = {"Cadastrar usuário", "Selecionar usuário", "Sair"};
@@ -65,21 +81,7 @@ public class mainSystem {
                 else{
                     reservation.login(login);
                 }
-
-
-                /*for (User user : users) {
-                    if(user.getUserID() == chosenUser){
-                        if(user instanceof Student){
-
-                        }
-                        else if(user instanceof Teacher){
-                            
-                        }
-                        else{
-
-                        }
-                    }
-                }*/
+                
             }
             else if (result == JOptionPane.CANCEL_OPTION){//Leave
                 JOptionPane.showMessageDialog(null, "Obrigado por utilizar o sistema!!");
