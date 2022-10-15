@@ -1,43 +1,59 @@
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 public class SignIn {
 
-    public User singIn(){
-
+    public User singIn(ArrayList<User> users, ArrayList<Sector> sectors){
+        
+        User newUser = null;
         Object[] options = {"Estudante", "Professor", "Adminstrador"};
 
         String choice = (String) JOptionPane.showInputDialog(null, "Qual tipo de usuário?", "Escolha o tipo", JOptionPane.PLAIN_MESSAGE, null, options, "Estudante");
 
-        String name = JOptionPane.showInputDialog("Qual o seu nome?");
+        if ( choice == null || choice == "null"){
+        }
+        else {
+
+            String name = JOptionPane.showInputDialog("Qual o seu nome?");
+    
+            if(choice == "Estudante"){
+                String data = JOptionPane.showInputDialog("Qual sua matricula?");
+                
+                newUser = new Student(name, data);
+            }
+            else if(choice == "Professor"){
+                Sector data = null;
+                Integer indice = 0;
+                Object[] foundSector = {"", "", "", "", "", "", "", "", "", "", ""};
+
+                for (Sector sector : sectors) {
+                    if (sector !=null )
+                        foundSector[indice++] = sector.toString(true);
+                }
+
+                String dataString = (String) JOptionPane.showInputDialog(null, "Qual sua disciplina", "Escolha sua materia", JOptionPane.PLAIN_MESSAGE, null, foundSector, "");
+    
+                for (Sector sector : sectors) {
+                    if (dataString == sector.toString(true) )
+                        data = sector;
+                }
+
+                newUser = new Teacher(name, data);
+            }
+            else{
+                String data = JOptionPane.showInputDialog("Qual sua ?");
+                newUser = new Student(name, data);
+            }
+        }
+        for (User user : users) {
+            if (user.equals(newUser) )
+                return null;
+        }
         
-        /*
-        panel.add(new JLabel("Informe o ID: "));
-        JTextField id = new JTextField(50);
-        panel.add(id);
-        */
-        User newUser;
-
-        if(choice == "Estudante"){
-            String data = JOptionPane.showInputDialog("Qual sua matricula?");
-            newUser = new Student(User.getQtdUser(), name, data);
-        }
-        else if(choice == "Professor"){
-            Sector data;
-            Object[] sectors = {"Matematica", "Portugues", "Biologia", "Fisica", "Quimica", "Historia", "Geografia"};
-            String dataString = (String) JOptionPane.showInputDialog(null, "Qual sua disciplina", "Escolha sua materia", JOptionPane.PLAIN_MESSAGE, null, sectors, "");
-
-            data = new Sector(Sector.getQtdSector(), dataString);
-
-            JOptionPane.showInputDialog("Qual sua disciplina?");
-
-            newUser = new Teacher(User.getQtdUser(), name, data);
-        }
-        else{
-            String data = JOptionPane.showInputDialog("Qual sua ?");
-            newUser = new Student(User.getQtdUser(), name, data);
-        }
         return newUser;
     }
+
 }
 
 

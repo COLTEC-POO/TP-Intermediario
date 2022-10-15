@@ -24,8 +24,8 @@
 
     }
 
-    public Teacher(Integer userID, String userName, Sector discipline){
-        this.setUserID(userID);
+    public Teacher(String userName, Sector discipline){
+        this.setUserID(User.getQtdUser() + 1);
         this.setUserName(userName);
         this.setDiscipline(discipline);
         this.addNewUser();
@@ -33,5 +33,14 @@
 
     public String toString(boolean complete){
         return "ID: " + this.getUserID() + " Name: " + this.getUserName() + " Discipline: " + this.getDiscipline();
+    }
+
+    public boolean equals(Object obj){
+        if(obj instanceof Teacher){
+            Teacher temp = (Teacher) obj;
+            if(temp.getUserName() == this.getUserName() && temp.getDiscipline() == this.getDiscipline())
+                return true;
+        }
+        return false;
     }
 }

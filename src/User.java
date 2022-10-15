@@ -37,7 +37,7 @@ public abstract class User {
     }
 
     public String toString(){
-        return this.getUserName();
+        return this.userID + " - " + this.userName;
     }
 
     public abstract String toString(boolean complete);

@@ -22,8 +22,8 @@ public class Student extends User{
 
     }
 
-    public Student(Integer userID, String userName, String registration){
-        this.setUserID(userID);
+    public Student(String userName, String registration){
+        this.setUserID(User.getQtdUser() + 1);
         this.setUserName(userName);
         this.setRegistration(registration);
         this.addNewUser();

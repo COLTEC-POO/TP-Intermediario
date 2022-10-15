@@ -47,19 +47,24 @@ public class Sector {
         
     }
 
-    public Sector(Integer sectorID, String sectorName){
-        setSectorID(sectorID);   
+    public Sector(String sectorName){
+        setSectorID(getQtdSector() + 1);   
         setSectorName(sectorName);
         setTeacher(null);
+        addNewSector();
     }
 
-    public Sector(Integer sectorID, String sectorName, Teacher responsavel){
-        setSectorID(sectorID);   
+    public Sector(String sectorName, Teacher responsavel){
+        setSectorID(getQtdSector() + 1);   
         setSectorName(sectorName);
         setTeacher(responsavel);
+        addNewSector();
     }
 
 
+    public String toString(boolean onlyname){
+        return this.sectorName;
+    }
 
     public String toString(){
         return "ID: " + this.sectorID + " Sector: " + this.sectorName + " Teacher Responsable: " + this.responsable.getUserName();
