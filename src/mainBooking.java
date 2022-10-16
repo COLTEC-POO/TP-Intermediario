@@ -1,9 +1,9 @@
 import javax.swing.*;
 
-public class mainUser{
+public class mainBooking{
     
 
-    public void login(User user){
+    public void seeBookings(User user){
 
         String option = "";
 
@@ -13,7 +13,7 @@ public class mainUser{
             JPanel panel = new JPanel();
             panel.add(new JLabel("Selecione o que deseja fazer"));
         
-            int result = JOptionPane.showOptionDialog(null, panel, "SISTEMA DE RESERVA", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, buttons, null);
+            int result = JOptionPane.showOptionDialog(null, panel, "SISTEMA DE RESERVA - Login: " + user.toString(), JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, buttons, null);
 
             if (result == JOptionPane.YES_OPTION){//Ver salas disponiveis
                 

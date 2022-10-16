@@ -69,7 +69,8 @@ public class mainSystem {
                 User login = null;
                 for (User user : users) {
                     //JOptionPane.showMessageDialog(null, "'" + chosenUser + "'" + "\n'" + user.toString() + "'"); Ambos textos estão iguais
-                    if ( chosenUser == user.toString() )
+                    
+                    if ( chosenUser.contains(user.toString()) )
                         login = user;
                 }
 
