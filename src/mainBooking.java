@@ -11,7 +11,7 @@ public class mainBooking{
 
         String option = "";
 
-        Object[] buttons = {"Visualizar salas disponiveis", "Visualizar horarios de uma sala", "Voltar"};
+        Object[] buttons = {"Visualizar salas sem agendamento", "Visualizar horarios de uma sala", "Voltar"};
 
         do{
             JPanel panel = new JPanel();
@@ -47,6 +47,24 @@ public class mainBooking{
             }
             else if (result == JOptionPane.NO_OPTION){//Ver horarios de uma sala
                 
+                String choice = JOptionPane.showInputDialog(null, "Qual sala deseja ver os horarios?", "Selecione a sala", JOptionPane.PLAIN_MESSAGE, null, freeroom, "").toString();
+
+                //JOptionPane.showMessageDialog(null, "Sala selecionada: " + choice);
+
+                for (Classrooms rooms : classrooms) {
+                    if (rooms.getNumber().toString().contains(choice)){
+
+                        String horarios = "";
+                        Integer indice_booking = 1;
+
+                        for (BookingClass booking : rooms.getReservation()) {
+                            horarios += indice_booking + " - " + booking.toString() + "\n";
+                            indice_booking++;
+                        }
+                        JOptionPane.showMessageDialog(null, "Os horarios da sala" + choice + " disponiveis para reserva são:       \n\n" + horarios);
+                    }
+                }
+
             }
             else if (result == JOptionPane.CANCEL_OPTION){//Voltar
                 option = "exit";
