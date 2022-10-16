@@ -54,6 +54,10 @@ public class BookingClass {
     }
 
     public String toString(){
+        return "";
+    }
+    
+    public String toString(boolean complete){
         return "Teacher: " + this.teacher.toString() + " Sector: " + this.sector.toString() + " Reservation Date: " + this.reservationStartDate + " to " + this.reservationEndDate;
     }
 }

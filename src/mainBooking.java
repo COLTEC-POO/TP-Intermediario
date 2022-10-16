@@ -58,7 +58,10 @@ public class mainBooking{
                         Integer indice_booking = 1;
 
                         for (BookingClass booking : rooms.getReservation()) {
-                            horarios += indice_booking + " - " + booking.toString() + "\n";
+                            if(booking.getTeacher() == null)
+                                horarios += indice_booking + " - " + booking.toString() + "\n";
+                            else
+                                horarios += indice_booking + " - " + booking.toString(true) + "\n";
                             indice_booking++;
                         }
                         JOptionPane.showMessageDialog(null, "Os horarios da sala" + choice + " disponiveis para reserva são:       \n\n" + horarios);
