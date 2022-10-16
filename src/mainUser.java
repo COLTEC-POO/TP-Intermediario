@@ -1,9 +1,11 @@
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 public class mainUser{
     
 
-    public void login(User user){
+    public void login(User user, ArrayList<Classrooms> classrooms){
 
         String option = "";
 
@@ -17,7 +19,8 @@ public class mainUser{
 
             if (result == JOptionPane.YES_OPTION){//Ver salas disponiveis
                 
-                
+                mainBooking see = new mainBooking();
+                see.seeBookings(user, classrooms);
 
             }
             else if (result == JOptionPane.NO_OPTION){//Fazer uma reserva

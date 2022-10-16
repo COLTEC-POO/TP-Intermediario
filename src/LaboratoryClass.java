@@ -12,5 +12,6 @@
         setNumber(number);
         setCapacity(capacity);
         setType("laboratory");
+        setNewBookings();
     }
 }

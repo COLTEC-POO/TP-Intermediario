@@ -30,8 +30,8 @@ public abstract class Classrooms {
     public String getType(){
         return this.type;
     }
-    public String getReservation(){
-        return this.reservation.toString();
+    public BookingClass[] getReservation(){
+        return this.reservation;
     }
 
     //Setters
@@ -43,6 +43,11 @@ public abstract class Classrooms {
     }
     public void setType(String type){
         this.type = type;
+    }
+    public void setNewBookings(){
+        for (int i = 0; i < maxReservations; i++) {
+            reservation[i] = new BookingClass(null, null, null, null);
+        }
     }
 
     public void ShowMadeReservations(){
@@ -115,6 +120,10 @@ public abstract class Classrooms {
 
     public Boolean CanReserveClass(){
         return (this.CountFreeReservation() < 20) ? true : false;
+    }
+
+    public String toString(){
+        return this.getNumber().toString();
     }
 }
 

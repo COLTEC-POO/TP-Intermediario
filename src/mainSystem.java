@@ -3,11 +3,12 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 public class mainSystem {
-
+    
+    static ArrayList<User> users = new ArrayList<>();
+    static ArrayList<Sector> sectors = new ArrayList<>();
+    static ArrayList<Classrooms> classrooms = new ArrayList<>();
     public static void main(String[] args){
 
-        ArrayList<User> users = new ArrayList<User>();
-        ArrayList<Sector> sectors = new ArrayList<Sector>();
 
         String option = "";
 
@@ -36,6 +37,21 @@ public class mainSystem {
         users.add(new Teacher("Clebinho", sectors.get(6)));
         users.add(new Teacher("Andreia", sectors.get(5)));
 
+        //Setting some laboratorys
+        classrooms.add(new LaboratoryClass(101, 40));
+        classrooms.add(new LaboratoryClass(102, 40));
+        classrooms.add(new LaboratoryClass(103, 40));
+        classrooms.add(new LaboratoryClass(104, 40));
+
+        //Setting some classrooms
+        classrooms.add(new ConventionalClass(201, 60));
+        classrooms.add(new ConventionalClass(202, 60));
+        classrooms.add(new ConventionalClass(203, 60));
+        classrooms.add(new ConventionalClass(204, 60));
+        classrooms.add(new ConventionalClass(205, 60));
+        classrooms.add(new ConventionalClass(206, 60));
+        classrooms.add(new ConventionalClass(207, 60));
+        classrooms.add(new ConventionalClass(208, 60));
 
         //Software starts
         JOptionPane.showMessageDialog(null, "Bem vindo ao sistema de reserva!");
@@ -50,8 +66,10 @@ public class mainSystem {
 
             if (result == JOptionPane.YES_OPTION){//Sign in
                 
-                SignIn signin = new SignIn();
-                users.add(signin.singIn(users, sectors));
+                mainSignIn signin = new mainSignIn();
+                User newuser = signin.singIn(users, sectors);
+                if(newuser != null)
+                    users.add(newuser);
 
             }
             else if (result == JOptionPane.NO_OPTION){//Log in
@@ -79,7 +97,7 @@ public class mainSystem {
                     JOptionPane.showMessageDialog(null, "Usuário selecionado invalido!");
                 }
                 else{
-                    reservation.login(login);
+                    reservation.login(login, classrooms);
                 }
 
             }

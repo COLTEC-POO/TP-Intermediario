@@ -12,6 +12,7 @@ public class ConventionalClass extends Classrooms{
         setNumber(number);
         setCapacity(capacity);
         setType("conventional");
+        setNewBookings();
     }
 
 }

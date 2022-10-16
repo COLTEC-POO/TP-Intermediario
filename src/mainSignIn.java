@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class SignIn {
+public class mainSignIn {
 
     public User singIn(ArrayList<User> users, ArrayList<Sector> sectors){
         
@@ -47,8 +47,10 @@ public class SignIn {
             }
         }
         for (User user : users) {
-            if (user.equals(newUser) )
+            if (user.equals(newUser) ){
+                JOptionPane.showMessageDialog(null, "Esse usuário já está cadastrado!");
                 return null;
+            }
         }
         
         return newUser;
