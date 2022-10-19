@@ -55,7 +55,7 @@ public class mainSystem {
         classrooms.add(new ConventionalClass(207, 60));
         classrooms.add(new ConventionalClass(208, 60));
 
-        classrooms.get(11).getReservation()[2] = new BookingClass(users.get(8) , users.get(8).getDiscipline(), new Date(2022, 10, 28, 12, 50),new Date(2022, 10, 28, 12, 50));
+        classrooms.get(11).getReservation()[2] = new BookingClass(users.get(8) , users.get(8).getDiscipline(), new Date(122, 10 - 1, 28, 11, 50),new Date(122, 10 - 1, 28, 12, 50));
 
         //Software starts
         JOptionPane.showMessageDialog(null, "Bem vindo ao sistema de reserva!");

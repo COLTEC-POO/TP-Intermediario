@@ -150,11 +150,35 @@ public class mainBooking{
                             dEnd =  (Date) sdf.parse(dataEnd);
                             } while (dEnd == null);
 
-                            Teacher scheduledTeacher = (Teacher )user;
 
-                            scheduled = new BookingClass(scheduledTeacher , scheduledTeacher.getDiscipline(), dBegin, dEnd);
+                            for (int i = 0; i < rooms.getMaxReservation(); i++ ) {
+                                if(rooms.getReservation(i).getReservationStartDate() != null){
+                                    if(rooms.getReservation(i).getReservationStartDate().before(dBegin) && 
+                                    rooms.getReservation(i).getReservationEndDate().after(dBegin) ){
+                                        JOptionPane.showMessageDialog(null, "O horario de inicio já está agendado!");
+                                        user = null;
+                                    }
+                                    else if(rooms.getReservation(i).getReservationStartDate().before(dEnd) && 
+                                    rooms.getReservation(i).getReservationEndDate().after(dEnd)){
+                                        JOptionPane.showMessageDialog(null, "O horario de finalização já está agendado!");
+                                        user = null;
+                                    }
+                                    else if(dBegin.before(rooms.getReservation(i).getReservationStartDate()) && 
+                                    dEnd.after(rooms.getReservation(i).getReservationEndDate())){
+                                        JOptionPane.showMessageDialog(null, "O horario já está agendado");
+                                        user = null;
+                                    }
+                                }
+                            }
+                            if (user !=null){
+                                Teacher scheduledTeacher = (Teacher )user;
 
-                            classrooms.get(classrooms.indexOf(rooms)).getReservation()[posicao - 1] = scheduled;
+                                scheduled = new BookingClass(scheduledTeacher , scheduledTeacher.getDiscipline(), dBegin, dEnd);
+
+                                classrooms.get(classrooms.indexOf(rooms)).getReservation()[posicao - 1] = scheduled;
+
+                                JOptionPane.showMessageDialog(null, "Agendamento realizado!");
+                            }
                         }
                         else{
                             JOptionPane.showMessageDialog(null, "Posição de agendamento invalido!");
