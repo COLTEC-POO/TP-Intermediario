@@ -61,11 +61,6 @@ public class Sector {
         addNewSector();
     }
 
-
-    public String toString(boolean onlyname){
-        return this.sectorName;
-    }
-
     public String toString(){
         return "ID: " + this.sectorID + " Sector: " + this.sectorName + " Teacher Responsable: " + this.responsable.getUserName();
     }

@@ -29,13 +29,13 @@ public class mainSignIn {
 
                 for (Sector sector : sectors) {
                     if (sector !=null )
-                        foundSector[indice++] = sector.toString(true);
+                        foundSector[indice++] = sector.getSectorName();
                 }
 
                 String dataString = (String) JOptionPane.showInputDialog(null, "Qual sua disciplina", "Escolha sua materia", JOptionPane.PLAIN_MESSAGE, null, foundSector, "");
     
                 for (Sector sector : sectors) {
-                    if (dataString == sector.toString(true) )
+                    if (dataString == sector.getSectorName() )
                         data = sector;
                 }
 

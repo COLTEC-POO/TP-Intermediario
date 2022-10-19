@@ -132,28 +132,34 @@ public class mainBooking{
                             JOptionPane.showMessageDialog(null, "O horario já está agendado");
                             continue;
                         }
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy;HH:mm:ss");
+                        else if(posicao <= 20 && posicao > 0){
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy;HH:mm:ss");
 
-                        Date dBegin = null;
-                        do{
-                            
-                        String dataBegin = JOptionPane.showInputDialog(null, "Na posição " + posicao + " será agendado a partir de (dd-MM-yyyy;HH:mm:ss): ");//28-10-2022;12:50:00
-                        //JOptionPane.showMessageDialog(null, dataBegin);
-                        dBegin = sdf.parse(dataBegin);
-                        //JOptionPane.showMessageDialog(null, dBegin);
-                        } while(dBegin == null);
+                            Date dBegin = null;
+                            do{
+                                
+                            String dataBegin = JOptionPane.showInputDialog(null, "Na posição " + posicao + " será agendado a partir de (dd-MM-yyyy;HH:mm:ss): ");//28-10-2022;12:50:00
+                            //JOptionPane.showMessageDialog(null, dataBegin);
+                            dBegin = sdf.parse(dataBegin);
+                            //JOptionPane.showMessageDialog(null, dBegin);
+                            } while(dBegin == null);
 
-                        Date dEnd = null;
-                        do{
-                        String dataEnd = JOptionPane.showInputDialog(null, "A reserva da sala" + choice + " na posição " + posicao + " será de " + dBegin +" até (dd-MM-yyyy;HH:mm:ss):  ");
-                        dEnd =  (Date) sdf.parse(dataEnd);
-                        } while (dEnd == null);
+                            Date dEnd = null;
+                            do{
+                            String dataEnd = JOptionPane.showInputDialog(null, "A reserva da sala" + choice + " na posição " + posicao + " será de " + dBegin +" até (dd-MM-yyyy;HH:mm:ss):  ");
+                            dEnd =  (Date) sdf.parse(dataEnd);
+                            } while (dEnd == null);
 
-                        Teacher scheduledTeacher = (Teacher )user;
+                            Teacher scheduledTeacher = (Teacher )user;
 
-                        scheduled = new BookingClass(scheduledTeacher , scheduledTeacher.getDiscipline(), dBegin, dEnd);
+                            scheduled = new BookingClass(scheduledTeacher , scheduledTeacher.getDiscipline(), dBegin, dEnd);
 
-                        classrooms.get(classrooms.indexOf(rooms)).getReservation()[posicao - 1] = scheduled;
+                            classrooms.get(classrooms.indexOf(rooms)).getReservation()[posicao - 1] = scheduled;
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null, "Posição de agendamento invalido!");
+                            continue;
+                        }
                     }
                 }
             }

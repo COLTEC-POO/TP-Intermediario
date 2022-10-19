@@ -58,6 +58,6 @@ public class BookingClass {
     }
     
     public String getSchedule(){
-        return "Teacher: " + this.teacher.toString(true) + " Sector: " + this.sector.toString(true) + " Reservation Date: " + this.reservationStartDate + " to " + this.reservationEndDate;
+        return "Teacher: " + this.teacher.getUserName() + " Sector: " + this.sector.getSectorName() + " Reservation Date: " + this.reservationStartDate + " to " + this.reservationEndDate;
     }
 }
