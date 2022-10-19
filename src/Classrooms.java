@@ -33,6 +33,12 @@ public abstract class Classrooms {
     public BookingClass[] getReservation(){
         return this.reservation;
     }
+    public BookingClass getReservation(Integer index){
+        return this.reservation[index];
+    }
+    public Integer getMaxReservation(){
+        return maxReservations;
+    }
 
     //Setters
     public void setNumber(Integer number){

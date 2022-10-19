@@ -1,4 +1,4 @@
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Operacao.java
@@ -46,8 +46,8 @@ public class BookingClass {
         this.reservationEndDate = reservationEndDate;
     }
 
-    public BookingClass(Teacher teacher, Sector sector, Date begin, Date end){
-        setTeacher(teacher);
+    public BookingClass(User user, Sector sector, Date begin, Date end){
+        setTeacher((Teacher) user);
         setSector(sector);
         setReservationStartDate(begin);
         setReservationEndDate(end);
@@ -57,7 +57,7 @@ public class BookingClass {
         return "";
     }
     
-    public String toString(boolean complete){
-        return "Teacher: " + this.teacher.toString() + " Sector: " + this.sector.toString() + " Reservation Date: " + this.reservationStartDate + " to " + this.reservationEndDate;
+    public String getSchedule(){
+        return "Teacher: " + this.teacher.toString(true) + " Sector: " + this.sector.toString(true) + " Reservation Date: " + this.reservationStartDate + " to " + this.reservationEndDate;
     }
 }

@@ -31,6 +31,10 @@
         this.addNewUser();
     }
 
+    public String toString(Boolean onlyname){
+        return this.getUserName();
+    }
+
     public String toString(boolean complete){
         return "ID: " + this.getUserID() + " Name: " + this.getUserName() + " Discipline: " + this.getDiscipline();
     }

@@ -1,4 +1,6 @@
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.*;
 
@@ -6,8 +8,8 @@ public class mainSystem {
     
     static ArrayList<User> users = new ArrayList<>();
     static ArrayList<Sector> sectors = new ArrayList<>();
-    static ArrayList<Classrooms> classrooms = new ArrayList<>();
-    public static void main(String[] args){
+    public static ArrayList<Classrooms> classrooms = new ArrayList<>();
+    public static void main(String[] args) throws ParseException{
 
 
         String option = "";
@@ -52,6 +54,8 @@ public class mainSystem {
         classrooms.add(new ConventionalClass(206, 60));
         classrooms.add(new ConventionalClass(207, 60));
         classrooms.add(new ConventionalClass(208, 60));
+
+        classrooms.get(11).getReservation()[2] = new BookingClass(users.get(8) , users.get(8).getDiscipline(), new Date(2022, 10, 28, 12, 50),new Date(2022, 10, 28, 12, 50));
 
         //Software starts
         JOptionPane.showMessageDialog(null, "Bem vindo ao sistema de reserva!");

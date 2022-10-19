@@ -21,6 +21,9 @@ public abstract class User {
     public static Integer getQtdUser(){
         return User.qtdUser;
     }
+    public Sector getDiscipline(){
+        return null;
+    }
 
     public void setUserID(Integer userID){
         this.userID = userID;

@@ -1,3 +1,4 @@
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -5,7 +6,7 @@ import javax.swing.*;
 public class mainUser{
     
 
-    public void login(User user, ArrayList<Classrooms> classrooms){
+    public void login(User user, ArrayList<Classrooms> classrooms) throws ParseException{
 
         String option = "";
 
@@ -24,7 +25,13 @@ public class mainUser{
 
             }
             else if (result == JOptionPane.NO_OPTION){//Fazer uma reserva
-                
+                if(user instanceof Teacher){
+                    mainBooking see = new mainBooking();
+                    see.makeBookings(user, classrooms);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Você não pode fazer uma reserva!!");
+                }
             }
             else if (result == JOptionPane.CANCEL_OPTION){//Leave
                 JOptionPane.showMessageDialog(null, "Você fez logoff do sistema!!");
