@@ -59,22 +59,12 @@ public class Main {
         int numSala;
         int sala;
 
-        String dataReserva;
-        Date data;
-        SimpleDateFormat sdfData = new SimpleDateFormat("dd/MM/yy");
-
-        String horaReserva;
-        String horaFimReserva;
-        Date horaInicio;
-        Date horaFim;
-        SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm");
-
         char opcao;
         String[] opcoes = {
                 "0 - Sair do programa",
                 "1 - Listar salas disponíveis",
                 "2 - Listar todas as reservas",
-                "3 - Listar reserva de uma sala",
+                "3 - Listar reservas de uma sala",
                 "4 - Reservar uma sala"};
 
         do{
@@ -140,7 +130,17 @@ public class Main {
                             break;
                         }
 
-                        dataReserva = JOptionPane.showInputDialog("Informe a data da reserva (ex: 03/10/2022):");
+                        String dataReserva;
+                        Date data;
+                        SimpleDateFormat sdfData = new SimpleDateFormat("dd/MM/yy");
+
+                        String horaReserva;
+                        String horaFimReserva;
+                        Date horaInicio;
+                        Date horaFim;
+                        SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm");
+
+                        dataReserva = JOptionPane.showInputDialog("Informe a data da reserva (ex: 25/10/2022):");
                         horaReserva = JOptionPane.showInputDialog("Informe a hora de início da reserva (ex: 15:30):");
                         horaFimReserva = JOptionPane.showInputDialog("Informe a hora de fim da reserva (ex: 17:30):");
 
@@ -188,15 +188,15 @@ public class Main {
 
     //Função usada para listar todas as salas disponíveis
     private static void listarSalas(Sala[] salas){
-        StringBuilder strSalas = new StringBuilder("Salas disponíveis\n\n");
+        String strSalas = "Salas disponíveis\n\n";
 
         for(int i = 0; i < Sala.numSalasRegistradas; i++){
             if(salas[i].isDisponivel() && salas[i].getNumReservas() < Reserva.numMaxReservas){
                 if(salas[i] instanceof Laboratorio) {
-                    strSalas.append("Laboratorio ").append(salas[i].getNumSala()).append("\n");
+                    strSalas += "Laboratorio " + salas[i].getNumSala() + ("\n");
                 }
                 else{
-                    strSalas.append("Sala ").append(salas[i].getNumSala()).append("\n");
+                    strSalas += "Sala " + salas[i].getNumSala() + ("\n");
                 }
             }
         }
@@ -205,14 +205,14 @@ public class Main {
 
     //Função usada para listar todas as reservas
     private static void listarReservas(Sala[] salas){
-        StringBuilder strReservas = new StringBuilder("Lista de salas reservadas\n\n");
+        String strReservas = "Lista de salas reservadas\n\n";
 
         for(Sala sala: salas){
             if (sala == null) {
                 break;
             }
             if(sala.getNumReservas() > 0){
-                strReservas.append(sala.listarReservas()).append("\n");
+                strReservas += sala.listarReservas() + ("\n");
             }
         }
         JOptionPane.showMessageDialog(null, strReservas.toString());

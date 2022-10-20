@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public abstract class Sala {
@@ -9,6 +10,7 @@ public abstract class Sala {
     protected int numReservas = 0;
     private int capacidade;
     private boolean disponivel;
+    private char tipo;
 
     //Getters and Setters
 
@@ -42,10 +44,11 @@ public abstract class Sala {
 
     //Métodos
 
-    Sala(int numSala, int capacidade, boolean disponivel){
+    Sala(int numSala, int capacidade, boolean disponivel, char tipo){
         this.numSala = numSala;
         this.capacidade = capacidade;
         this.disponivel = disponivel;
+        this.tipo = tipo;
         listaReservas = new Reserva[Reserva.numMaxReservas];
         Sala.numSalasRegistradas++;
     }
@@ -63,18 +66,18 @@ public abstract class Sala {
 
                     long inicioAtual = this.listaReservas[i].getHorarioInicio().getTime();
                     long fimAtual = this.listaReservas[i].getHorarioFim().getTime();
-                    long inicio = horarioInicio.getTime();
-                    long fim = horarioFim.getTime();
+                    long inicioReserva = horarioInicio.getTime();
+                    long fimReserva = horarioFim.getTime();
 
-                    if((inicio >= inicioAtual && horarioInicio.getTime() <= fimAtual) ||
-                            (fim >= inicioAtual && fim <= fimAtual) ||
-                            (inicioAtual >= inicio && inicioAtual <= fim)){
+                    if((inicioReserva >= inicioAtual && inicioReserva <= fimAtual) || //Reserva que começa durante uma reserva ja feita
+                            (fimReserva >= inicioAtual && fimReserva <= fimAtual) || //Reserva que termina durante uma reserva ja feita
+                            (inicioAtual >= inicioReserva && inicioAtual <= fimReserva)){ //Reserva que começa antes e termina depois de uma reserva ja feita
                         JOptionPane.showMessageDialog(null, "Já existe uma reserva nesse intervalo de horário");
                         disponivel = false;
                     }
                 }
             }
-            //Se não existir uma reserva no horário informado a reserva é criada
+            //Se não existir uma reserva na data e horário informados a reserva é criada
             if(disponivel){
                 listaReservas[this.numReservas] = new Reserva(data, horarioInicio, horarioFim, nomeProfessor, setor);
                 this.numReservas++;
@@ -88,7 +91,38 @@ public abstract class Sala {
     }
 
     //Função usada para listar as reservas da sala
-    public abstract String listarReservas();
+    public  String listarReservas(){
+        String strReservas;
+
+        //Verifica se existe alguma reserva na sala
+        if(this.numReservas > 0) {
+            SimpleDateFormat sdfData = new SimpleDateFormat("dd/MMM/yyyy");
+            SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm");
+            if(this.tipo == 's')
+                strReservas = "Reservas da sala " + this.numSala + "\n";
+            else
+                strReservas = "Reservas do Laboratório " + this.numSala + "\n";
+
+            for (Reserva reserva : this.listaReservas) {
+                if (reserva == null) {
+                    break;
+                }
+
+                String nomeProfessor = reserva.getNomeProfessor();
+                String setorProfessor = reserva.getSetorProfessor();
+                String dataRerva = sdfData.format(reserva.getData());
+                String horaInicio = sdfHora.format(reserva.getHorarioInicio());
+                String horaFim = sdfHora.format(reserva.getHorarioFim());
+
+                strReservas += "\nProfessor: " + nomeProfessor +"\nSetor: " + setorProfessor +
+                        "\nData: " + dataRerva + "\nHorário: " + horaInicio + " às " + horaFim + "\n";
+            }
+        }
+        else{
+            strReservas =  "Nenhuma reserva feita na sala ";
+        }
+        return strReservas;
+    }
 
     //Função usada para ordernas as reservas
     public void ordenarReservas(Reserva[] reservas) {
