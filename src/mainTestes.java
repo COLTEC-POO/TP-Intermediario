@@ -17,8 +17,13 @@ public class mainTestes {
         tylerConcerto.VenderIngressos(vip);
         tylerConcerto.VenderIngressos(padrao);
 
+        // Imprimindo a classe Evento
         System.out.println(tylerConcerto.toString());
+
+        // Espaco em branco
         System.out.println();
+
+        // Renda gerada pelo evento
         tylerConcerto.imprimirExtrato();
 
     }

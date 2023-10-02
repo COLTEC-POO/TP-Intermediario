@@ -51,6 +51,17 @@ public class Eventos {
         totalVIP++;
     }
 
+    // Métodos para incrementar o total de vendas de cada tipo de ingresso
+    public int getTotalNormal() {
+        return totalNormal;
+    }
+    public int getTotalMeia() {
+        return totalMeia;
+    }
+    public int getTotalVIP() {
+        return totalVIP;
+    }
+
     // Método para verificar se o evento é acessível ou não e retornar uma mensagem correspondente
     public String eAcessivel() {
         if(eAcessivel) {
@@ -71,18 +82,19 @@ public class Eventos {
         return numIngressos;
     }
 
-    // Método para delimitar o limite dos ingressos dos Eventos
+    // Vendendo Ingressos
     public void VenderIngressos(Ingresso tipoIngresso){
+        // Conferindo se o numero de ingressos vai ultrapassar o limite by P.
         if(numIngressos >= LIMITE_INGRESSOS){
             System.out.println("Limite de ingressos atingido!");
         } else{
-            // Salvando o ingresso vendido no array de ingressos
+            // Salvando o ingresso vendido no array de ingressos by P.
             vendasIngressos[numIngressos] = tipoIngresso;
 
-            // Adiciona a quantidade de ingressos vendidos até atingir o limite
+            // Adiciona a quantidade de ingressos vendidos até atingir o limite by P.
             numIngressos++;
 
-            // Checando qual tipo de ingresso vai aumentar
+            // Checando qual tipo de ingresso vai aumentar, usando logica de equals by D.
             if(tipoIngresso instanceof  Ingresso.ingressoPadrao) {
                 incrementarTotalNormal();
             } else if (tipoIngresso instanceof Ingresso.meiaEntrada) {
@@ -95,20 +107,24 @@ public class Eventos {
 
     public void imprimirExtrato() {
         String tipoEvento = getTipo(); // Obtém o tipo de evento
-        System.out.println("Extrato do Evento: " + this.nome + " - Tipo: " + tipoEvento);
+        System.out.println("Extrato do Evento: " + this.nome + " - " + tipoEvento);
 
         double receitaTotal = 0;
 
         // Loop para imprimir detalhes de cada ingresso vendido
         for (int i = 0; i < numIngressos; i++) {
             Ingresso ingresso = vendasIngressos[i];
-            System.out.println(" " + ingresso.data + " | " + ingresso.getTipoIngresso() + " - " + ingresso.getPreco());
+            System.out.println(ingresso.data + " | " + ingresso.getTipoIngresso() + " - " + ingresso.getPreco());
             receitaTotal += ingresso.getPreco();
         }
-
         System.out.println();
         System.out.println("Total de ingressos vendidos: " + numIngressos);
         System.out.println("Receita total gerada: " + receitaTotal);
+        System.out.println();
+
+        System.out.println("Total de ingressos Padrao: " + getTotalNormal());
+        System.out.println("Total de ingressos MeiaEntrada " + getTotalMeia());
+        System.out.println("Total de ingressos VIP " + getTotalVIP());
     }
 
 
