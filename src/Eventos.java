@@ -21,11 +21,10 @@ public class Eventos {
     private int totalNormal, totalMeia, totalVIP;
 
     // Constructor de Eventos
-    public Eventos(String nome, Boolean eAcessivel, Ingresso ingresso) {
+    public Eventos(String nome, Boolean eAcessivel) {
         this.nome = nome;
         this.data = new Date();
         this.eAcessivel = eAcessivel;
-        this.ingresso = ingresso;
 
         // Inicializa um array para armazenar vendas de ingressos, necessario para imprimir os diferentes tipos juntos
         this.vendasIngressos = new Ingresso[1000];
@@ -64,7 +63,7 @@ public class Eventos {
     // Método para representar o objeto Eventos como uma string formatada
 
     public String toString() {
-        return "Nome: " + this.nome + " \nData: " + this.data + "\nÉ acessível? " + eAcessivel() + "\nIngresso: " + ingresso.toString();
+        return "Nome: " + this.nome + " \nData: " + this.data + "\nÉ acessível? " + eAcessivel();
     }
 
     // Método para obter a quantidade de ingressos vendidos
@@ -96,7 +95,7 @@ public class Eventos {
 
     public void imprimirExtrato() {
         String tipoEvento = getTipo(); // Obtém o tipo de evento
-        System.out.println("Extrato do Evento: " + this.nome + tipoEvento);
+        System.out.println("Extrato do Evento: " + this.nome + " - Tipo: " + tipoEvento);
 
         double receitaTotal = 0;
 
@@ -115,9 +114,9 @@ public class Eventos {
 
     public static class Filme extends Eventos{
 
-        public Filme(String nome, Boolean eAcessivel, Ingresso ingresso){
+        public Filme(String nome, Boolean eAcessivel){
             //Atributos da superclasse
-            super(nome,eAcessivel, ingresso);
+            super(nome,eAcessivel);
 
             // Define o limite de ingressos específico para Filme
             this.LIMITE_INGRESSOS = 2;
@@ -132,9 +131,9 @@ public class Eventos {
 
     public static class Concerto extends Eventos{
 
-        public Concerto(String nome, Boolean eAcessivel, Ingresso ingresso){
+        public Concerto(String nome, Boolean eAcessivel){
             //Atributos da superclasse
-            super(nome,eAcessivel, ingresso);
+            super(nome,eAcessivel);
 
             // Define o limite de ingressos específico para Concerto
             this.LIMITE_INGRESSOS = 3;
@@ -149,9 +148,9 @@ public class Eventos {
 
     public static class Teatro extends Eventos{
 
-        public Teatro(String nome, Boolean eAcessivel, Ingresso ingresso){
+        public Teatro(String nome, Boolean eAcessivel){
             //Atributos da superclasse
-            super(nome,eAcessivel, ingresso);
+            super(nome,eAcessivel);
 
             // Define o limite de ingressos específico para Teatro
             this.LIMITE_INGRESSOS = 2;

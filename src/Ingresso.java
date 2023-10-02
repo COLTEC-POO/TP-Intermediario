@@ -44,7 +44,7 @@ public class Ingresso {
 
         @Override
         public String toString() {
-            return this.data + " Ingresso Padrao " + this.preco;
+            return this.data + "Ingresso Padrao" + this.preco;
         }
     }
 
@@ -60,7 +60,7 @@ public class Ingresso {
 
         @Override
         public String toString() {
-            return this.data + " Meia Entrada " + this.preco;
+            return this.data + "Meia Entrada" + this.preco;
         }
     }
 
@@ -68,9 +68,14 @@ public class Ingresso {
 
         public VIP(double preco) {
             // Chama os dados da superclasse com o tipo e o preço ajustado para meia entrada
-            super(" VIP ", preco * 2 );
+            super("VIP", preco * 2 );
             // Aumenta o numero de ingressos vendidos
             VendaIngresso++;
+        }
+
+        @Override
+        public String toString() {
+            return this.data + "VIP" + this.preco;
         }
     }
 }
