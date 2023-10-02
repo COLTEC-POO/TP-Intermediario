@@ -9,7 +9,7 @@ public class mainTestes {
 
         Ingresso.VIP  vip = new Ingresso.VIP(preco);
 
-        Eventos tylerConcerto = new Eventos.Concerto("Tyler", true, padrao);
+        Eventos tylerConcerto = new Eventos.Teatro("Tyler", true, padrao);
 
         // Limite de 3, então o último ingresso não é contabilizado
         tylerConcerto.VenderIngressos(padrao);

@@ -147,4 +147,21 @@ public class Eventos {
         }
     }
 
+    public static class Teatro extends Eventos{
+
+        public Teatro(String nome, Boolean eAcessivel, Ingresso ingresso){
+            //Atributos da superclasse
+            super(nome,eAcessivel, ingresso);
+
+            // Define o limite de ingressos específico para Teatro
+            this.LIMITE_INGRESSOS = 2;
+        }
+
+        @Override
+        // Método para obter o tipo de evento (será implementado nas subclasses)
+        public String getTipo() {
+            return " Teatro ";
+        }
+    }
+
 }
