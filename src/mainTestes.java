@@ -9,16 +9,13 @@ public class mainTestes {
 
         Ingresso.VIP  vip = new Ingresso.VIP(preco);
 
-
-        // Cria 3 eventos diferentes para testar a venda de ingressos
         Eventos tylerConcerto = new Eventos.Concerto("Tyler", true, padrao);
 
+        // Limite de 3, então o último ingresso não é contabilizado
         tylerConcerto.VenderIngressos(padrao);
         tylerConcerto.VenderIngressos(meia);
         tylerConcerto.VenderIngressos(vip);
         tylerConcerto.VenderIngressos(padrao);
-
-
 
         System.out.println(tylerConcerto.toString());
         System.out.println();

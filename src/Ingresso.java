@@ -44,7 +44,7 @@ public class Ingresso {
 
         @Override
         public String toString() {
-            return this.data + " Meia Entrada " + this.preco;
+            return this.data + " Ingresso Padrao " + this.preco;
         }
     }
 

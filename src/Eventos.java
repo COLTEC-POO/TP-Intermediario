@@ -34,11 +34,6 @@ public class Eventos {
         // Inicializa 0 número limite de ingressos vendidos como 0, para obter seu limite real em cada subclasse de evento
         this.LIMITE_INGRESSOS = 0;
 
-
-        // Inicializando a quantidade de ingressos para cada tipo
-        int totalNormal = 0;
-        int totalMeia = 0;
-        int totalVIP = 0;
     }
 
     // Método para obter o tipo de evento (será implementado nas subclasses)
@@ -55,20 +50,6 @@ public class Eventos {
     }
     public void incrementarTotalVIP() {
         totalVIP++;
-    }
-
-    // Métodos para pegar o total de vendas de cada tipo de ingresso
-    public int getTotalNormal() {
-        return totalNormal;
-    }
-
-    public int getTotalMeia() {
-        return totalMeia;
-    }
-
-    // Método para obter o total de vendas de ingressos VIP
-    public int getTotalVIP() {
-        return totalVIP;
     }
 
     // Método para verificar se o evento é acessível ou não e retornar uma mensagem correspondente
@@ -115,7 +96,7 @@ public class Eventos {
 
     public void imprimirExtrato() {
         String tipoEvento = getTipo(); // Obtém o tipo de evento
-        System.out.println("Extrato do Evento: " + tipoEvento + " - " + this.nome);
+        System.out.println("Extrato do Evento: " + this.nome + tipoEvento);
 
         double receitaTotal = 0;
 
@@ -163,23 +144,6 @@ public class Eventos {
         // Método para obter o tipo de evento (será implementado nas subclasses)
         public String getTipo() {
             return " Concerto ";
-        }
-    }
-
-    public static class Teatro extends Eventos{
-
-        public Teatro(String nome, Boolean eAcessivel, Ingresso ingresso){
-            //Atributos da superclasse
-            super(nome,eAcessivel, ingresso);
-
-            // Define o limite de ingressos específico para Teatro
-            this.LIMITE_INGRESSOS = 1;
-        }
-
-        @Override
-        // Método para obter o tipo de evento (será implementado nas subclasses)
-        public String getTipo() {
-            return " Teatro ";
         }
     }
 
