@@ -33,6 +33,21 @@ public class Ingresso {
         return tipo;
     }
 
+    public static class ingressoPadrao extends Ingresso {
+
+        public ingressoPadrao(double preco) {
+            // Chama os dados da superclasse com o tipo e o preço ajustado para meia entrada
+            super("Ingresso Padrao", preco);
+            // Aumenta o numero de ingressos vendidos
+            VendaIngresso++;
+        }
+
+        @Override
+        public String toString() {
+            return this.data + " Meia Entrada " + this.preco;
+        }
+    }
+
     // Subclasse meiaEntrada que representa um ingresso de meia entrada
     public static class meiaEntrada extends Ingresso {
 
