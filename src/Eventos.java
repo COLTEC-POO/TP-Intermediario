@@ -35,6 +35,7 @@ public class Eventos {
         this.LIMITE_INGRESSOS = 0;
 
 
+        // Inicializando a quantidade de ingressos para cada tipo
         int totalNormal = 0;
         int totalMeia = 0;
         int totalVIP = 0;
