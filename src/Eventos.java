@@ -1,12 +1,16 @@
+// Importando JOptionPane
 import javax.swing.*;
-import java.util.Date;
+
+// Importando a formatação de data
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 // A classe Eventos representa eventos que podem ocorrer em uma data específica.
 public class Eventos {
 
     // Atributos base
     String nome;
-    Date data;
+    LocalDate data;
     Boolean eAcessivel;
     String horario;
     Ingresso ingresso;
@@ -23,9 +27,9 @@ public class Eventos {
     private int totalNormal, totalMeia, totalVIP;
 
     // Constructor de Eventos
-    public Eventos(String nome, Boolean eAcessivel, String horario) {
+    public Eventos(String nome, Boolean eAcessivel, String horario, LocalDate data) {
         this.nome = nome;
-        this.data = new Date();
+        this.data = data;
         this.eAcessivel = eAcessivel;
         this.horario = horario;
 
@@ -81,7 +85,12 @@ public class Eventos {
 
     // Método para representar o objeto Eventos como uma string formatada
     public String toString() {
-        return "Nome: " + this.nome + " \nData: " + this.data + "\nÉ acessível? " + eAcessivel();
+        // Converter a string da data em um objeto LocalDate usando DateTimeFormatter
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        String dataFormatada = data.format(dateFormatter);
+
+        return "Nome: " + this.nome + " \nData: " + dataFormatada + " - Horário: " + this.horario + "\nÉ acessível? " + eAcessivel();
     }
 
     public static void imprimirEventos(Eventos[] eventos) {
@@ -140,20 +149,31 @@ public class Eventos {
         }
     }
 
-    public Eventos criarEvento() {
+    public static Eventos criarEvento() {
+        // Atribuindo o resultado de Input para String nome
         String nome = JOptionPane.showInputDialog("Digite o nome do evento:");
-        Date data = new Date();
+
+        // Atribuindo o resultado de Input para boolean eAcessivel
         boolean eAcessivel = JOptionPane.showInputDialog("O evento é acessível? (Sim ou Não)").equalsIgnoreCase("sim");
+
+        // Atribuindo o resultado de Input para String horario
         String horario = JOptionPane.showInputDialog("Digite o horário do evento:");
 
-        return new Eventos(nome, eAcessivel, horario);
+        // Pegar a data do usuário
+        String dataString = JOptionPane.showInputDialog("Digite a data do evento (no formato dd/MM/yyyy):");
+
+        // Converter a string da data em um objeto LocalDate usando DateTimeFormatter
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate data = LocalDate.parse(dataString, formatter);
+
+        return new Eventos(nome, eAcessivel, horario, data);
     }
 
     public static class Filme extends Eventos{
 
-        public Filme(String nome, Boolean eAcessivel, String horario){
+        public Filme(String nome, Boolean eAcessivel, String horario, LocalDate data){
             //Atributos da superclasse
-            super(nome,eAcessivel, horario);
+            super(nome,eAcessivel, horario, data);
 
             // Define o limite de ingressos específico para Filme
             this.LIMITE_INGRESSOS = 5;
@@ -168,9 +188,9 @@ public class Eventos {
 
     public static class Concerto extends Eventos{
 
-        public Concerto(String nome, Boolean eAcessivel, String horario){
+        public Concerto(String nome, Boolean eAcessivel, String horario, LocalDate data){
             //Atributos da superclasse
-            super(nome,eAcessivel, horario);
+            super(nome,eAcessivel, horario, data);
 
             // Define o limite de ingressos específico para Concerto
             this.LIMITE_INGRESSOS = 3;
@@ -185,9 +205,9 @@ public class Eventos {
 
     public static class Teatro extends Eventos{
 
-        public Teatro(String nome, Boolean eAcessivel, String horario){
+        public Teatro(String nome, Boolean eAcessivel, String horario, LocalDate data){
             //Atributos da superclasse
-            super(nome,eAcessivel, horario);
+            super(nome,eAcessivel, horario, data);
 
             // Define o limite de ingressos específico para Teatro
             this.LIMITE_INGRESSOS = 2;
