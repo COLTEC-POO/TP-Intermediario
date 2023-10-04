@@ -9,19 +9,17 @@ public class mainTestes {
 
         Ingresso.VIP  vip = new Ingresso.VIP(preco);
 
-        Eventos tylerConcerto = new Eventos.Concerto("Tyler", true);
-        Eventos tylerFilme = new Eventos.Filme("TylerFilme", true);
-
-
-        Eventos[] eventos = { tylerConcerto, tylerFilme };
+        Eventos[] eventos = new Eventos[2];
+        eventos[0] = new Eventos.Concerto("Tyler", true);
+        eventos[1] = new Eventos.Filme("TylerFilme", true);
 
         // Limite de 3, então o último ingresso não é contabilizado
-        tylerConcerto.VenderIngressos(padrao);
-        tylerConcerto.VenderIngressos(meia);
-        tylerConcerto.VenderIngressos(vip);
-        tylerConcerto.VenderIngressos(padrao);
+        eventos[0].VenderIngressos(padrao);
+        eventos[0].VenderIngressos(meia);
+        eventos[0].VenderIngressos(vip);
+        eventos[0].VenderIngressos(padrao);
 
-        // Chamando a função para imprimir os eventos
+        // Chamando a função para imprimir os eventos com os respectivos extratos
         Eventos.imprimirEventos(eventos);
     }
 }
