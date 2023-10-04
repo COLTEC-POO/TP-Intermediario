@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.Date;
 
 // A classe Eventos representa eventos que podem ocorrer em uma data específica.
@@ -64,6 +65,12 @@ public class Eventos {
         return totalVIP;
     }
 
+    public void criarEvento() {
+        this.nome = JOptionPane.showInputDialog("Digite o nome do evento:");
+        this.eAcessivel = JOptionPane.showInputDialog("O evento é acessível? (Sim ou Não)")
+                .equalsIgnoreCase("sim");
+    }
+
     // Método para verificar se o evento é acessível ou não e retornar uma mensagem correspondente
     public String eAcessivel() {
         if(eAcessivel) {
@@ -128,6 +135,7 @@ public class Eventos {
             System.out.println(ingresso.data + " | " + ingresso.getTipoIngresso() + " - " + ingresso.getPreco());
             receitaTotal += ingresso.getPreco();
         }
+        // Imprimindo o total
         System.out.println();
         System.out.println("Total de ingressos vendidos: " + numIngressos);
         System.out.println("Receita total gerada: " + receitaTotal);

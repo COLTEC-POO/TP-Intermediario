@@ -17,7 +17,7 @@ public class Ingresso {
     // Isso vai ser abstrato
     // Funcao para pegar os detalhes para impressao como data, tipo, preco
     public String toString() {
-        return this.data + " " + this.tipo + " " +  this.preco;
+        return this.data + "  " + this.tipo + "  " +  this.preco;
     }
 
     // Isso vai ser abstrato
