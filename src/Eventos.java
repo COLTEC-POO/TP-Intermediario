@@ -8,9 +8,10 @@ public class Eventos {
     String nome;
     Date data;
     Boolean eAcessivel;
+    String horario;
     Ingresso ingresso;
-
     Ingresso[] vendasIngressos;
+
 
     // Contador para o número de ingressos vendidos para este evento
     int numIngressos;
@@ -22,20 +23,19 @@ public class Eventos {
     private int totalNormal, totalMeia, totalVIP;
 
     // Constructor de Eventos
-    public Eventos(String nome, Boolean eAcessivel) {
+    public Eventos(String nome, Boolean eAcessivel, String horario) {
         this.nome = nome;
         this.data = new Date();
         this.eAcessivel = eAcessivel;
+        this.horario = horario;
+
+        this.LIMITE_INGRESSOS = 10;
 
         // Inicializa um array para armazenar vendas de ingressos, necessario para imprimir os diferentes tipos juntos
-        this.vendasIngressos = new Ingresso[1000];
+        this.vendasIngressos = new Ingresso[LIMITE_INGRESSOS];
 
         // Inicializa o número de ingressos vendidos como 0, necessario para "extrato" depois
         this.numIngressos = 0;
-
-        // Inicializa 0 número limite de ingressos vendidos como 0, para obter seu limite real em cada subclasse de evento
-        this.LIMITE_INGRESSOS = 0;
-
     }
 
     // Método para obter o tipo de evento (será implementado nas subclasses)
@@ -65,10 +65,9 @@ public class Eventos {
         return totalVIP;
     }
 
-    public void criarEvento() {
-        this.nome = JOptionPane.showInputDialog("Digite o nome do evento:");
-        this.eAcessivel = JOptionPane.showInputDialog("O evento é acessível? (Sim ou Não)")
-                .equalsIgnoreCase("sim");
+    // Método para obter a quantidade de ingressos vendidos
+    public int getNumIngressos() {
+        return numIngressos;
     }
 
     // Método para verificar se o evento é acessível ou não e retornar uma mensagem correspondente
@@ -91,35 +90,7 @@ public class Eventos {
             System.out.println(evento.toString());
             System.out.println();
             evento.imprimirExtrato();
-            System.out.println("----------------------------------------");
-        }
-    }
-
-    // Método para obter a quantidade de ingressos vendidos
-    public int getNumIngressos() {
-        return numIngressos;
-    }
-
-    // Vendendo Ingressos
-    public void VenderIngressos(Ingresso tipoIngresso){
-        // Conferindo se o numero de ingressos vai ultrapassar o limite by P.
-        if(numIngressos >= LIMITE_INGRESSOS){
-            System.out.println("Limite de ingressos atingido!");
-        } else{
-            // Salvando o ingresso vendido no array de ingressos by P.
-            vendasIngressos[numIngressos] = tipoIngresso;
-
-            // Adiciona a quantidade de ingressos vendidos até atingir o limite by P.
-            numIngressos++;
-
-            // Checando qual tipo de ingresso vai aumentar, usando logica de equals by D.
-            if(tipoIngresso instanceof  Ingresso.ingressoPadrao) {
-                incrementarTotalNormal();
-            } else if (tipoIngresso instanceof Ingresso.meiaEntrada) {
-                incrementarTotalMeia();
-            } else if (tipoIngresso instanceof  Ingresso.VIP) {
-                incrementarTotalVIP();
-            }
+            System.out.println();
         }
     }
 
@@ -146,15 +117,46 @@ public class Eventos {
         System.out.println("Total de ingressos VIP " + getTotalVIP());
     }
 
+    // Vendendo Ingressos
+    public void VenderIngressos(Ingresso tipoIngresso){
+        // Conferindo se o numero de ingressos vai ultrapassar o limite by P.
+        if(numIngressos >= LIMITE_INGRESSOS){
+            System.out.println("Limite de ingressos atingido!");
+        } else{
+            // Salvando o ingresso vendido no array de ingressos by P.
+            vendasIngressos[numIngressos] = tipoIngresso;
+
+            // Adiciona a quantidade de ingressos vendidos até atingir o limite by P.
+            numIngressos++;
+
+            // Checando qual tipo de ingresso vai aumentar, usando logica de equals by D.
+            if(tipoIngresso instanceof  Ingresso.ingressoPadrao) {
+                incrementarTotalNormal();
+            } else if (tipoIngresso instanceof Ingresso.meiaEntrada) {
+                incrementarTotalMeia();
+            } else if (tipoIngresso instanceof  Ingresso.VIP) {
+                incrementarTotalVIP();
+            }
+        }
+    }
+
+    public Eventos criarEvento() {
+        String nome = JOptionPane.showInputDialog("Digite o nome do evento:");
+        Date data = new Date();
+        boolean eAcessivel = JOptionPane.showInputDialog("O evento é acessível? (Sim ou Não)").equalsIgnoreCase("sim");
+        String horario = JOptionPane.showInputDialog("Digite o horário do evento:");
+
+        return new Eventos(nome, eAcessivel, horario);
+    }
 
     public static class Filme extends Eventos{
 
-        public Filme(String nome, Boolean eAcessivel){
+        public Filme(String nome, Boolean eAcessivel, String horario){
             //Atributos da superclasse
-            super(nome,eAcessivel);
+            super(nome,eAcessivel, horario);
 
             // Define o limite de ingressos específico para Filme
-            this.LIMITE_INGRESSOS = 2;
+            this.LIMITE_INGRESSOS = 5;
         }
 
         @Override
@@ -166,9 +168,9 @@ public class Eventos {
 
     public static class Concerto extends Eventos{
 
-        public Concerto(String nome, Boolean eAcessivel){
+        public Concerto(String nome, Boolean eAcessivel, String horario){
             //Atributos da superclasse
-            super(nome,eAcessivel);
+            super(nome,eAcessivel, horario);
 
             // Define o limite de ingressos específico para Concerto
             this.LIMITE_INGRESSOS = 3;
@@ -183,9 +185,9 @@ public class Eventos {
 
     public static class Teatro extends Eventos{
 
-        public Teatro(String nome, Boolean eAcessivel){
+        public Teatro(String nome, Boolean eAcessivel, String horario){
             //Atributos da superclasse
-            super(nome,eAcessivel);
+            super(nome,eAcessivel, horario);
 
             // Define o limite de ingressos específico para Teatro
             this.LIMITE_INGRESSOS = 2;

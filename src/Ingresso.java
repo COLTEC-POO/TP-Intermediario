@@ -17,7 +17,7 @@ public class Ingresso {
     // Isso vai ser abstrato
     // Funcao para pegar os detalhes para impressao como data, tipo, preco
     public String toString() {
-        return this.data + "  " + this.tipo + "  " +  this.preco;
+        return "Data: " + this.data + "\nTipo: " + this.tipo + "\nPreço: " + this.preco;
     }
 
     // Isso vai ser abstrato
@@ -40,8 +40,9 @@ public class Ingresso {
 
         @Override
         public String toString() {
-            return this.data + "Ingresso Padrao" + this.preco;
+            return "Data: " + this.data + " | Tipo: " + " Ingresso Padrão " + "- Preço: " + this.preco;
         }
+
     }
 
     // Subclasse meiaEntrada que representa um ingresso de meia entrada
@@ -55,8 +56,10 @@ public class Ingresso {
 
         @Override
         public String toString() {
-            return this.data + "Meia Entrada" + this.preco;
+            return "Data: " + this.data + " | Tipo: " + " Meia Entrada " + "- Preço: " + this.preco;
         }
+
+
     }
 
     public static class VIP extends Ingresso {
@@ -68,7 +71,7 @@ public class Ingresso {
 
         @Override
         public String toString() {
-            return this.data + "VIP" + this.preco;
+            return "Data: " + this.data + " | Tipo: " + " VIP " + "-Preço: " + this.preco;
         }
     }
 }

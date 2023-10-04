@@ -10,8 +10,8 @@ public class mainTestes {
         Ingresso.VIP  vip = new Ingresso.VIP(preco);
 
         Eventos[] eventos = new Eventos[2];
-        eventos[0] = new Eventos.Concerto("Tyler", true);
-        eventos[1] = new Eventos.Filme("TylerFilme", true);
+        eventos[0] = new Eventos.Concerto("Tyler", true, "15:30");
+        eventos[1] = new Eventos.Filme("Anjos Da Lei", true, "20:30");
 
         // Limite de 3, então o último ingresso não é contabilizado
         eventos[0].VenderIngressos(padrao);
@@ -20,6 +20,7 @@ public class mainTestes {
         eventos[0].VenderIngressos(padrao);
 
         // Chamando a função para imprimir os eventos com os respectivos extratos
+        System.out.println();
         Eventos.imprimirEventos(eventos);
     }
 }
