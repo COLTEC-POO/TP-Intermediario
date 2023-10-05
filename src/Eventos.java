@@ -90,7 +90,7 @@ public class Eventos {
 
         String dataFormatada = data.format(dateFormatter);
 
-        return "Nome: " + this.nome + " \nData: " + dataFormatada + " - Horário: " + this.horario + "\nÉ acessível? " + eAcessivel();
+        return "Nome: " + this.nome + "\nTipo: " + this.getTipo() + " \nData: " + dataFormatada + " - Horário: " + this.horario + "\nÉ acessível? " + eAcessivel();
     }
 
     public static void imprimirEventos(Eventos[] eventos) {
@@ -149,24 +149,54 @@ public class Eventos {
         }
     }
 
-    public static Eventos criarEvento() {
-        // Atribuindo o resultado de Input para String nome
-        String nome = JOptionPane.showInputDialog("Digite o nome do evento:");
+    public static Eventos[] criarEvento() {
 
-        // Atribuindo o resultado de Input para boolean eAcessivel
-        boolean eAcessivel = JOptionPane.showInputDialog("O evento é acessível? (Sim ou Não)").equalsIgnoreCase("sim");
+        Eventos[] eventos = new Eventos[3];
+        int numEventosCriados = 0;
 
-        // Atribuindo o resultado de Input para String horario
-        String horario = JOptionPane.showInputDialog("Digite o horário do evento:");
+        while (numEventosCriados < eventos.length) {
+            // Salvando string em nome
+            String nome = JOptionPane.showInputDialog("Digite o nome do evento:");
 
-        // Pegar a data do usuário
-        String dataString = JOptionPane.showInputDialog("Digite a data do evento (no formato dd/MM/yyyy):");
+            // Salvando o boolean em eAcessivel
+            boolean eAcessivel = JOptionPane.showInputDialog("O evento é acessível? (Sim ou Não)").equalsIgnoreCase("sim");
 
-        // Converter a string da data em um objeto LocalDate usando DateTimeFormatter
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate data = LocalDate.parse(dataString, formatter);
+            // Salvando string de horario
+            String horario = JOptionPane.showInputDialog("Digite o horário do evento:");
 
-        return new Eventos(nome, eAcessivel, horario, data);
+            //
+            String dataString = JOptionPane.showInputDialog("Digite a data do evento (no formato dd/MM/yyyy):");
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate data = LocalDate.parse(dataString, formatter);
+
+            String tipoEvento = JOptionPane.showInputDialog("Digite o tipo do evento (Filme, Concerto, ou Teatro):");
+
+            switch (tipoEvento.toLowerCase()) {
+                case "filme":
+                    eventos[numEventosCriados] = new Eventos.Filme(nome, eAcessivel, horario, data);
+                    break;
+                case "concerto":
+                    eventos[numEventosCriados] = new Eventos.Concerto(nome, eAcessivel, horario, data);
+                    break;
+                case "teatro":
+                    eventos[numEventosCriados] = new Eventos.Teatro(nome, eAcessivel, horario, data);
+                    break;
+                default:
+                    System.out.println("Tipo de evento inválido!");
+                    continue;  // Skip the current iteration and ask for event details again
+            }
+
+            numEventosCriados++;
+
+            // Ask user if they want to add more events
+            int choice = JOptionPane.showConfirmDialog(null, "Deseja adicionar outro evento?", "Adicionar Evento", JOptionPane.YES_NO_OPTION);
+            if (choice != JOptionPane.YES_OPTION) {
+                break; // Exit loop if the user chooses not to add more events
+            }
+        }
+
+        return eventos;
     }
 
     public static class Filme extends Eventos{
