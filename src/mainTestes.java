@@ -22,6 +22,10 @@ public class mainTestes {
                     eventos = Eventos.criarEvento();
                     break;
 
+                case 2:
+
+                    break;
+
                 case 3:
                     if(eventos != null) {
                         Eventos.imprimirEventos(eventos);

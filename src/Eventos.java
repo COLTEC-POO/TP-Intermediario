@@ -126,29 +126,6 @@ public class Eventos {
         System.out.println("Total de ingressos VIP " + getTotalVIP());
     }
 
-    // Vendendo Ingressos
-    public void VenderIngressos(Ingresso tipoIngresso){
-        // Conferindo se o numero de ingressos vai ultrapassar o limite by P.
-        if(numIngressos >= LIMITE_INGRESSOS){
-            System.out.println("Limite de ingressos atingido!");
-        } else{
-            // Salvando o ingresso vendido no array de ingressos by P.
-            vendasIngressos[numIngressos] = tipoIngresso;
-
-            // Adiciona a quantidade de ingressos vendidos até atingir o limite by P.
-            numIngressos++;
-
-            // Checando qual tipo de ingresso vai aumentar, usando logica de equals by D.
-            if(tipoIngresso instanceof  Ingresso.ingressoPadrao) {
-                incrementarTotalNormal();
-            } else if (tipoIngresso instanceof Ingresso.meiaEntrada) {
-                incrementarTotalMeia();
-            } else if (tipoIngresso instanceof  Ingresso.VIP) {
-                incrementarTotalVIP();
-            }
-        }
-    }
-
     public static Eventos[] criarEvento() {
 
         Eventos[] eventos = new Eventos[3];
@@ -164,14 +141,16 @@ public class Eventos {
             // Salvando string de horario
             String horario = JOptionPane.showInputDialog("Digite o horário do evento:");
 
-            //
+            // Salvando data como String
             String dataString = JOptionPane.showInputDialog("Digite a data do evento (no formato dd/MM/yyyy):");
 
+            // Formatando a data
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate data = LocalDate.parse(dataString, formatter);
 
             String tipoEvento = JOptionPane.showInputDialog("Digite o tipo do evento (Filme, Concerto, ou Teatro):");
 
+            // Comparando o tipo inserido com os tipos presentes
             switch (tipoEvento.toLowerCase()) {
                 case "filme":
                     eventos[numEventosCriados] = new Eventos.Filme(nome, eAcessivel, horario, data);
@@ -184,20 +163,64 @@ public class Eventos {
                     break;
                 default:
                     System.out.println("Tipo de evento inválido!");
-                    continue;  // Skip the current iteration and ask for event details again
+                    continue;
             }
 
             numEventosCriados++;
 
-            // Ask user if they want to add more events
-            int choice = JOptionPane.showConfirmDialog(null, "Deseja adicionar outro evento?", "Adicionar Evento", JOptionPane.YES_NO_OPTION);
-            if (choice != JOptionPane.YES_OPTION) {
-                break; // Exit loop if the user chooses not to add more events
+
+            int escolha1 = JOptionPane.showConfirmDialog(null, "Deseja adicionar outro evento?", "Adicionar Evento", JOptionPane.YES_NO_OPTION);
+            if (escolha1 != JOptionPane.YES_OPTION) {
+                break;
             }
         }
 
         return eventos;
     }
+
+    // Vendendo Ingressos
+//    public void VenderIngressos(Ingresso tipoIngresso){
+//            String tipoIngresso = JOptionPane.showInputDialog("Digite o tipo do evento (Filme, Concerto, ou Teatro):");
+//
+//            // Comparando o tipo inserido com os tipos presentes
+//            switch (tipoIngresso.toLowerCase()) {
+//                case "padrao":
+//                    vendasIngressos[numIngressos] = new Ingresso.ingressoPadrao(500);
+//                    break;
+//                case "meia":
+//                    vendasIngressos[numIngressos] = new Ingresso.meiaEntrada(500);
+//                    break;
+//                case "vip":
+//                    vendasIngressos[numIngressos] = new Ingresso.VIP(500);
+//                    break;
+//                default:
+//                    System.out.println("Tipo de evento inválido!");
+//                    continue;
+//            }
+//
+//        numIngressos++;
+//
+//        // Conferindo se o numero de ingressos vai ultrapassar o limite by P.
+//        if(numIngressos >= LIMITE_INGRESSOS){
+//            System.out.println("Limite de ingressos atingido!");
+//        } else{
+//            // Salvando o ingresso vendido no array de ingressos by P.
+//            vendasIngressos[numIngressos] = tipoIngresso;
+//
+//            // Adiciona a quantidade de ingressos vendidos até atingir o limite by P.
+//            numIngressos++;
+//
+//            // Checando qual tipo de ingresso vai aumentar, usando logica de equals by D.
+//            if(tipoIngresso instanceof  Ingresso.ingressoPadrao) {
+//                incrementarTotalNormal();
+//            } else if (tipoIngresso instanceof Ingresso.meiaEntrada) {
+//                incrementarTotalMeia();
+//            } else if (tipoIngresso instanceof  Ingresso.VIP) {
+//                incrementarTotalVIP();
+//            }
+//
+//        }
+//    }
 
     public static class Filme extends Eventos{
 
