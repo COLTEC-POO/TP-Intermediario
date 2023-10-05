@@ -15,7 +15,7 @@ public class mainTestes {
 
         while (escolha != 0) {
 
-            escolha = Integer.parseInt(JOptionPane.showInputDialog("Digite 1 para criar eventos: \n Digite 2 para comprar ingressos: \n Digite 3 para imprimir eventos"));
+            escolha = Integer.parseInt(JOptionPane.showInputDialog("1) Criar eventos \n 2) Comprar ingressos \n 3) Ver receita total de cada evento \n 4) Exibir eventos \n  "));
 
             switch(escolha) {
                 case 1:
@@ -27,6 +27,9 @@ public class mainTestes {
                     break;
 
                 case 3:
+                    Eventos.imprimirExtrato();
+
+                case 4:
                     if(eventos != null) {
                         Eventos.imprimirEventos(eventos);
                     } else {
