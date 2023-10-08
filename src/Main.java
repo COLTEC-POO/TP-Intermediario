@@ -1,7 +1,7 @@
 import javax.swing.*;
 
 // Classe principal para testar ingressos e eventos
-public class mainTestes {
+public class Main {
     public static void main(String[] args) {
 
         Eventos[] eventos = null; // Array para armazenar eventos criados
