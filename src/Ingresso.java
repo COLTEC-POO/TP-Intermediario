@@ -1,5 +1,6 @@
 import java.util.Date;
 
+// Classe Ingresso representa os ingressos para os eventos
 public class Ingresso {
 
     // Atributos base
@@ -9,69 +10,65 @@ public class Ingresso {
 
     // Construtor de Ingressos
     public Ingresso(String tipo, double preco) {
-        this.data = new Date();
+        this.data = new Date(); // Obtém a data atual
         this.tipo = tipo;
         this.preco = preco;
     }
 
-    // Isso vai ser abstrato
-    // Funcao para pegar os detalhes para impressao como data, tipo, preco
+    // Função para obter os detalhes do ingresso para impressão (data, tipo, preço)
     public String toString() {
         return "Data: " + this.data + "\nTipo: " + this.tipo + "\nPreço: " + this.preco;
     }
 
-    // Isso vai ser abstrato
+    // Método abstrato para obter o preço do ingresso (será implementado nas subclasses)
     public double getPreco() {
         return preco;
     }
 
-    // Isso vai ser abstrato
-    // Funcao para pegar o tipo de ingresso
+    // Função para obter o tipo do ingresso
     public String getTipoIngresso() {
         return tipo;
     }
 
-    public static class ingressoPadrao extends Ingresso {
+    // Subclasse Ingresso Padrão
+    public static class IngressoPadrao extends Ingresso {
 
-        public ingressoPadrao(double preco) {
-            // Chama os dados da superclasse com o tipo e o preço ajustado para meia entrada
-            super("Ingresso Padrao", preco);
+        public IngressoPadrao(double preco) {
+            // Tipo e o Preço do superclasse
+            super("Ingresso Padrão", preco);
         }
 
         @Override
         public String toString() {
-            return "Data: " + this.data + " | Tipo: " + " Ingresso Padrão " + "- Preço: " + this.preco;
+            return "Data: " + this.data + " | Tipo: Ingresso Padrão - Preço: " + this.preco;
         }
-
     }
 
-    // Subclasse meiaEntrada que representa um ingresso de meia entrada
-    public static class meiaEntrada extends Ingresso {
+    // Subclasse Meia Entrada
+    public static class MeiaEntrada extends Ingresso {
 
-        public meiaEntrada(double preco) {
-            // Chama os dados da superclasse com o tipo e o preço ajustado para meia entrada
+        public MeiaEntrada(double preco) {
+            // Chama o construtor da superclasse com o tipo e o preço do ingresso de meia entrada
             super("Meia Entrada", preco * 0.5);
-
         }
 
         @Override
         public String toString() {
-            return "Data: " + this.data + " | Tipo: " + " Meia Entrada " + "- Preço: " + this.preco;
+            return "Data: " + this.data + " | Tipo: Meia Entrada - Preço: " + this.preco;
         }
-
-
     }
 
+    // Subclasse VIP
     public static class VIP extends Ingresso {
 
         public VIP(double preco) {
-            // Chama os dados da superclasse com o tipo e o preço ajustado para meia entrada
-            super("VIP", preco * 2 );
+            // Chama o construtor da superclasse com o tipo e o preço do ingresso VIP
+            super("VIP", preco * 2);
         }
 
         @Override
         public String toString() {
-            return "Data: " + this.data + " | Tipo: " + " VIP " + "-Preço: " + this.preco;
+            return "Data: " + this.data + " | Tipo: VIP - Preço: " + this.preco;
         }
     }
 }

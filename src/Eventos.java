@@ -1,4 +1,4 @@
-// Importando JOptionPane
+// Importando JOptionPane para interações com o usuário
 import javax.swing.*;
 
 // Importando a formatação de data
@@ -18,55 +18,36 @@ public class Eventos {
 
 
     // Contador para o número de ingressos vendidos para este evento
-    int numIngressos;
+    private int numIngressos;
 
     // Limitador de ingressos que será utilizado nas subclasses de Eventos
     int LIMITE_INGRESSOS;
 
-    // Inicializando para calcular o total de cada tipo de ingresso
-    private int totalNormal, totalMeia, totalVIP;
+    // Contadores estáticos para rastrear o número total de eventos e o máximo permitido
+    static int numEventosCriados = 0;
+    static int MAX_EVENTOS = 50;
 
     // Constructor de Eventos
     public Eventos(String nome, Boolean eAcessivel, String horario, LocalDate data) {
+
         this.nome = nome;
         this.data = data;
         this.eAcessivel = eAcessivel;
         this.horario = horario;
 
-        this.LIMITE_INGRESSOS = 10;
+        // Inicializando o limite padrão de ingressos
+        this.LIMITE_INGRESSOS = 100;
 
-        // Inicializa um array para armazenar vendas de ingressos, necessario para imprimir os diferentes tipos juntos
+        // Inicializando o array para armazenar vendas de ingressos
         this.vendasIngressos = new Ingresso[LIMITE_INGRESSOS];
 
-        // Inicializa o número de ingressos vendidos como 0, necessario para "extrato" depois
+        // Inicializando o número de ingressos vendidos como 0
         this.numIngressos = 0;
     }
 
-    // Método para obter o tipo de evento (será implementado nas subclasses)
+    // Métodos para obter informações sobre o evento
     public String getTipo() {
         return "Evento Inválido";
-    }
-
-    // Métodos para incrementar o total de vendas de cada tipo de ingresso
-    public void incrementarTotalNormal() {
-        totalNormal++;
-    }
-    public void incrementarTotalMeia() {
-        totalMeia++;
-    }
-    public void incrementarTotalVIP() {
-        totalVIP++;
-    }
-
-    // Métodos para incrementar o total de vendas de cada tipo de ingresso
-    public int getTotalNormal() {
-        return totalNormal;
-    }
-    public int getTotalMeia() {
-        return totalMeia;
-    }
-    public int getTotalVIP() {
-        return totalVIP;
     }
 
     // Método para obter a quantidade de ingressos vendidos
@@ -87,51 +68,53 @@ public class Eventos {
     public String toString() {
         // Converter a string da data em um objeto LocalDate usando DateTimeFormatter
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
         String dataFormatada = data.format(dateFormatter);
 
         return "Nome: " + this.nome + "\nTipo: " + this.getTipo() + " \nData: " + dataFormatada + " - Horário: " + this.horario + "\nÉ acessível? " + eAcessivel();
     }
 
-    public static void imprimirEventos(Eventos[] eventos) {
+    // Método para imprimir detalhes de vários eventos
+    public static String imprimirEventos(Eventos[] eventos) {
+        String detalhesEventos = "";
+
         for (Eventos evento : eventos) {
-            System.out.println("Detalhes do Evento:");
-            System.out.println(evento.toString());
-            System.out.println();
-            evento.imprimirExtrato();
-            System.out.println();
+            if (evento != null) { // Verificar se o evento não é nulo
+                detalhesEventos += "Detalhes do Evento: \n" + evento.toString() + "\n\n";
+            }
         }
+
+        // Retornar a string acumulada com os detalhes de todos os eventos
+        return detalhesEventos;
     }
 
-    public void imprimirExtrato() {
+    // Método para imprimir o extrato das vendas de ingressos para este evento
+    public String imprimirExtrato() {
+        String extrato = "";
         String tipoEvento = getTipo(); // Obtém o tipo de evento
-        System.out.println("Extrato do Evento: " + this.nome + " - " + tipoEvento);
+        extrato += "Extrato do Evento: " + this.nome + " - " + tipoEvento + "\n";
 
         double receitaTotal = 0;
 
-        // Loop para imprimir detalhes de cada ingresso vendido
+        // Loop para acumular detalhes de cada ingresso vendido
         for (int i = 0; i < numIngressos; i++) {
             Ingresso ingresso = vendasIngressos[i];
-            System.out.println(ingresso.data + " | " + ingresso.getTipoIngresso() + " - " + ingresso.getPreco());
+            extrato += ingresso.data + " | " + ingresso.getTipoIngresso() + " - " + ingresso.getPreco() + "\n";
             receitaTotal += ingresso.getPreco();
         }
-        // Imprimindo o total
-        System.out.println();
-        System.out.println("Total de ingressos vendidos: " + numIngressos);
-        System.out.println("Receita total gerada: " + receitaTotal);
-        System.out.println();
+        // Acumulando o total
+        extrato += "\nTotal de ingressos vendidos: " + numIngressos + "\n";
+        extrato += "Receita total gerada: " + receitaTotal + "\n";
 
-        System.out.println("Total de ingressos Padrao: " + getTotalNormal());
-        System.out.println("Total de ingressos MeiaEntrada " + getTotalMeia());
-        System.out.println("Total de ingressos VIP " + getTotalVIP());
+        // Retorna o extrato acumulado como uma string
+        return extrato;
     }
 
+    // Método estático para criar eventos
     public static Eventos[] criarEvento() {
 
-        Eventos[] eventos = new Eventos[3];
-        int numEventosCriados = 0;
+        Eventos[] eventos = new Eventos[MAX_EVENTOS];
 
-        while (numEventosCriados < eventos.length) {
+        while (numEventosCriados < MAX_EVENTOS) {
             // Salvando string em nome
             String nome = JOptionPane.showInputDialog("Digite o nome do evento:");
 
@@ -178,64 +161,81 @@ public class Eventos {
         return eventos;
     }
 
-    // Vendendo Ingressos
-//    public void VenderIngressos(Ingresso tipoIngresso){
-//            String tipoIngresso = JOptionPane.showInputDialog("Digite o tipo do evento (Filme, Concerto, ou Teatro):");
-//
-//            // Comparando o tipo inserido com os tipos presentes
-//            switch (tipoIngresso.toLowerCase()) {
-//                case "padrao":
-//                    vendasIngressos[numIngressos] = new Ingresso.ingressoPadrao(500);
-//                    break;
-//                case "meia":
-//                    vendasIngressos[numIngressos] = new Ingresso.meiaEntrada(500);
-//                    break;
-//                case "vip":
-//                    vendasIngressos[numIngressos] = new Ingresso.VIP(500);
-//                    break;
-//                default:
-//                    System.out.println("Tipo de evento inválido!");
-//                    continue;
-//            }
-//
-//        numIngressos++;
-//
-//        // Conferindo se o numero de ingressos vai ultrapassar o limite by P.
-//        if(numIngressos >= LIMITE_INGRESSOS){
-//            System.out.println("Limite de ingressos atingido!");
-//        } else{
-//            // Salvando o ingresso vendido no array de ingressos by P.
-//            vendasIngressos[numIngressos] = tipoIngresso;
-//
-//            // Adiciona a quantidade de ingressos vendidos até atingir o limite by P.
-//            numIngressos++;
-//
-//            // Checando qual tipo de ingresso vai aumentar, usando logica de equals by D.
-//            if(tipoIngresso instanceof  Ingresso.ingressoPadrao) {
-//                incrementarTotalNormal();
-//            } else if (tipoIngresso instanceof Ingresso.meiaEntrada) {
-//                incrementarTotalMeia();
-//            } else if (tipoIngresso instanceof  Ingresso.VIP) {
-//                incrementarTotalVIP();
-//            }
-//
-//        }
-//    }
+    // Solicitar ao usuário que selecione um evento da lista
+    public static Eventos selecionarEvento(Eventos[] eventos) {
+        if (eventos != null && numEventosCriados > 0) {
+            String[] opcoesEventos = new String[numEventosCriados];
+            for (int i = 0; i < numEventosCriados; i++) {
+                opcoesEventos[i] = eventos[i].nome;
+            }
+            String eventoSelecionado = (String) JOptionPane.showInputDialog(null,
+                    "Selecione um evento:", "Selecionar Evento", JOptionPane.PLAIN_MESSAGE, null, opcoesEventos,
+                    opcoesEventos[0]);
+            for (Eventos evento : eventos) {
+                if (evento != null && evento.nome.equals(eventoSelecionado)) {
+                    return evento;
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum evento criado ainda!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        return null;
+    }
 
-    public static class Filme extends Eventos{
+    // Método para vender ingressos para evento selecionado
+    public void VenderIngressos() {
 
-        public Filme(String nome, Boolean eAcessivel, String horario, LocalDate data){
+        String[] tiposIngresso = {"Ingresso Padrão", "Meia Entrada", "VIP"};
+        String tipoIngresso = (String) JOptionPane.showInputDialog(null,
+                "Selecione o tipo de ingresso:", "Vender Ingresso", JOptionPane.PLAIN_MESSAGE, null, tiposIngresso,
+                tiposIngresso[0]);
+
+        // Comparando o tipo inserido com os tipos presentes
+        switch (tipoIngresso) {
+            case "Ingresso Padrão":
+                vendasIngressos[numIngressos] = new Ingresso.IngressoPadrao(500);
+                break;
+            case "Meia Entrada":
+                vendasIngressos[numIngressos] = new Ingresso.MeiaEntrada(500);
+                break;
+            case "VIP":
+                vendasIngressos[numIngressos] = new Ingresso.VIP(500);
+                break;
+            default:
+                System.out.println("Tipo de evento inválido!");
+                return; // Sair do método se o tipo de ingresso
+        }
+
+
+        // Conferindo se o numero de ingressos vai ultrapassar o limite by P.
+        if (numIngressos >= LIMITE_INGRESSOS) {
+
+            JOptionPane.showMessageDialog(null, "Ingressos Esgotados!",
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingresso comprado com sucesso para\n" + this.nome + " - " + this.getTipo(), "Venda Concluída",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+            // Adiciona a quantidade de ingressos vendidos até atingir o limite by P.
+            numIngressos++;
+        }
+    }
+
+    public static class Teatro extends Eventos{
+
+        public Teatro(String nome, Boolean eAcessivel, String horario, LocalDate data){
             //Atributos da superclasse
             super(nome,eAcessivel, horario, data);
 
-            // Define o limite de ingressos específico para Filme
-            this.LIMITE_INGRESSOS = 5;
+            // Define o limite de ingressos específico para Teatro
+            this.LIMITE_INGRESSOS = 2;
         }
 
         @Override
         // Método para obter o tipo de evento (será implementado nas subclasses)
         public String getTipo() {
-            return " Filme ";
+            return " Teatro ";
         }
     }
 
@@ -256,20 +256,20 @@ public class Eventos {
         }
     }
 
-    public static class Teatro extends Eventos{
+    public static class Filme extends Eventos{
 
-        public Teatro(String nome, Boolean eAcessivel, String horario, LocalDate data){
+        public Filme(String nome, Boolean eAcessivel, String horario, LocalDate data){
             //Atributos da superclasse
             super(nome,eAcessivel, horario, data);
 
-            // Define o limite de ingressos específico para Teatro
-            this.LIMITE_INGRESSOS = 2;
+            // Define o limite de ingressos específico para Filme
+            this.LIMITE_INGRESSOS = 5;
         }
 
         @Override
         // Método para obter o tipo de evento (será implementado nas subclasses)
         public String getTipo() {
-            return " Teatro ";
+            return " Filme ";
         }
     }
 
