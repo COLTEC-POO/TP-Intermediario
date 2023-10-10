@@ -8,6 +8,6 @@ public class VIP extends Ingresso {
 
     @Override
     public String toString() {
-        return "Data: " + this.data + " | Tipo: VIP - Preço: " + this.preco;
+        return "Data: " + this.data + " | Tipo: " + this.getTipoIngresso() + " - Preço: " + this.getPreco();
     }
 }

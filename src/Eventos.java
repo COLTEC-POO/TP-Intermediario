@@ -46,9 +46,7 @@ public abstract class Eventos {
     }
 
     // Métodos para obter informações sobre o evento
-    public String getTipo() {
-        return "Evento Inválido";
-    }
+    public abstract String getTipo();
 
     // Método para obter a quantidade de ingressos vendidos
     public int getNumIngressos() {

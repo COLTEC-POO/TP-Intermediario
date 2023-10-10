@@ -8,6 +8,6 @@ public class MeiaEntrada extends Ingresso {
 
     @Override
     public String toString() {
-        return "Data: " + this.data + " | Tipo: Meia Entrada - Preço: " + this.preco;
+        return "Data: " + this.data + " | Tipo: " + this.getTipoIngresso() + " - Preço: " + this.getPreco();
     }
 }

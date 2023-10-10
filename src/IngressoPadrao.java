@@ -8,6 +8,6 @@ public class IngressoPadrao extends Ingresso {
 
     @Override
     public String toString() {
-        return "Data: " + this.data + " | Tipo: Ingresso Padrão - Preço: " + this.preco;
+        return "Data: " + this.data + " | Tipo: " + this.getTipoIngresso() + " - Preço: " + this.getPreco();
     }
 }

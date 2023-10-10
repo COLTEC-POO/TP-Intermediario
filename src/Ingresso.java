@@ -5,8 +5,8 @@ public abstract class Ingresso {
 
     // Atributos base
     protected Date data;
-    protected double preco = 30;
-    protected String tipo;
+    private double preco = 30;
+    private String tipo;
 
     // Construtor de Ingressos
     public Ingresso(String tipo, double preco) {
@@ -16,9 +16,7 @@ public abstract class Ingresso {
     }
 
     // Função para obter os detalhes do ingresso para impressão (data, tipo, preço)
-    public String toString() {
-        return "Data: " + this.data + "\nTipo: " + this.tipo + "\nPreço: " + this.preco;
-    }
+    public abstract String toString();
 
     // Método para obter o preço do ingresso
     public double getPreco() {
