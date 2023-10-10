@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 // A classe Eventos representa eventos que podem ocorrer em uma data específica.
-public class Eventos {
+public abstract class Eventos {
 
     // Atributos base
     String nome;
@@ -90,7 +90,7 @@ public class Eventos {
     // Método para imprimir o extrato das vendas de ingressos para este evento
     public String imprimirExtrato() {
         String extrato = "";
-        String tipoEvento = getTipo(); // Obtém o tipo de evento
+        String tipoEvento = getTipo();
         extrato += "Extrato do Evento: " + this.nome + " - " + tipoEvento + "\n";
 
         double receitaTotal = 0;
@@ -136,13 +136,13 @@ public class Eventos {
             // Comparando o tipo inserido com os tipos presentes
             switch (tipoEvento.toLowerCase()) {
                 case "filme":
-                    eventos[numEventosCriados] = new Eventos.Filme(nome, eAcessivel, horario, data);
+                    eventos[numEventosCriados] = new Filme(nome, eAcessivel, horario, data);
                     break;
                 case "concerto":
-                    eventos[numEventosCriados] = new Eventos.Concerto(nome, eAcessivel, horario, data);
+                    eventos[numEventosCriados] = new Concerto(nome, eAcessivel, horario, data);
                     break;
                 case "teatro":
-                    eventos[numEventosCriados] = new Eventos.Teatro(nome, eAcessivel, horario, data);
+                    eventos[numEventosCriados] = new Teatro(nome, eAcessivel, horario, data);
                     break;
                 default:
                     System.out.println("Tipo de evento inválido!");
@@ -193,13 +193,13 @@ public class Eventos {
         // Comparando o tipo inserido com os tipos presentes
         switch (tipoIngresso) {
             case "Ingresso Padrão":
-                vendasIngressos[numIngressos] = new Ingresso.IngressoPadrao(500);
+                vendasIngressos[numIngressos] = new IngressoPadrao(500);
                 break;
             case "Meia Entrada":
-                vendasIngressos[numIngressos] = new Ingresso.MeiaEntrada(500);
+                vendasIngressos[numIngressos] = new MeiaEntrada(500);
                 break;
             case "VIP":
-                vendasIngressos[numIngressos] = new Ingresso.VIP(500);
+                vendasIngressos[numIngressos] = new VIP(500);
                 break;
             default:
                 System.out.println("Tipo de evento inválido!");
@@ -207,7 +207,7 @@ public class Eventos {
         }
 
 
-        // Conferindo se o numero de ingressos vai ultrapassar o limite by P.
+        // Conferindo se o numero de ingressos vai ultrapassar o limite
         if (numIngressos >= LIMITE_INGRESSOS) {
 
             JOptionPane.showMessageDialog(null, "Ingressos Esgotados!",
@@ -217,60 +217,8 @@ public class Eventos {
             JOptionPane.showMessageDialog(null, "Ingresso comprado com sucesso para\n" + this.nome + " - " + this.getTipo(), "Venda Concluída",
                     JOptionPane.INFORMATION_MESSAGE);
 
-            // Adiciona a quantidade de ingressos vendidos até atingir o limite by P.
+            // Adiciona a quantidade de ingressos vendidos até atingir o limite
             numIngressos++;
         }
     }
-
-    public static class Teatro extends Eventos{
-
-        public Teatro(String nome, Boolean eAcessivel, String horario, LocalDate data){
-            //Atributos da superclasse
-            super(nome,eAcessivel, horario, data);
-
-            // Define o limite de ingressos específico para Teatro
-            this.LIMITE_INGRESSOS = 2;
-        }
-
-        @Override
-        // Método para obter o tipo de evento (será implementado nas subclasses)
-        public String getTipo() {
-            return " Teatro ";
-        }
-    }
-
-    public static class Concerto extends Eventos{
-
-        public Concerto(String nome, Boolean eAcessivel, String horario, LocalDate data){
-            //Atributos da superclasse
-            super(nome,eAcessivel, horario, data);
-
-            // Define o limite de ingressos específico para Concerto
-            this.LIMITE_INGRESSOS = 3;
-        }
-
-        @Override
-        // Método para obter o tipo de evento (será implementado nas subclasses)
-        public String getTipo() {
-            return " Concerto ";
-        }
-    }
-
-    public static class Filme extends Eventos{
-
-        public Filme(String nome, Boolean eAcessivel, String horario, LocalDate data){
-            //Atributos da superclasse
-            super(nome,eAcessivel, horario, data);
-
-            // Define o limite de ingressos específico para Filme
-            this.LIMITE_INGRESSOS = 5;
-        }
-
-        @Override
-        // Método para obter o tipo de evento (será implementado nas subclasses)
-        public String getTipo() {
-            return " Filme ";
-        }
-    }
-
 }
