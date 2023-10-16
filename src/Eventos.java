@@ -129,23 +129,30 @@ public abstract class Eventos {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate data = LocalDate.parse(dataString, formatter);
 
+
+
+            boolean tipoValido = false;
+            while(!tipoValido) {
+            // Comparando o tipo inserido com os tipos presentes
             String tipoEvento = JOptionPane.showInputDialog("Digite o tipo do evento (Filme, Concerto, ou Teatro):");
 
-            // Comparando o tipo inserido com os tipos presentes
             switch (tipoEvento.toLowerCase()) {
                 case "filme":
                     eventos[numEventosCriados] = new Filme(nome, eAcessivel, horario, data);
+                    tipoValido = true;
                     break;
                 case "concerto":
                     eventos[numEventosCriados] = new Concerto(nome, eAcessivel, horario, data);
+                    tipoValido = true;
                     break;
                 case "teatro":
                     eventos[numEventosCriados] = new Teatro(nome, eAcessivel, horario, data);
+                    tipoValido = true;
                     break;
                 default:
-                    System.out.println("Tipo de evento inválido!");
-                    continue;
+                    JOptionPane.showMessageDialog(null, "Tipo inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
+        }
 
             numEventosCriados++;
 
@@ -201,7 +208,7 @@ public abstract class Eventos {
                 break;
             default:
                 System.out.println("Tipo de evento inválido!");
-                return; // Sair do método se o tipo de ingresso
+                return; // Sair do método se o tipo de ingresso for inválido
         }
 
 
