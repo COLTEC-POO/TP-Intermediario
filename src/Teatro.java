@@ -7,7 +7,7 @@ public class Teatro extends Eventos{
         super(nome,eAcessivel, horario, data);
 
         // Define o limite de ingressos específico para Teatro
-        this.LIMITE_INGRESSOS = 2;
+        this.LIMITE_INGRESSOS = 250;
     }
 
     @Override

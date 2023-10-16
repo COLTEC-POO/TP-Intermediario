@@ -7,7 +7,7 @@ public class Filme extends Eventos{
         super(nome,eAcessivel, horario, data);
 
         // Define o limite de ingressos específico para Filme
-        this.LIMITE_INGRESSOS = 5;
+        this.LIMITE_INGRESSOS = 200;
     }
 
     @Override

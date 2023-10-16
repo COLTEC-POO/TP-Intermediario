@@ -7,7 +7,7 @@ public class Concerto extends Eventos{
         super(nome,eAcessivel, horario, data);
 
         // Define o limite de ingressos específico para Concerto
-        this.LIMITE_INGRESSOS = 3;
+        this.LIMITE_INGRESSOS = 150;
     }
 
     @Override
