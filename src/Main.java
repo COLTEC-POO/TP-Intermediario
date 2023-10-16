@@ -4,7 +4,9 @@ import javax.swing.*;
 public class Main {
     public static void main(String[] args) {
 
-        Eventos[] eventos = null; // Array para armazenar eventos criados
+        int numEventosCriados = 0; // Contador de eventos criados
+
+        Eventos[] eventos = new Eventos[Eventos.MAX_EVENTOS]; // Array para armazenar eventos criados
         Eventos eventoAtual = null; // Variável para armazenar o evento selecionado pelo usuário
 
         int escolha = -1;
@@ -19,7 +21,12 @@ public class Main {
             switch (escolha) {
                 case 1:
                     // Opção para criar novos eventos
-                    eventos = Eventos.criarEvento();
+                    if (numEventosCriados < Eventos.MAX_EVENTOS) {
+                        eventos[numEventosCriados] = Eventos.criarEvento();
+                        numEventosCriados++;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Número máximo de eventos atingido!", "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
                     break;
 
                 case 2:

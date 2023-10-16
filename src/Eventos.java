@@ -108,9 +108,9 @@ public abstract class Eventos {
     }
 
     // Método estático para criar eventos
-    public static Eventos[] criarEvento() {
+    public static Eventos criarEvento() {
 
-        Eventos[] eventos = new Eventos[MAX_EVENTOS];
+        Eventos eventoCriado = null;
 
         while (numEventosCriados < MAX_EVENTOS) {
             // Salvando string em nome
@@ -136,15 +136,15 @@ public abstract class Eventos {
 
             switch (tipoEvento.toLowerCase()) {
                 case "filme":
-                    eventos[numEventosCriados] = new Filme(nome, eAcessivel, horario, data);
+                    eventoCriado = new Filme(nome, eAcessivel, horario, data);
                     tipoValido = true;
                     break;
                 case "concerto":
-                    eventos[numEventosCriados] = new Concerto(nome, eAcessivel, horario, data);
+                    eventoCriado = new Concerto(nome, eAcessivel, horario, data);
                     tipoValido = true;
                     break;
                 case "teatro":
-                    eventos[numEventosCriados] = new Teatro(nome, eAcessivel, horario, data);
+                    eventoCriado = new Teatro(nome, eAcessivel, horario, data);
                     tipoValido = true;
                     break;
                 default:
@@ -161,7 +161,7 @@ public abstract class Eventos {
             }
         }
 
-        return eventos;
+        return eventoCriado;
     }
 
     // Solicitar ao usuário que selecione um evento da lista
