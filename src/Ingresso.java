@@ -5,7 +5,7 @@ public abstract class Ingresso {
 
     // Atributos base
     protected Date data;
-    private double preco = 30;
+    private double preco;
     private String tipo;
 
     // Construtor de Ingressos
