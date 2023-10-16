@@ -129,8 +129,6 @@ public abstract class Eventos {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate data = LocalDate.parse(dataString, formatter);
 
-
-
             boolean tipoValido = false;
             while(!tipoValido) {
             // Comparando o tipo inserido com os tipos presentes
