@@ -3,4 +3,15 @@ public class Filme extends Evento{
         //define a quantidade de ingrssos disponiveis para venda
         QuaIn = 200;
     }
+    private Ingresso[] IngressoFilm = new Ingresso[QuaIn];
+
+    @Override
+    public boolean VerificacaoDosIngressos() {
+        for(Ingresso atual : this.IngressoFilm)
+            if(atual != null)
+                //retorna false caso haja ingressos Vip
+                if(atual instanceof InGreVip )
+                    return false;
+        return true;
+    }
 }

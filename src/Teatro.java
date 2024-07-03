@@ -6,13 +6,15 @@ public class Teatro extends Evento{
     protected Ingresso[] IngressoTea = new Ingresso[QuaIn];
 
     @Override
-    protected boolean VerificacaoDosIngressos() {
-        int
-        for(Ingresso atual : this.IngressoTea){
-            if(atual != null){
-
-            }
-        }
-        return false;
+    public boolean VerificacaoDosIngressos() {
+        int NumVip = 0;
+        for(Ingresso atual : this.IngressoTea)
+            if(atual != null)
+                //retorna false caso mais que 20% dos ingressos sejam Vip
+                if(atual instanceof InGreVip && NumVip <=(int) (QuaIn * 20)/100)
+                    NumVip++;
+                else
+                    return false;
+        return true;
     }
 }
