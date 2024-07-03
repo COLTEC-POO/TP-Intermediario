@@ -7,4 +7,5 @@ public abstract class Evento {
     protected int QuaIn;
     //variavel que representa o preço dos ingressos
     protected int InPre;
+    protected abstract boolean VerificacaoDosIngressos();
 }
