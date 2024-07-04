@@ -17,4 +17,20 @@ public class Teatro extends Evento{
                     return false;
         return true;
     }
+    @Override
+    public double ReceiTot() {
+        double total = 0;
+        for(Ingresso atual : this.IngressoTea){
+            if(atual!= null)
+                total += atual.preco;
+        }
+        return total;
+    }
+    @Override
+    public void extrato(){
+        for(Ingresso atual : this.IngressoTea){
+            if(atual!= null)
+                atual.toString();
+        }
+    }
 }
