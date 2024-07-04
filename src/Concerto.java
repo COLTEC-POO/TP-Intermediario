@@ -22,7 +22,7 @@ public class Concerto extends Evento {
         double total = 0;
         for(Ingresso atual : this.IngressoCon){
             if(atual!= null)
-                total += atual.preco;
+                total += atual.getPreco();
         }
         return total;
     }

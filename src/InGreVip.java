@@ -1,6 +1,6 @@
 public class InGreVip extends Ingresso {
     public InGreVip(){
-        preco *= 2;
+        setPreco(getPreco() * 2);
         tipo = "Vip";
     }
 }

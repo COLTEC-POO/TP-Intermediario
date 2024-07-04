@@ -1,6 +1,6 @@
 public class InGreMeia extends Ingresso{
     public InGreMeia(){
-        preco /= 2;
+        setPreco(getPreco() / 2);
         tipo = "Meia";
     }
 }

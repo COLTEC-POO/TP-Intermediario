@@ -1,14 +1,14 @@
 import java.util.Date;
 
 public class Ingresso implements RelaDeRece{
-    Date dataVenda;
+    private Date dataVenda;
     //preço do ingresso normal
-    float preco;
-    String tipo;
+    private float preco;
+    protected String tipo;
 
     @Override
     public String toString(){
-        return dataVenda.toString()+ " " + preco + " " + tipo + "\n";
+        return dataVenda.toString()+ "\n" + preco + "\n" + tipo + "\n";
     }
 
     public float getPreco() {

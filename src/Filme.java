@@ -20,7 +20,7 @@ public class Filme extends Evento{
         double total = 0;
         for(Ingresso atual : this.IngressoFilm){
             if(atual!= null)
-                total += atual.preco;
+                total += atual.getPreco();
         }
         return total;
     }

@@ -97,18 +97,41 @@ public class Tela {
 
 
     }
-    private void PaneComOQuest(Evento Evetno) {
-        // Crie um novo painel com as operações
-        JPanel Operacoes = new JPanel();
-        JButton Deposito = new JButton("Deposito");
-        JButton Saque = new JButton("Saque");
-        JButton Transferencia = new JButton("Transferencia");
-        Operacoes.add(Deposito);
-        Operacoes.add(Saque);
-        Operacoes.add(Transferencia);
+    private void PaneComOQuest(Evento Evento) {
+        // Crie um novo painel com o questionário
+        JPanel Quest = new JPanel();
+        JButton Nome = new JButton("Nome");
+        JButton Data = new JButton("Data");
+        JButton Hora = new JButton("Hora");
+        JButton Local = new JButton("Local");
+        JButton QuanIn = new JButton("Quantidade de Ingressos");
+        Nome.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                Evento.setNome(JOptionPane.showInputDialog("Digite qual vai ser o nome do seu evento"));
+             }
+        });
+        Data.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //variavel ultilizada para varificar se a data esta no modelo certo
+                String Veri = Evento.getData();
+                Evento.setData(JOptionPane.showInputDialog("Digite qual vai ser a Data do seu evento no modelo dd/mm/aaaa"));
+                for (int i =0; i<Veri.length();i++){
+                    if(V)
+
+                }
+            }
+        });
+
+        Quest.add(Nome);
+        Quest.add(Data);
+        Quest.add(Hora);
+        Quest.add(Local);
+        Quest.add(QuanIn);
         // Remova o painel atual e adicione o novo painel
         TelaExibida.remove(PainelAtual);
-        PainelAtual = Operacoes;
+        PainelAtual = Quest;
         PainelAtual.setBackground(Color.GREEN);
         TelaExibida.add(PainelAtual);
         TelaExibida.revalidate();

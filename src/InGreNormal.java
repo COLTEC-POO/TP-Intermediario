@@ -1,6 +1,6 @@
 public class InGreNormal extends Ingresso{
     public InGreNormal(){
-        this.preco = preco;
+        setPreco(getPreco());
         tipo = "Normal";
     }
 }
