@@ -1,4 +1,4 @@
-public abstract class Evento {
+public abstract class Evento implements RelaDeRece {
     protected String nome;
     protected String data;
     protected String hora;
