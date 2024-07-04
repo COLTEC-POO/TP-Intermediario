@@ -116,10 +116,21 @@ public class Tela {
             public void actionPerformed(ActionEvent e) {
                 //variavel ultilizada para varificar se a data esta no modelo certo
                 String Veri = Evento.getData();
-                Evento.setData(JOptionPane.showInputDialog("Digite qual vai ser a Data do seu evento no modelo dd/mm/aaaa"));
-                for (int i =0; i<Veri.length();i++){
-                    if(V)
+                int aaa =0;
+                while (aaa == 0 ) {
+                    Evento.setData(JOptionPane.showInputDialog("Digite qual vai ser a Data do seu evento no modelo dd/mm/aaaa"));
+                    for (int i = 0; i < Veri.length(); i++) {
+                        if (i != 3 && i != 6) {
+                            try {
+                                Integer.valueOf(Veri.charAt(i));
+                                aaa = 1;
+                            } catch (NumberFormatException l) {
+                                JOptionPane.showMessageDialog(null,"Digite no modelo dd/mm/aaaa \n como no exemplo 30/03/2004");
+                                aaa = 0;
+                            }
+                        }
 
+                    }
                 }
             }
         });

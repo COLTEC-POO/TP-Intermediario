@@ -1,6 +1,6 @@
 public abstract class Evento implements RelaDeRece {
     protected String nome;
-    protected String data;
+    protected String data = " ";
     protected String hora;
     protected String local;
     protected String Tipo;
