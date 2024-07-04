@@ -29,7 +29,7 @@ public class Tela {
             public void actionPerformed(ActionEvent e) {
                 // Quando o botão for clicado
                 //ira para o painel em que os botões para o input estão
-                ColocaAsInfo();
+                SelctTipoEven();
             }
         });
 
@@ -40,69 +40,56 @@ public class Tela {
         TelaExibida.setVisible(true);
     }
 
-    private void ColocaAsInfo() {
+    //painel de seleção do tipo de evento
+    private void SelctTipoEven() {
         // Crie um novo painel com as opções de conta
-        JPanel PainelTipoDeConta = new JPanel();
-        JButton nome = new JButton("Nome");
-        JButton data = new JButton("Data");
-        JButton hora = new JButton("hora");
-        JButton local = new JButton("local");
+        JPanel PainelTipoDeEvento = new JPanel();
+        JButton Filme = new JButton("Filme");
+        JButton Show = new JButton("Show");
+        JButton Teatro = new JButton("Teatro");
+
         // Adicione um ActionListener ao botão
-        nome.addActionListener(new ActionListener() {
+
+
+        Filme.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Quando o botão for clicado ira
-                //abrir um  questionario para a criação da conta
-                String nome = JOptionPane.showInputDialog("Digite seu nome:\n");
-                String endereco = JOptionPane.showInputDialog("Digite seu endereço:\n");
-                String CPF = JOptionPane.showInputDialog("Digite seu CPF:\n");
-                int idade = -1;
-                while(idade == -1) {
-                    try {
-                        idade = Integer.valueOf(JOptionPane.showInputDialog("Digite sua idade:\n"));
-                    } catch (NumberFormatException g) {
-                        JOptionPane.showMessageDialog(null, "Digite um numero valido:\n",
-                                "Erro", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-                char sexo = JOptionPane.showInputDialog("Digite seu sexo:\n").charAt(0);
-                PessoaFisica Usuario1 = new PessoaFisica(nome,endereco,new Date(), CPF, idade,sexo);
-                System.out.println(Usuario1.toString());
-                Painel_De_Operacao();
+                //abrir um  questionario para a criação do eveto filme
+                Evento x = new Filme();
+                PaneComOQuest(x);
             }
         });
 
-        data.addActionListener(new ActionListener() {
+        Show.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Quando o botão for clicado ira
-                //abrir um  questionario para a criação da conta
-                String nome = JOptionPane.showInputDialog("Digite seu nome:\n");
-                String endereco = JOptionPane.showInputDialog("Digite seu endereço:\n");
-                String CNPJ = JOptionPane.showInputDialog("Digite seu CNPJ:\n");
-                int NumFun = -1;
-                while(NumFun == -1) {
-                    try {
-                        NumFun = Integer.valueOf(JOptionPane.showInputDialog("Digite seu numero de funcionarios:\n"));
-                    } catch (NumberFormatException g) {
-                        JOptionPane.showMessageDialog(null, "Digite um numero:\n",
-                                "Erro", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-                String departamento = JOptionPane.showInputDialog("Digite seu departamento:\n");
-                PessoaJuridica Usuario1 = new PessoaJuridica(nome,endereco,new Date(), CNPJ, NumFun,departamento);
-                System.out.println(Usuario1.toString());
-                Painel_De_Operacao();
+                //abrir um  questionario para a criação do evento concerto/show
+                Evento x = new Concerto();
+                PaneComOQuest(x);
             }
-        });
 
-        PainelTipoDeConta.add(nome);
-        PainelTipoDeConta.add(data);
+        });
+        Teatro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Quando o botão for clicado ira
+                //abrir um  questionario para a criação do evento Teatro
+                Evento x = new Teatro();
+                PaneComOQuest(x);
+            }
+
+        });
+        //coloca os botões no painel
+        PainelTipoDeEvento.add(Filme);
+        PainelTipoDeEvento.add(Show);
+        PainelTipoDeEvento.add(Teatro);
 
         // Remova o painel atual e adicione o novo painel
         TelaExibida.remove(PainelAtual);
-        PainelAtual = PainelTipoDeConta;
+        PainelAtual = PainelTipoDeEvento;
         PainelAtual.setBackground(Color.GREEN);
         TelaExibida.add(PainelAtual);
         TelaExibida.revalidate();
@@ -110,7 +97,7 @@ public class Tela {
 
 
     }
-    private void Painel_De_Operacao() {
+    private void PaneComOQuest(Evento Evetno) {
         // Crie um novo painel com as operações
         JPanel Operacoes = new JPanel();
         JButton Deposito = new JButton("Deposito");
@@ -127,5 +114,6 @@ public class Tela {
         TelaExibida.revalidate();
         TelaExibida.repaint();
     }
+}
 
 
