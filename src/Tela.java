@@ -1,3 +1,5 @@
+import com.sun.org.apache.bcel.internal.generic.BREAKPOINT;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -114,26 +116,77 @@ public class Tela {
         Data.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //variavel ultilizada para varificar se a data esta no modelo certo
-                String Veri = Evento.getData();
-                int aaa =0;
-                while (aaa == 0 ) {
-                    Evento.setData(JOptionPane.showInputDialog("Digite qual vai ser a Data do seu evento no modelo dd/mm/aaaa"));
-                    for (int i = 0; i < Veri.length(); i++) {
-                        if (i != 3 && i != 6) {
-                            try {
-                                Integer.valueOf(Veri.charAt(i));
-                                aaa = 1;
-                            } catch (NumberFormatException l) {
-                                JOptionPane.showMessageDialog(null,"Digite no modelo dd/mm/aaaa \n como no exemplo 30/03/2004");
-                                aaa = 0;
+                int a = 0;
+                while(a == 0) {
+                    a = 1;
+                    Evento.setData(JOptionPane.showInputDialog(
+                            "Digite qual vai ser a Data do seu evento no modelo dd/mm/aaaa"));
+
+                    //variavel ultilizada para varificar se a data esta no modelo certo
+                    String Veri = Evento.getData();
+
+                    try {
+                        for (int i = 0; i < 10; i++) {
+                            if (Veri.charAt(i) != '/') {
+
+                                Boolean oi = Character.isDigit(Veri.charAt(i));
+                                if (oi == false) {
+                                    JOptionPane.showMessageDialog(null,
+                                "Digite no modelo dd/mm/aaaa \n como no exemplo 30/03/2004");
+                                    a = 0;
+
+                                }
+
                             }
                         }
+                    }catch (IndexOutOfBoundsException b){
+                        JOptionPane.showMessageDialog(null,
+                        "Digite no modelo dd/mm/aaaa \n como no exemplo 30/03/2004");
+                    }
+
+                }
+
+            }
+        });
+        Hora.addActionListener(new ActionListener() {
+                    @Override
+            public void actionPerformed(ActionEvent e) {
+                        int a = 0;
+                        while(a == 0) {
+                            a = 1;
+                            Evento.setHora(JOptionPane.showInputDialog(
+                            "Digite qual vai ser a Hora em que seu evento" +
+                            "vai acontecer escreva no modelo HH:MM"));
+
+                            //variavel ultilizada para varificar se a hora esta no modelo certo
+                            String Veri = Evento.getHora();
+
+                            try {
+                                for (int i = 0; i < 5; i++) {
+                                    if (Veri.charAt(i) != ':') {
+
+                                        Boolean oi = Character.isDigit(Veri.charAt(i));
+                                        if (oi == false) {
+                                            JOptionPane.showMessageDialog(null,
+                                                    "Digite no modelo HH:MM" +
+                                                            " \n como no exemplo 15:30");
+                                            a = 0;
+
+                                        }
+
+                                    }
+                                }
+                            }catch (IndexOutOfBoundsException b){
+                                JOptionPane.showMessageDialog(null,
+                                        "Digite no modelo dd/mm/aaaa \n como no exemplo 30/03/2004");
+                            }
+
+                        }
+
 
                     }
                 }
-            }
-        });
+        );
 
         Quest.add(Nome);
         Quest.add(Data);
