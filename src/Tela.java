@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.Year;
 import java.util.Date;
 
 public class Tela {
@@ -106,7 +107,7 @@ public class Tela {
         JButton Data = new JButton("Data");
         JButton Hora = new JButton("Hora");
         JButton Local = new JButton("Local");
-        JButton QuanIn = new JButton("Quantidade de Ingressos");
+        JButton PreIn = new JButton("Preço de Ingressos");
         Nome.addActionListener(new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
@@ -120,28 +121,41 @@ public class Tela {
                 while(a == 0) {
                     a = 1;
                     Evento.setData(JOptionPane.showInputDialog(
-                            "Digite qual vai ser a Data do seu evento no modelo dd/mm/aaaa"));
-
-                    //variavel ultilizada para varificar se a data esta no modelo certo
-                    String Veri = Evento.getData();
+                    "Digite qual vai ser a Data do seu evento no modelo dd/mm/aaaa"));
 
                     try {
-                        for (int i = 0; i < 10; i++) {
-                            if (Veri.charAt(i) != '/') {
+                        String[] Datas = Evento.getData().split("/");
+                        int dia = Integer.valueOf(Datas[0]);
+                        int mes = Integer.valueOf(Datas[1]);
 
-                                Boolean oi = Character.isDigit(Veri.charAt(i));
-                                if (oi == false) {
-                                    JOptionPane.showMessageDialog(null,
-                                "Digite no modelo dd/mm/aaaa \n como no exemplo 30/03/2004");
-                                    a = 0;
-
-                                }
-
-                            }
-                        }
-                    }catch (IndexOutOfBoundsException b){
+                        if((dia <= 31 && mes == 1) ||
+                        (dia <= 31 && mes == 3) ||
+                        (dia <= 31 && mes == 5) ||
+                        (dia <= 31 && mes == 7) ||
+                        (dia <= 31 && mes == 8) ||
+                        (dia <= 31 && mes == 10) ||
+                        (dia <= 31 && mes == 12) ||
+                        (dia <= 30 && mes == 4) ||
+                        (dia <= 30 && mes == 6) ||
+                        (dia <= 30 && mes == 9) ||
+                        (dia <= 30 && mes == 11) ||
+                        (dia <= 28 && mes == 2) &&
+                        Integer.valueOf(Datas[2]) >= Year.now().getValue()
+                        ) {
+                            JOptionPane.showMessageDialog(null,"Tudo certo");
+                            a = 1;
+                        }else
+                            JOptionPane.showMessageDialog(null,
+                    "Garanta que os dias são validos");
+                        a = 0;
+                    }catch (NumberFormatException b){
                         JOptionPane.showMessageDialog(null,
                         "Digite no modelo dd/mm/aaaa \n como no exemplo 30/03/2004");
+                        a = 0;
+                    }catch (IndexOutOfBoundsException b){
+                        JOptionPane.showMessageDialog(null,
+                "Digite no modelo dd/mm/aaaa \n como no exemplo 30/03/2004");
+                        a = 0;
                     }
 
                 }
@@ -192,7 +206,7 @@ public class Tela {
         Quest.add(Data);
         Quest.add(Hora);
         Quest.add(Local);
-        Quest.add(QuanIn);
+        Quest.add(PreIn);
         // Remova o painel atual e adicione o novo painel
         TelaExibida.remove(PainelAtual);
         PainelAtual = Quest;
