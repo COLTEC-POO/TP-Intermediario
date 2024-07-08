@@ -6,13 +6,15 @@ public abstract class Evento implements RelaDeRece {
     protected String Tipo;
     protected int id;
     //variavel que representa a quantidade de ingressos
-    protected int QuaIn;
+    protected int QuanIn;
+
+    protected double PreIn;
     public abstract boolean VerificacaoDosIngressos();
     @Override
     public String toString(){
         return this.nome + "\n" + this.data + "\n" +
                 this.hora + "\n" + this.local + "\n" +
-                this.QuaIn + "\n" + this.id + "\n" +
+                this.QuanIn + "\n" + this.id + "\n" +
                 this.Tipo + "\n";
     }
 
@@ -56,6 +58,14 @@ public abstract class Evento implements RelaDeRece {
         Tipo = tipo;
     }
 
+    public double getPreIn() {
+        return PreIn;
+    }
+
+    public void setPreIn(double preIn) {
+        PreIn = preIn;
+    }
+
     public int getId() {
         return id;
     }
@@ -64,11 +74,11 @@ public abstract class Evento implements RelaDeRece {
         this.id = id;
     }
 
-    public int getQuaIn() {
-        return QuaIn;
+    public int getQuanIn() {
+        return QuanIn;
     }
 
-    public void setQuaIn(int quaIn) {
-        QuaIn = quaIn;
+    public void setQuanIn(int quanIn) {
+        QuanIn = quanIn;
     }
 }

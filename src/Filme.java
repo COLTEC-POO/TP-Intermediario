@@ -1,9 +1,9 @@
 public class Filme extends Evento{
     public Filme() {
         //define a quantidade de ingrssos disponiveis para venda
-        QuaIn = 200;
+        QuanIn = 200;
     }
-    private Ingresso[] IngressoFilm = new Ingresso[QuaIn];
+    private Ingresso[] IngressoFilm = new Ingresso[QuanIn];
 
     @Override
     public boolean VerificacaoDosIngressos() {

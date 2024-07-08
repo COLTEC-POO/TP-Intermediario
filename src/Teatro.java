@@ -1,9 +1,9 @@
 public class Teatro extends Evento{
     public Teatro() {
         //define a quantidade de ingrssos disponiveis para venda
-        QuaIn = 250;
+        QuanIn = 250;
     }
-    protected Ingresso[] IngressoTea = new Ingresso[QuaIn];
+    protected Ingresso[] IngressoTea = new Ingresso[QuanIn];
 
     @Override
     public boolean VerificacaoDosIngressos() {
@@ -11,7 +11,7 @@ public class Teatro extends Evento{
         for(Ingresso atual : this.IngressoTea)
             if(atual != null)
                 //retorna false caso mais que 20% dos ingressos sejam Vip
-                if(atual instanceof InGreVip && NumVip <=(int) (QuaIn * 20)/100)
+                if(atual instanceof InGreVip && NumVip <=(int) (QuanIn * 20)/100)
                     NumVip++;
                 else
                     return false;

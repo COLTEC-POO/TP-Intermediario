@@ -59,7 +59,11 @@ public class Tela {
                 //Quando o botão for clicado ira
                 //abrir um  questionario para a criação do eveto filme
                 Evento x = new Filme();
-                PaneComOQuest(x);
+                if(JOptionPane.showConfirmDialog(TelaExibida,"Tem certeza que você quer criar um evento filme?"
+                        ," ",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                    PaneComOQuest(x);
+                }else
+                    SelctTipoEven();
             }
         });
 
@@ -69,7 +73,11 @@ public class Tela {
                 //Quando o botão for clicado ira
                 //abrir um  questionario para a criação do evento concerto/show
                 Evento x = new Concerto();
+                if(JOptionPane.showConfirmDialog(TelaExibida,"Tem certeza que você quer criar um evento Show?"
+                ," ",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                 PaneComOQuest(x);
+                }else
+                    SelctTipoEven();
             }
 
         });
@@ -79,7 +87,11 @@ public class Tela {
                 //Quando o botão for clicado ira
                 //abrir um  questionario para a criação do evento Teatro
                 Evento x = new Teatro();
-                PaneComOQuest(x);
+                if(JOptionPane.showConfirmDialog(TelaExibida,"Tem certeza que você quer criar um evento teatro?"
+                ," ",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                    PaneComOQuest(x);
+                }else
+                SelctTipoEven();
             }
 
         });
@@ -139,7 +151,7 @@ public class Tela {
                         (dia <= 30 && mes == 9) ||
                         (dia <= 30 && mes == 11) ||
                         (dia <= 28 && mes == 2)) &&
-                        Integer.valueOf(Datas[2]) >= Year.now().getValue()
+                        Integer.parseInt(Datas[2]) >= Year.now().getValue()
                         ) {
                             JOptionPane.showMessageDialog(TelaExibida,"Tudo certo");
                             a = 1;
@@ -172,7 +184,7 @@ public class Tela {
                             a = 1;
                             Evento.setHora(JOptionPane.showInputDialog(TelaExibida,
                             "Digite qual vai ser a Hora em que seu evento" +
-                            "vai acontecer escreva no modelo HH:MM","Syntaxe Errada",JOptionPane.ERROR_MESSAGE));
+                                    "vai acontecer escreva no modelo HH:MM"));
 
                             //variavel ultilizada para varificar se a hora esta no modelo certo
                             String Veri = Evento.getHora();
@@ -213,11 +225,17 @@ public class Tela {
         PreIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-
-                }catch (NumberFormatException b){
-                JOptionPane.showMessageDialog(TelaExibida,
+                int a = 0;
+                while(a == 0) {
+                    try {
+                        Evento.setPreIn(Float.parseFloat(JOptionPane.showInputDialog(TelaExibida,
+                                "Defina o preço para os ingressos")));
+                        a = 1;
+                    } catch (NumberFormatException b) {
+                        JOptionPane.showMessageDialog(TelaExibida,
                                 "Digite um preço valido no modelo 20.30");
+                        a = 0 ;
+                    }
                 }
             }
         });
@@ -235,6 +253,7 @@ public class Tela {
         TelaExibida.revalidate();
         TelaExibida.repaint();
     }
+
 }
 
 
