@@ -10,7 +10,7 @@ public class Tela {
 
     String pride = "\uD83C\uDFF3️\u200D\uD83C\uDF08";
     public Tela() {
-        TelaExibida = new JFrame("Entrentenimento" + pride + "?" );
+        TelaExibida = new JFrame("Entretenimento" + pride + "?" );
         TelaExibida.setResizable(false);
         TelaExibida.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         int telaWidth = 1080;
@@ -172,29 +172,29 @@ public class Tela {
                             a = 1;
                             Evento.setHora(JOptionPane.showInputDialog(TelaExibida,
                             "Digite qual vai ser a Hora em que seu evento" +
-                            "vai acontecer escreva no modelo HH:MM"));
+                            "vai acontecer escreva no modelo HH:MM","Syntaxe Errada",JOptionPane.ERROR_MESSAGE));
 
                             //variavel ultilizada para varificar se a hora esta no modelo certo
                             String Veri = Evento.getHora();
 
                             try {
-                                for (int i = 0; i < 5; i++) {
-                                    if (Veri.charAt(i) != ':') {
-
-                                        Boolean oi = Character.isDigit(Veri.charAt(i));
-                                        if (!oi) {
-                                            JOptionPane.showMessageDialog(TelaExibida,
-                                                    "Digite no modelo HH:MM" +
-                                                            " \n como no exemplo 15:30");
-                                            a = 0;
-
-                                        }
-
-                                    }
+                                String[] Horas = Veri.split(":");
+                                if(Integer.parseInt(Horas[0]) >= 24 || Integer.parseInt(Horas[1]) >= 60) {
+                                    JOptionPane.showMessageDialog(TelaExibida,
+                                            "Digite no modelo HH:MM" +
+                                                    " \n como no exemplo 15:30","Syntaxe Errada",JOptionPane.ERROR_MESSAGE);
+                                    a = 0;
                                 }
                             }catch (IndexOutOfBoundsException b){
                                 JOptionPane.showMessageDialog(TelaExibida,
-                                        "Digite no modelo dd/mm/aaaa \n como no exemplo 30/03/2004");
+                                "Digite no modelo HH:MM" +
+                                        " \n como no exemplo 15:30");
+                                a = 0;
+                            }catch (NumberFormatException b){
+                                JOptionPane.showMessageDialog(TelaExibida,
+                                "Digite no modelo HH:MM" +
+                                        " \n como no exemplo 15:30","Syntaxe Errada",JOptionPane.ERROR_MESSAGE);
+                                a = 0;
                             }
 
                         }
@@ -203,6 +203,24 @@ public class Tela {
                     }
                 }
         );
+        Local.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e){
+                    Evento.setLocal(JOptionPane.showInputDialog(TelaExibida,
+                    "Digite qual vai ser a Local do evento"));
+                }
+            }
+        );
+        PreIn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+
+                }catch (NumberFormatException b){
+                JOptionPane.showMessageDialog(TelaExibida,
+                                "Digite um preço valido no modelo 20.30");
+                }
+            }
+        });
 
         Quest.add(Nome);
         Quest.add(Data);
