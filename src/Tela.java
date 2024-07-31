@@ -6,9 +6,15 @@ import java.time.Year;
 
 public class Tela {
     private final JFrame TelaExibida;
+
     private JPanel PainelAtual;
 
+    JPanel PainelCriaEvento = new JPanel();
+
+    JPanel PainelTipoDeEvento = new JPanel();
+
     String pride = "\uD83C\uDFF3️\u200D\uD83C\uDF08";
+
     public Tela() {
         TelaExibida = new JFrame("Entretenimento" + pride + "?" );
         TelaExibida.setResizable(false);
@@ -19,7 +25,7 @@ public class Tela {
 
 
         // Crie o painel inicial
-        JPanel PainelCriaEvento = new JPanel();
+        PainelCriaEvento = new JPanel();
         //Cria o botão criar conta
         JButton BCriaEvento = new JButton("Criar Evento");
         PainelCriaEvento.add(BCriaEvento);
@@ -44,10 +50,11 @@ public class Tela {
     //painel de seleção do tipo de evento
     private void SelctTipoEven() {
         // Crie um novo painel com as opções de conta
-        JPanel PainelTipoDeEvento = new JPanel();
+        PainelTipoDeEvento = new JPanel();
         JButton Filme = new JButton("Filme");
         JButton Show = new JButton("Show");
         JButton Teatro = new JButton("Teatro");
+        JButton Voltar = new JButton("Voltar");
 
         // Adicione um ActionListener ao botão
 
@@ -95,10 +102,14 @@ public class Tela {
             }
 
         });
+
+
         //coloca os botões no painel
         PainelTipoDeEvento.add(Filme);
         PainelTipoDeEvento.add(Show);
         PainelTipoDeEvento.add(Teatro);
+        PainelTipoDeEvento.add(Voltar);
+
 
         // Remova o painel atual e adicione o novo painel
         TelaExibida.remove(PainelAtual);
@@ -107,6 +118,21 @@ public class Tela {
         TelaExibida.add(PainelAtual);
         TelaExibida.revalidate();
         TelaExibida.repaint();
+
+        Voltar.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 TelaExibida.remove(PainelAtual);
+                 PainelAtual = PainelCriaEvento;
+                 PainelAtual.setBackground(Color.GREEN);
+                 TelaExibida.add(PainelAtual);
+                 TelaExibida.revalidate();
+                 TelaExibida.repaint();
+
+             }
+         }
+
+        );
     }
 
     private void PaneComOQuest(Evento Evento) {
@@ -117,6 +143,7 @@ public class Tela {
         JButton Hora = new JButton("Hora");
         JButton Local = new JButton("Local");
         JButton PreIn = new JButton("Preço de Ingressos");
+        JButton Voltar = new JButton("Voltar");
         Nome.addActionListener(new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
@@ -245,6 +272,8 @@ public class Tela {
         Quest.add(Hora);
         Quest.add(Local);
         Quest.add(PreIn);
+        Quest.add(Voltar);
+
         // Remova o painel atual e adicione o novo painel
         TelaExibida.remove(PainelAtual);
         PainelAtual = Quest;
@@ -252,6 +281,22 @@ public class Tela {
         TelaExibida.add(PainelAtual);
         TelaExibida.revalidate();
         TelaExibida.repaint();
+
+        Voltar.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 TelaExibida.remove(PainelAtual);
+                 PainelAtual = PainelTipoDeEvento ;
+                 PainelAtual.setBackground(Color.GREEN);
+                 TelaExibida.add(PainelAtual);
+                 TelaExibida.revalidate();
+                 TelaExibida.repaint();
+
+
+             }
+         }
+
+        );
     }
 
 }
