@@ -143,6 +143,7 @@ public class Tela {
         JButton Hora = new JButton("Hora");
         JButton Local = new JButton("Local");
         JButton PreIn = new JButton("Preço de Ingressos");
+        JButton Salv = new JButton("Salvar evento");
         JButton Voltar = new JButton("Voltar");
         Nome.addActionListener(new ActionListener() {
              @Override
@@ -266,12 +267,21 @@ public class Tela {
                 }
             }
         });
+        Salv.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e) {
+               SalvandoEventos Salvar = new SalvandoEventos(Evento);
+           }
+       }
+
+        );
 
         Quest.add(Nome);
         Quest.add(Data);
         Quest.add(Hora);
         Quest.add(Local);
         Quest.add(PreIn);
+        Quest.add(Salv);
         Quest.add(Voltar);
 
         // Remova o painel atual e adicione o novo painel
