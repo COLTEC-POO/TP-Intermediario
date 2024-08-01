@@ -1,1 +1,13 @@
-Tenho que pesquisar serialização para salvar os eventos criados
+pensar um jeito de implementar as paginas para compra de ingressos
+exemplo de desserialização:
+FileInputStream fileIn = new FileInputStream("pessoa.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            Pessoa pessoaDesserializada = (Pessoa) in.readObject();
+            in.close();
+            fileIn.close();
+
+            // Exibindo os dados da pessoa desserializada
+            System.out.println("Nome: " + pessoaDesserializada.getNome());
+            System.out.println("Idade: " + pessoaDesserializada.getIdade());
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
