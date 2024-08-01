@@ -26,8 +26,10 @@ public class Tela {
 
         // Crie o painel inicial
         PainelCriaEvento = new JPanel();
-        //Cria o botão criar conta
+
         JButton BCriaEvento = new JButton("Criar Evento");
+        JButton BComprarIN = new JButton("Comprar Ingresso");
+
         PainelCriaEvento.add(BCriaEvento);
         
         // Adicione um ActionListener ao botão
@@ -36,6 +38,7 @@ public class Tela {
             public void actionPerformed(ActionEvent e) {
                 // Quando o botão for clicado
                 //ira para o painel em que os botões para o input estão
+                //true significa criar evento e false significa comprar ingressos
                 SelctTipoEven();
             }
         });
@@ -48,6 +51,7 @@ public class Tela {
     }
 
     //painel de seleção do tipo de evento
+    //a serve para diferenciar a criação de eventos da compra de ingressos
     private void SelctTipoEven() {
         // Crie um novo painel com as opções de conta
         PainelTipoDeEvento = new JPanel();
@@ -310,5 +314,3 @@ public class Tela {
     }
 
 }
-
-
