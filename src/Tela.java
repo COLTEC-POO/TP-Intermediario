@@ -13,6 +13,8 @@ public class Tela {
 
     JPanel PainelTipoDeEvento = new JPanel();
 
+    JPanel PainelTipoDeEvento2 = new JPanel();
+
     String pride = "\uD83C\uDFF3️\u200D\uD83C\uDF08";
 
     public Tela() {
@@ -31,6 +33,7 @@ public class Tela {
         JButton BComprarIN = new JButton("Comprar Ingresso");
 
         PainelCriaEvento.add(BCriaEvento);
+        PainelCriaEvento.add(BComprarIN);
         
         // Adicione um ActionListener ao botão
         BCriaEvento.addActionListener(new ActionListener() {
@@ -38,10 +41,17 @@ public class Tela {
             public void actionPerformed(ActionEvent e) {
                 // Quando o botão for clicado
                 //ira para o painel em que os botões para o input estão
-                //true significa criar evento e false significa comprar ingressos
                 SelctTipoEven();
             }
         });
+
+        BComprarIN.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 SelctTipoEven2();
+             }
+         }
+        );
 
         // Defina o painel inicial como o painel atual
         PainelAtual = PainelCriaEvento;
@@ -118,6 +128,92 @@ public class Tela {
         // Remova o painel atual e adicione o novo painel
         TelaExibida.remove(PainelAtual);
         PainelAtual = PainelTipoDeEvento;
+        PainelAtual.setBackground(Color.GREEN);
+        TelaExibida.add(PainelAtual);
+        TelaExibida.revalidate();
+        TelaExibida.repaint();
+
+        Voltar.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 TelaExibida.remove(PainelAtual);
+                 PainelAtual = PainelCriaEvento;
+                 PainelAtual.setBackground(Color.GREEN);
+                 TelaExibida.add(PainelAtual);
+                 TelaExibida.revalidate();
+                 TelaExibida.repaint();
+
+             }
+         }
+
+        );
+    }
+    private void SelctTipoEven2() {
+        // Crie um novo painel com as opções de conta
+        PainelTipoDeEvento2 = new JPanel();
+        JButton Filme = new JButton("Filme");
+        JButton Show = new JButton("Show");
+        JButton Teatro = new JButton("Teatro");
+        JButton Voltar = new JButton("Voltar");
+
+        // Adicione um ActionListener ao botão
+
+
+        Filme.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Quando o botão for clicado ira
+                //abrir um  questionario para a criação do eveto filme
+                Evento x = new Filme();
+                if(JOptionPane.showConfirmDialog(TelaExibida,"Tem certeza que você quer criar um evento filme?"
+                        ," ",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                    PaneComOQuest(x);
+                }else
+                    SelctTipoEven2();
+            }
+        });
+
+        Show.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Quando o botão for clicado ira
+                //abrir um  questionario para a criação do evento concerto/show
+                Evento x = new Concerto();
+                if(JOptionPane.showConfirmDialog(TelaExibida,"Tem certeza que você quer criar um evento Show?"
+                        ," ",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                    PaneComOQuest(x);
+                }else
+                    SelctTipoEven2();
+            }
+
+        });
+        Teatro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Quando o botão for clicado ira
+                //abrir um  questionario para a criação do evento Teatro
+                Evento x = new Teatro();
+                if(JOptionPane.showConfirmDialog(TelaExibida,"Tem certeza que você quer criar um evento teatro?"
+                        ," ",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                    PaneComOQuest(x);
+                }else
+                    SelctTipoEven2();
+            }
+
+        });
+
+
+        //coloca os botões no painel
+        PainelTipoDeEvento2.add(Filme);
+        PainelTipoDeEvento2.add(Show);
+        PainelTipoDeEvento2.add(Teatro);
+        PainelTipoDeEvento2.add(Voltar);
+
+
+        // Remova o painel atual e adicione o novo painel
+        TelaExibida.remove(PainelAtual);
+        PainelAtual = PainelTipoDeEvento2;
         PainelAtual.setBackground(Color.GREEN);
         TelaExibida.add(PainelAtual);
         TelaExibida.revalidate();
