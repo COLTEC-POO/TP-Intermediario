@@ -2,6 +2,7 @@ public class Concerto extends Evento {
     public Concerto() {
         //define a quantidade de ingrssos disponiveis para venda
         QuanIn = 150;
+        setTipo("Concerto");
     }
     private Ingresso[] IngressoCon = new Ingresso[QuanIn];
 

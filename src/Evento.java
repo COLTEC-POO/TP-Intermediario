@@ -54,9 +54,7 @@ public abstract class Evento implements RelaDeRece {
         return Tipo;
     }
 
-    public void setTipo(String tipo) {
-        Tipo = tipo;
-    }
+    public void setTipo(String tipo) {Tipo = tipo;}
 
     public double getPreIn() {
         return PreIn;

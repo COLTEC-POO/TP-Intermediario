@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.time.Year;
 
 public class Tela {
@@ -39,14 +42,14 @@ public class Tela {
             public void actionPerformed(ActionEvent e) {
                 // Quando o botão for clicado
                 //ira para o painel em que os botões para o input estão
-                SelctTipoEven();
+                SelctTipoEven(true);
             }
         });
 
         BComprarIN.addActionListener(new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
-
+                 SelctTipoEven(false);
              }
          }
         );
@@ -60,7 +63,8 @@ public class Tela {
 
     //painel de seleção do tipo de evento
     //a serve para diferenciar a criação de eventos da compra de ingressos
-    private void SelctTipoEven() {
+    //tru significa criador e false significa comprador
+    private void SelctTipoEven(boolean QuemChamou) {
         // Crie um novo painel com as opções de conta
         PainelTipoDeEvento = new JPanel();
         JButton Filme = new JButton("Filme");
@@ -68,52 +72,58 @@ public class Tela {
         JButton Teatro = new JButton("Teatro");
         JButton Voltar = new JButton("Voltar");
 
-        // Adicione um ActionListener ao botão
+        if(QuemChamou) {
+            Filme.addActionListener(new ActionListener() {
 
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    //Quando o botão for clicado ira
+                    //abrir um  questionario para a criação do eveto filme
+                    Evento x = new Filme();
+                    if (JOptionPane.showConfirmDialog(TelaExibida, "Tem certeza que você quer criar um evento filme?"
+                            , " ", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                        PaneComOQuest(x);
+                    } else
+                        SelctTipoEven(true);
+                }
+            });
 
-        Filme.addActionListener(new ActionListener() {
+            Show.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    //Quando o botão for clicado ira
+                    //abrir um  questionario para a criação do evento concerto/show
+                    Evento x = new Concerto();
+                    if (JOptionPane.showConfirmDialog(TelaExibida, "Tem certeza que você quer criar um evento Show?"
+                            , " ", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                        PaneComOQuest(x);
+                    } else
+                        SelctTipoEven(true);
+                }
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //Quando o botão for clicado ira
-                //abrir um  questionario para a criação do eveto filme
-                Evento x = new Filme();
-                if(JOptionPane.showConfirmDialog(TelaExibida,"Tem certeza que você quer criar um evento filme?"
-                        ," ",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                    PaneComOQuest(x);
-                }else
-                    SelctTipoEven();
-            }
-        });
+            });
+            Teatro.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    //Quando o botão for clicado ira
+                    //abrir um  questionario para a criação do evento Teatro
+                    Evento x = new Teatro();
+                    if (JOptionPane.showConfirmDialog(TelaExibida, "Tem certeza que você quer criar um evento teatro?"
+                            , " ", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                        PaneComOQuest(x);
+                    } else
+                        SelctTipoEven(true);
+                }
 
-        Show.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //Quando o botão for clicado ira
-                //abrir um  questionario para a criação do evento concerto/show
-                Evento x = new Concerto();
-                if(JOptionPane.showConfirmDialog(TelaExibida,"Tem certeza que você quer criar um evento Show?"
-                ," ",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                PaneComOQuest(x);
-                }else
-                    SelctTipoEven();
-            }
+            });
+        }else {
+            Filme.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
 
-        });
-        Teatro.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //Quando o botão for clicado ira
-                //abrir um  questionario para a criação do evento Teatro
-                Evento x = new Teatro();
-                if(JOptionPane.showConfirmDialog(TelaExibida,"Tem certeza que você quer criar um evento teatro?"
-                ," ",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                    PaneComOQuest(x);
-                }else
-                SelctTipoEven();
-            }
-
-        });
+                }
+            });
+        }
 
 
         //coloca os botões no painel

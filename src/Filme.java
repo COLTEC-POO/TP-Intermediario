@@ -1,26 +1,25 @@
-public class Teatro extends Evento{
-    public Teatro() {
+public class Filme extends Evento{
+    public Filme() {
         //define a quantidade de ingrssos disponiveis para venda
-        QuanIn = 250;
+        QuanIn = 200;
+        setTipo("Filme");
     }
-    protected Ingresso[] IngressoTea = new Ingresso[QuanIn];
+    private Ingresso[] IngressoFilm = new Ingresso[QuanIn];
 
     @Override
     public boolean VerificacaoDosIngressos() {
-        int NumVip = 0;
-        for(Ingresso atual : this.IngressoTea)
+        for(Ingresso atual : this.IngressoFilm)
             if(atual != null)
-                //retorna false caso mais que 20% dos ingressos sejam Vip
-                if(atual instanceof InGreVip && NumVip <=(int) (QuanIn * 20)/100)
-                    NumVip++;
-                else
+                //retorna false caso haja ingressos Vip
+                if(atual instanceof InGreVip )
                     return false;
         return true;
     }
+
     @Override
     public double ReceiTot() {
         double total = 0;
-        for(Ingresso atual : this.IngressoTea){
+        for(Ingresso atual : this.IngressoFilm){
             if(atual!= null)
                 total += atual.getPreco();
         }
@@ -28,7 +27,7 @@ public class Teatro extends Evento{
     }
     @Override
     public void extrato(){
-        for(Ingresso atual : this.IngressoTea){
+        for(Ingresso atual : this.IngressoFilm){
             if(atual!= null)
                 atual.toString();
         }
