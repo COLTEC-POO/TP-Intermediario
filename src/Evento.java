@@ -3,7 +3,6 @@ public abstract class Evento implements RelaDeRece {
     protected String data = " ";
     protected String hora;
     protected String local;
-    dasdas
     protected String Tipo;
     protected int id;
     //variavel que representa a quantidade de ingressos
