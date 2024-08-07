@@ -1,10 +1,11 @@
 import java.io.File;
+import java.util.Arrays;
 
 public class Deserializador {
     //Tipo Deve ser .Filme .Concerto .Teatro
 
     //Funciona só falta dá uma adptada
-    void ListarArquivos(){
+    String[] ListarArquivos(){
         String caminhoDiretorio = "Eventos/";
 
         File diretorio = new File(caminhoDiretorio);
@@ -13,14 +14,26 @@ public class Deserializador {
             File[] arquivos = diretorio.listFiles();
 
             if (arquivos != null){
+                String[] TodosOsNomes = new String[0];
+                int i = 0;
                 for (File arquivo : arquivos) {
-                    if (arquivo.isFile())
-                        System.out.println(arquivo.getName());
+
+                    String[] novoArray = Arrays.copyOf(TodosOsNomes,(i + 1));
+                    TodosOsNomes = novoArray;
+                    if (arquivo.isFile()) {
+                        TodosOsNomes[i] = arquivo.getName();
+                    }
+                    i++;
                 }
-            }else
-                System.out.println("Nenhum arquivo encontrado no diretório.");
-        } else
-            System.out.println("Diretório não existe ou não é um diretório válido.");
+                return TodosOsNomes;
+            }else{
+                String[] Errou = new String[]{"Arquivo","Não","Encontrado"};
+                return Errou;
+            }
+        } else {
+            String[] Errou = new String[]{"Diretório não existe"," ou não é um diretório válido."};
+            return Errou;
+        }
     }
     //
 
