@@ -2,10 +2,10 @@ import java.io.File;
 import java.util.Arrays;
 
 public class Deserializador {
-    //Tipo Deve ser .Filme .Concerto .Teatro
+
 
     //Funciona só falta dá uma adptada
-    String[] ListarArquivos(){
+    public String[] ListarArquivos(){
         String caminhoDiretorio = "Eventos/";
 
         File diretorio = new File(caminhoDiretorio);
@@ -37,6 +37,15 @@ public class Deserializador {
             return Errou;
         }
     }
+    //
+    //Tipo Deve ser .Filme .Concerto .Teatro
+
+    //
+    /*public Evento[] Deserializa(String Tipo){
+        for(String ){
+
+        }
+    }*/
     //
 
 }
