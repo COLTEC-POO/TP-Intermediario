@@ -17,9 +17,11 @@ public class Deserializador {
                 String[] TodosOsNomes = new String[0];
                 int i = 0;
                 for (File arquivo : arquivos) {
-
+                    //parte responsavel por alocar dinamicamente o array de Strings
                     String[] novoArray = Arrays.copyOf(TodosOsNomes,(i + 1));
                     TodosOsNomes = novoArray;
+                    //
+
                     if (arquivo.isFile()) {
                         TodosOsNomes[i] = arquivo.getName();
                     }
