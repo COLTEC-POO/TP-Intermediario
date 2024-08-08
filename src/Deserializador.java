@@ -1,4 +1,6 @@
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import java.util.Arrays;
 
 public class Deserializador {
@@ -38,13 +40,31 @@ public class Deserializador {
         }
     }
     //
-    //Tipo Deve ser .Filme .Concerto .Teatro
+    //Tipo Deve ser Filme Concerto Teatro
 
     //
-    /*public Evento[] Deserializa(String Tipo){
-        for(String ){
+    /*
+    public Evento[] Deserializa(String Tipo){
+        String[] EventosCriados;
+        EventosCriados = ListarArquivos();
 
+        for(String arquivo : EventosCriados ){
+            String[] partes = arquivo.split(".",2);
+            for (String parte : partes) {
+                if (parte.equals(Tipo)){
+                    Evento  = null;
+
+                    try (FileInputStream fileIn = new FileInputStream(arquivo);
+                         ObjectInputStream in = new ObjectInputStream(fileIn)) {
+                         = (Evento) in.readObject();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return ;
+                }
+            }
         }
+
     }*/
     //
 
