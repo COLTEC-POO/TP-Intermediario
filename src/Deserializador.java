@@ -48,6 +48,7 @@ public class Deserializador {
         String[] EventosCriados;
         EventosCriados = ListarArquivos();
         Evento[] Criados = new Evento[0];
+        Tipo.replace("/n","/0");
         int i=0;
         for(String arquivo : EventosCriados ){
             String[] partes = arquivo.split(".",2);
