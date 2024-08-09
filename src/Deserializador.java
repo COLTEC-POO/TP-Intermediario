@@ -43,29 +43,36 @@ public class Deserializador {
     //Tipo Deve ser Filme Concerto Teatro
 
     //
-    /*
+
     public Evento[] Deserializa(String Tipo){
         String[] EventosCriados;
         EventosCriados = ListarArquivos();
-
+        Evento[] Criados = new Evento[0];
+        int i=0;
         for(String arquivo : EventosCriados ){
             String[] partes = arquivo.split(".",2);
+
             for (String parte : partes) {
                 if (parte.equals(Tipo)){
-                    Evento  = null;
+                    Evento atual = null;
 
                     try (FileInputStream fileIn = new FileInputStream(arquivo);
                          ObjectInputStream in = new ObjectInputStream(fileIn)) {
-                         = (Evento) in.readObject();
+                         atual = (Evento) in.readObject();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    return ;
+                    Evento[] novoArray = Arrays.copyOf(Criados,(i + 1));
+                    Criados = novoArray;
+                    Criados[i] = atual;
+                    i++;
+
                 }
             }
         }
+        return Criados;
 
-    }*/
+    }
     //
 
 }
